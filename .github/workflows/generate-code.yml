@@ -31,8 +31,14 @@ jobs:
 
       - name: Push to repo
         run: |
-          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-          git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
-          git add .
-          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
-          git push
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            echo "changes found, commiting"
+            git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+            git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
+            git add .
+            git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+            git push
+          fi
