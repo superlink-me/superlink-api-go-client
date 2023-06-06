@@ -2,6 +2,8 @@ name: Generate Client
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [generate_code]
 
 jobs:
   generate-go-client:
@@ -15,22 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Configure Generator
-        run: |
-          echo 'gitRepoId: "resolution-api-go-client"' >> ./gen-config.yml
-          echo 'gitUserId: "superlink-me"' >> ./gen-config.yml
-          echo 'packageName: "ResolutionAPI"' >> ./gen-config.yml
-
       - name: Generate Client
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
           openapi-url: https://api.superlink.me/v1/resolve/docs/doc.json
-          config-file: ./gen-config.yml
+          config-file: ./generator-config.yml
 
       - name: Clean
         run: |
-          rm ./gen-config.yml
           rsync -a ./go-client/ ./
           rm -Rf ./go-client
 
