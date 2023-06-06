@@ -21,7 +21,7 @@ jobs:
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: go
-          openapi-url: https://api.superlink.me/v1/resolve/docs/doc.json
+          openapi-url: https://api.superlink.me/v1/docs/doc.json
           config-file: ./generator-config.yml
 
       - name: Clean
