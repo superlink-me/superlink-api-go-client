@@ -1,0 +1,36 @@
+name: Generate Client
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-go-client:
+    runs-on: ubuntu-latest
+    name: Generate a Go client
+    env: 
+      CI_COMMIT_MESSAGE: automated commit
+      CI_COMMIT_AUTHOR: Superlink Bot
+      CI_COMMIT_EMAIL: henry+superlinkbot@superlink.me
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure Generator
+        run: |
+          echo 'gitRepoId: "resolution-api-go-client"' >> ./gen-config.yml
+          echo 'gitUserId: "superlink-me"' >> ./gen-config.yml
+          echo 'packageName: "ResolutionAPI"' >> ./gen-config.yml
+
+      - name: Generate Client
+        uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: go
+          openapi-url: https://api.superlink.me/v1/resolve/docs/doc.json
+          config-file: ./gen-config.yml
+
+      - name: Push to repo
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "${{ env.CI_COMMIT_EMAIL }}"
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
