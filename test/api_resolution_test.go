@@ -1,7 +1,7 @@
 /*
 Resolution API
 
-Testing ResolutionApiAPIService
+Testing ResolutionAPIService
 
 */
 
@@ -17,18 +17,18 @@ import (
 	openapiclient "github.com/superlink-me/resolution-api-go-client"
 )
 
-func Test_ResolutionAPI_ResolutionApiAPIService(t *testing.T) {
+func Test_ResolutionAPI_ResolutionAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ResolutionApiAPIService ResolveDataByDomain", func(t *testing.T) {
+	t.Run("Test ResolutionAPIService ResolveDataByDomain", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var domain string
 
-		resp, httpRes, err := apiClient.ResolutionApiAPI.ResolveDataByDomain(context.Background(), domain).Execute()
+		resp, httpRes, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

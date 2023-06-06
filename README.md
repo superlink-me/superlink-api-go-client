@@ -79,7 +79,7 @@ All URIs are relative to *https://api.superlink.me*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *HealthAPI* | [**HealthCheck**](docs/HealthAPI.md#healthcheck) | **Get** /v1/health | Checks the health of the API
-*ResolutionApiAPI* | [**ResolveDataByDomain**](docs/ResolutionApiAPI.md#resolvedatabydomain) | **Get** /v1/resolve/{domain} | Resolves wallets and records given a domain
+*ResolutionAPI* | [**ResolveDataByDomain**](docs/ResolutionAPI.md#resolvedatabydomain) | **Get** /v1/resolve/{domain} | Resolves wallets and DNS records for a domain
 
 
 ## Documentation For Models

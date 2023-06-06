@@ -57,9 +57,9 @@ paths:
           description: Internal Server Error
       security:
       - BearerAuth: []
-      summary: Resolves wallets and records given a domain
+      summary: Resolves wallets and DNS records for a domain
       tags:
-      - resolution-api
+      - resolution
 components:
   schemas:
     api.DNSRecord:

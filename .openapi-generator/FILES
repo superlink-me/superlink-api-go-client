@@ -4,7 +4,7 @@
 README.md
 api/openapi.yaml
 api_health.go
-api_resolution_api.go
+api_resolution.go
 client.go
 configuration.go
 docs/ApiDNSRecord.md
@@ -12,7 +12,7 @@ docs/ApiResolveWalletAddressByDomainResponse.md
 docs/ApiResponseError.md
 docs/ApiResponseInternalServerError.md
 docs/HealthAPI.md
-docs/ResolutionApiAPI.md
+docs/ResolutionAPI.md
 git_push.sh
 go.mod
 go.sum
@@ -22,5 +22,5 @@ model_api_response_error.go
 model_api_response_internal_server_error.go
 response.go
 test/api_health_test.go
-test/api_resolution_api_test.go
+test/api_resolution_test.go
 utils.go
