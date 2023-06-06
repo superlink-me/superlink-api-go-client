@@ -25,7 +25,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/superlink-me/resolution-api-go-client"
+    openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/superlink-me/resolution-api-go-client
+module github.com/superlink-me/superlink-api-go-client
 
 go 1.18
 
