@@ -28,6 +28,12 @@ jobs:
           openapi-url: https://api.superlink.me/v1/resolve/docs/doc.json
           config-file: ./gen-config.yml
 
+      - name: Clean
+        run: |
+          rm ./gen-config.yml
+          mv ./go-client/* .
+          rm -Rf ./go-client
+
       - name: Push to repo
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
