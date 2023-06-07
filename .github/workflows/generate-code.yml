@@ -48,7 +48,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Go client generation failed!"
+              "text": ":red_circle: Go client generation failed!"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -59,7 +59,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Go client generation succeeded!"
+              "text": ":large_green_circle: Go client generation succeeded!"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
