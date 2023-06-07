@@ -35,7 +35,7 @@ jobs:
           rm -Rf ./go-client
           rm ./generator-config-edit.yml
 
-      - name: Push to repo
+      - name: Push and Tag
         run: |
           if [[ -z $(git status -s) ]]
           then
@@ -47,6 +47,8 @@ jobs:
             git add .
             git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
             git push
+            git tag ${{ github.event.client_payload.tag }}
+            git push origin --tags
           fi
       - name: Send failure message to Slack
         if: failure()
@@ -54,7 +56,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":red_circle: Go client generation failed!"
+              "text": ":red_circle: Go client ${{ github.event.client_payload.tag }} generation failed!"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -65,7 +67,7 @@ jobs:
         with:
           payload: |
             {
-              "text": ":large_green_circle: Go client generation succeeded!"
+              "text": ":large_green_circle: Go client ${{ github.event.client_payload.tag }} generation succeeded!"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
