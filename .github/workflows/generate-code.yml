@@ -19,7 +19,8 @@ jobs:
         
       - name: Set version
         run: |
-          echo "packageVersion: \"${{ github.event.client_payload.tag }}\"" >> ./generator-config.yml
+          cat ./generator-config.yml >> ./generator-config-edit.yml
+          echo "packageVersion: \"${{ github.event.client_payload.tag }}\"" >> ./generator-config-edit.yml
           
       - name: Generate Client
         uses: openapi-generators/openapitools-generator-action@v1
@@ -32,6 +33,7 @@ jobs:
         run: |
           rsync -a ./go-client/ ./
           rm -Rf ./go-client
+          rm ./generator-config-edit.yml
 
       - name: Push to repo
         run: |
