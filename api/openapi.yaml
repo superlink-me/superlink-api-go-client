@@ -1,0 +1,302 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: support@superlink.me
+    name: API Support
+    url: https://superlink.me/about#contact-us
+  description: API for Superlink
+  termsOfService: https://assets.superlink.me/tos-v2.html
+  title: Superlink
+  version: v0.0.1-alpha.7
+servers:
+- url: https://api.superlink.me/
+paths:
+  /v1/access-token:
+    delete:
+      description: Deletes an access token
+      operationId: delete-access-token
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/api.AccessTokenDeleteRequest'
+        description: access token delete request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Deletes an access token
+      tags:
+      - access-token
+      x-codegen-request-body-name: request
+    get:
+      description: Lists access tokens
+      operationId: list-access-tokens
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.AccessTokenResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Lists access tokens
+      tags:
+      - access-token
+    post:
+      description: Creates an admin token
+      operationId: create-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.AccessTokenCreateRequest'
+        description: access token create request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.AccessTokenResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Creates an admin token
+      tags:
+      - access-token
+      x-codegen-request-body-name: request
+  /v1/health:
+    get:
+      description: Checks the health of the API
+      operationId: health-check
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "500":
+          content: {}
+          description: Internal Server Error
+      summary: Checks the health of the API
+      tags:
+      - health
+  /v1/resolve/{domain}:
+    get:
+      description: resolve domain data by domain
+      operationId: resolve-data-by-domain
+      parameters:
+      - description: firstname.lastname
+        in: path
+        name: domain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ResolveWalletAddressByDomainResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ErrorResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Resolves wallets and DNS records for a domain
+      tags:
+      - resolution
+components:
+  schemas:
+    api.AccessTokenCreateRequest:
+      properties:
+        label:
+          example: company-xyz
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/data.AccessTokenType'
+          example: CUSTOMER
+          type: object
+        validFrom:
+          example: 2023-06-08T00:00:00Z
+          type: string
+        validTill:
+          example: 2023-06-15T23:59:59Z
+          type: string
+      type: object
+    api.AccessTokenDeleteRequest:
+      properties:
+        id:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+      type: object
+    api.AccessTokenResponse:
+      example:
+        createdAt: 2023-06-08T10:30:00Z
+        validTill: 2023-06-15T23:59:59Z
+        id: 248b8553-effa-4d99-a906-041a54f7df87
+        label: company-xyz
+        validFrom: 2023-06-08T00:00:00Z
+        type: CUSTOMER
+        value: <JWT>
+        updatedAt: 2023-06-08T15:45:00Z
+      properties:
+        createdAt:
+          example: 2023-06-08T10:30:00Z
+          type: string
+        id:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+        label:
+          example: company-xyz
+          type: string
+        type:
+          example: CUSTOMER
+          type: string
+        updatedAt:
+          example: 2023-06-08T15:45:00Z
+          type: string
+        validFrom:
+          example: 2023-06-08T00:00:00Z
+          type: string
+        validTill:
+          example: 2023-06-15T23:59:59Z
+          type: string
+        value:
+          example: <JWT>
+          type: string
+      type: object
+    api.BadRequestResponse:
+      properties:
+        errors:
+          items:
+            $ref: '#/components/schemas/api.ErrorResponse'
+          type: array
+      type: object
+    api.DNSRecord:
+      example:
+        name: firstname.lastname
+        type: A
+        ttl: 3600
+        value: 192.168.0.1
+      properties:
+        name:
+          example: firstname.lastname
+          type: string
+        ttl:
+          example: 3600
+          type: integer
+        type:
+          example: A
+          type: string
+        value:
+          example: 192.168.0.1
+          type: string
+      type: object
+    api.ErrorResponse:
+      properties:
+        field:
+          example: username
+          type: string
+        info:
+          example: Invalid input
+          type: string
+      type: object
+    api.InternalServerErrorResponse:
+      properties:
+        message:
+          example: Internal server error
+          type: string
+      type: object
+    api.ResolveWalletAddressByDomainResponse:
+      example:
+        records:
+        - name: firstname.lastname
+          type: A
+          ttl: 3600
+          value: 192.168.0.1
+        - name: firstname.lastname
+          type: A
+          ttl: 3600
+          value: 192.168.0.1
+        domain: firstname.lastname
+        wallets:
+          key: wallets
+      properties:
+        domain:
+          example: firstname.lastname
+          type: string
+        records:
+          items:
+            $ref: '#/components/schemas/api.DNSRecord'
+          type: array
+        wallets:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    data.AccessTokenType:
+      enum:
+      - ADMIN
+      - CUSTOMER
+      type: string
+      x-enum-varnames:
+      - AccessTokenTypeAdmin
+      - AccessTokenTypeCustomer
+  securitySchemes:
+    BearerAuth:
+      description: Type "Bearer" followed by a space and the JWT token.
+      in: header
+      name: Authorization
+      type: apiKey
+x-original-swagger-version: "2.0"
