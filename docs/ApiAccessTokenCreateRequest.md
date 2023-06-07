@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Label** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to [**DataAccessTokenType**](DataAccessTokenType.md) |  | [optional] 
 **ValidFrom** | Pointer to **string** |  | [optional] 
 **ValidTill** | Pointer to **string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasLabel returns a boolean if a field has been set.
 
 ### GetType
 
-`func (o *ApiAccessTokenCreateRequest) GetType() string`
+`func (o *ApiAccessTokenCreateRequest) GetType() DataAccessTokenType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *ApiAccessTokenCreateRequest) GetTypeOk() (*string, bool)`
+`func (o *ApiAccessTokenCreateRequest) GetTypeOk() (*DataAccessTokenType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *ApiAccessTokenCreateRequest) SetType(v string)`
+`func (o *ApiAccessTokenCreateRequest) SetType(v DataAccessTokenType)`
 
 SetType sets Type field to given value.
 

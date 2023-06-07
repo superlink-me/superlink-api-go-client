@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: 1.0
+API version: dev
 Contact: support@superlink.me
 */
 
@@ -127,7 +127,7 @@ func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDoma
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiResponseError
+			var v ApiErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -138,7 +138,7 @@ func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDoma
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiResponseInternalServerError
+			var v ApiInternalServerErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

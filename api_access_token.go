@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: 1.0
+API version: dev
 Contact: support@superlink.me
 */
 
@@ -35,7 +35,7 @@ func (r ApiCreateAccessTokenRequest) Request(request ApiAccessTokenCreateRequest
 	return r
 }
 
-func (r ApiCreateAccessTokenRequest) Execute() (*ApiAccessToken, *http.Response, error) {
+func (r ApiCreateAccessTokenRequest) Execute() (*ApiAccessTokenResponse, *http.Response, error) {
 	return r.ApiService.CreateAccessTokenExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *AccessTokenAPIService) CreateAccessToken(ctx context.Context) ApiCreate
 }
 
 // Execute executes the request
-//  @return ApiAccessToken
-func (a *AccessTokenAPIService) CreateAccessTokenExecute(r ApiCreateAccessTokenRequest) (*ApiAccessToken, *http.Response, error) {
+//  @return ApiAccessTokenResponse
+func (a *AccessTokenAPIService) CreateAccessTokenExecute(r ApiCreateAccessTokenRequest) (*ApiAccessTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiAccessToken
+		localVarReturnValue  *ApiAccessTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessTokenAPIService.CreateAccessToken")
@@ -134,7 +134,7 @@ func (a *AccessTokenAPIService) CreateAccessTokenExecute(r ApiCreateAccessTokenR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiResponseBadRequest
+			var v ApiBadRequestResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -145,7 +145,7 @@ func (a *AccessTokenAPIService) CreateAccessTokenExecute(r ApiCreateAccessTokenR
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiResponseInternalServerError
+			var v ApiInternalServerErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -278,7 +278,7 @@ func (a *AccessTokenAPIService) DeleteAccessTokenExecute(r ApiDeleteAccessTokenR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiResponseBadRequest
+			var v ApiBadRequestResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -289,7 +289,7 @@ func (a *AccessTokenAPIService) DeleteAccessTokenExecute(r ApiDeleteAccessTokenR
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiResponseBadRequest
+			var v ApiBadRequestResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -300,7 +300,7 @@ func (a *AccessTokenAPIService) DeleteAccessTokenExecute(r ApiDeleteAccessTokenR
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiResponseInternalServerError
+			var v ApiInternalServerErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -320,7 +320,7 @@ type ApiListAccessTokensRequest struct {
 	ApiService *AccessTokenAPIService
 }
 
-func (r ApiListAccessTokensRequest) Execute() (*ApiAccessToken, *http.Response, error) {
+func (r ApiListAccessTokensRequest) Execute() (*ApiAccessTokenResponse, *http.Response, error) {
 	return r.ApiService.ListAccessTokensExecute(r)
 }
 
@@ -340,13 +340,13 @@ func (a *AccessTokenAPIService) ListAccessTokens(ctx context.Context) ApiListAcc
 }
 
 // Execute executes the request
-//  @return ApiAccessToken
-func (a *AccessTokenAPIService) ListAccessTokensExecute(r ApiListAccessTokensRequest) (*ApiAccessToken, *http.Response, error) {
+//  @return ApiAccessTokenResponse
+func (a *AccessTokenAPIService) ListAccessTokensExecute(r ApiListAccessTokensRequest) (*ApiAccessTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiAccessToken
+		localVarReturnValue  *ApiAccessTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessTokenAPIService.ListAccessTokens")
@@ -414,7 +414,7 @@ func (a *AccessTokenAPIService) ListAccessTokensExecute(r ApiListAccessTokensReq
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiResponseInternalServerError
+			var v ApiInternalServerErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

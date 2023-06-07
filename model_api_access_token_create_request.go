@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: 1.0
+API version: dev
 Contact: support@superlink.me
 */
 
@@ -21,9 +21,9 @@ var _ MappedNullable = &ApiAccessTokenCreateRequest{}
 // ApiAccessTokenCreateRequest struct for ApiAccessTokenCreateRequest
 type ApiAccessTokenCreateRequest struct {
 	Label *string `json:"label,omitempty"`
-	Type *string `json:"type,omitempty"`
-	ValidFrom *string `json:"valid_from,omitempty"`
-	ValidTill *string `json:"valid_till,omitempty"`
+	Type *DataAccessTokenType `json:"type,omitempty"`
+	ValidFrom *string `json:"validFrom,omitempty"`
+	ValidTill *string `json:"validTill,omitempty"`
 }
 
 // NewApiAccessTokenCreateRequest instantiates a new ApiAccessTokenCreateRequest object
@@ -76,9 +76,9 @@ func (o *ApiAccessTokenCreateRequest) SetLabel(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *ApiAccessTokenCreateRequest) GetType() string {
+func (o *ApiAccessTokenCreateRequest) GetType() DataAccessTokenType {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret DataAccessTokenType
 		return ret
 	}
 	return *o.Type
@@ -86,7 +86,7 @@ func (o *ApiAccessTokenCreateRequest) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiAccessTokenCreateRequest) GetTypeOk() (*string, bool) {
+func (o *ApiAccessTokenCreateRequest) GetTypeOk() (*DataAccessTokenType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *ApiAccessTokenCreateRequest) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *ApiAccessTokenCreateRequest) SetType(v string) {
+// SetType gets a reference to the given DataAccessTokenType and assigns it to the Type field.
+func (o *ApiAccessTokenCreateRequest) SetType(v DataAccessTokenType) {
 	o.Type = &v
 }
 
@@ -188,10 +188,10 @@ func (o ApiAccessTokenCreateRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.ValidFrom) {
-		toSerialize["valid_from"] = o.ValidFrom
+		toSerialize["validFrom"] = o.ValidFrom
 	}
 	if !IsNil(o.ValidTill) {
-		toSerialize["valid_till"] = o.ValidTill
+		toSerialize["validTill"] = o.ValidTill
 	}
 	return toSerialize, nil
 }

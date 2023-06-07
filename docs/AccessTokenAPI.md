@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateAccessToken
 
-> ApiAccessToken CreateAccessToken(ctx).Request(request).Execute()
+> ApiAccessTokenResponse CreateAccessToken(ctx).Request(request).Execute()
 
 Creates an admin token
 
@@ -40,7 +40,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokenAPI.CreateAccessToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateAccessToken`: ApiAccessToken
+    // response from `CreateAccessToken`: ApiAccessTokenResponse
     fmt.Fprintf(os.Stdout, "Response from `AccessTokenAPI.CreateAccessToken`: %v\n", resp)
 }
 ```
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiAccessToken**](ApiAccessToken.md)
+[**ApiAccessTokenResponse**](ApiAccessTokenResponse.md)
 
 ### Authorization
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ## ListAccessTokens
 
-> ApiAccessToken ListAccessTokens(ctx).Execute()
+> ApiAccessTokenResponse ListAccessTokens(ctx).Execute()
 
 Lists access tokens
 
@@ -169,7 +169,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokenAPI.ListAccessTokens``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListAccessTokens`: ApiAccessToken
+    // response from `ListAccessTokens`: ApiAccessTokenResponse
     fmt.Fprintf(os.Stdout, "Response from `AccessTokenAPI.ListAccessTokens`: %v\n", resp)
 }
 ```
@@ -185,7 +185,7 @@ Other parameters are passed through a pointer to a apiListAccessTokensRequest st
 
 ### Return type
 
-[**ApiAccessToken**](ApiAccessToken.md)
+[**ApiAccessTokenResponse**](ApiAccessTokenResponse.md)
 
 ### Authorization
 

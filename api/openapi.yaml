@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: "1.0"
+  version: dev
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -30,19 +30,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseBadRequest'
+                $ref: '#/components/schemas/api.BadRequestResponse'
           description: Bad Request
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseBadRequest'
+                $ref: '#/components/schemas/api.BadRequestResponse'
           description: Not Found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseInternalServerError'
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
       security:
       - BearerAuth: []
@@ -58,13 +58,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.AccessToken'
+                $ref: '#/components/schemas/api.AccessTokenResponse'
           description: OK
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseInternalServerError'
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
       security:
       - BearerAuth: []
@@ -86,19 +86,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.AccessToken'
+                $ref: '#/components/schemas/api.AccessTokenResponse'
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseBadRequest'
+                $ref: '#/components/schemas/api.BadRequestResponse'
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseInternalServerError'
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
       security:
       - BearerAuth: []
@@ -142,13 +142,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseError'
+                $ref: '#/components/schemas/api.ErrorResponse'
           description: Not Found
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResponseInternalServerError'
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
       security:
       - BearerAuth: []
@@ -157,14 +157,30 @@ paths:
       - resolution
 components:
   schemas:
-    api.AccessToken:
+    api.AccessTokenCreateRequest:
+      properties:
+        label:
+          type: string
+        type:
+          $ref: '#/components/schemas/data.AccessTokenType'
+        validFrom:
+          type: string
+        validTill:
+          type: string
+      type: object
+    api.AccessTokenDeleteRequest:
+      properties:
+        id:
+          type: string
+      type: object
+    api.AccessTokenResponse:
       example:
         createdAt: createdAt
         validTill: validTill
         id: id
         label: label
         validFrom: validFrom
-        type: null
+        type: type
         value: value
         updatedAt: updatedAt
       properties:
@@ -175,7 +191,7 @@ components:
         label:
           type: string
         type:
-          $ref: '#/components/schemas/api.AccessTokenType'
+          type: string
         updatedAt:
           type: string
         validFrom:
@@ -185,30 +201,13 @@ components:
         value:
           type: string
       type: object
-    api.AccessTokenCreateRequest:
+    api.BadRequestResponse:
       properties:
-        label:
-          type: string
-        type:
-          type: string
-        valid_from:
-          type: string
-        valid_till:
-          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/api.ErrorResponse'
+          type: array
       type: object
-    api.AccessTokenDeleteRequest:
-      properties:
-        id:
-          type: string
-      type: object
-    api.AccessTokenType:
-      enum:
-      - ADMIN
-      - CUSTOMER
-      type: string
-      x-enum-varnames:
-      - AccessTokenTypeAdmin
-      - AccessTokenTypeCustomer
     api.DNSRecord:
       example:
         name: name
@@ -223,6 +222,18 @@ components:
         type:
           type: string
         value:
+          type: string
+      type: object
+    api.ErrorResponse:
+      properties:
+        field:
+          type: string
+        info:
+          type: string
+      type: object
+    api.InternalServerErrorResponse:
+      properties:
+        message:
           type: string
       type: object
     api.ResolveWalletAddressByDomainResponse:
@@ -251,25 +262,14 @@ components:
             type: string
           type: object
       type: object
-    api.ResponseBadRequest:
-      properties:
-        errors:
-          items:
-            $ref: '#/components/schemas/api.ResponseError'
-          type: array
-      type: object
-    api.ResponseError:
-      properties:
-        field:
-          type: string
-        info:
-          type: string
-      type: object
-    api.ResponseInternalServerError:
-      properties:
-        message:
-          type: string
-      type: object
+    data.AccessTokenType:
+      enum:
+      - ADMIN
+      - CUSTOMER
+      type: string
+      x-enum-varnames:
+      - AccessTokenTypeAdmin
+      - AccessTokenTypeCustomer
   securitySchemes:
     BearerAuth:
       description: Type "Bearer" followed by a space and the JWT token.
