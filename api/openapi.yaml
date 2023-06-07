@@ -6,7 +6,7 @@ info:
     url: https://superlink.me/about#contact-us
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
-  title: Superlink API
+  title: Superlink
   version: "1.0"
 servers:
 - url: https://api.superlink.me/

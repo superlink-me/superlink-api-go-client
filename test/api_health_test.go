@@ -1,5 +1,5 @@
 /*
-Superlink API
+Superlink
 
 Testing HealthAPIService
 
