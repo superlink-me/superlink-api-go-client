@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Domain** | Pointer to **string** |  | [optional] 
 **Records** | Pointer to [**[]ApiDNSRecord**](ApiDNSRecord.md) |  | [optional] 
-**Wallets** | Pointer to **map[string]string** |  | [optional] 
+**Wallets** | Pointer to [**[]ApiWalletData**](ApiWalletData.md) |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasRecords returns a boolean if a field has been set.
 
 ### GetWallets
 
-`func (o *ApiResolveWalletAddressByDomainResponse) GetWallets() map[string]string`
+`func (o *ApiResolveWalletAddressByDomainResponse) GetWallets() []ApiWalletData`
 
 GetWallets returns the Wallets field if non-nil, zero value otherwise.
 
 ### GetWalletsOk
 
-`func (o *ApiResolveWalletAddressByDomainResponse) GetWalletsOk() (*map[string]string, bool)`
+`func (o *ApiResolveWalletAddressByDomainResponse) GetWalletsOk() (*[]ApiWalletData, bool)`
 
 GetWalletsOk returns a tuple with the Wallets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWallets
 
-`func (o *ApiResolveWalletAddressByDomainResponse) SetWallets(v map[string]string)`
+`func (o *ApiResolveWalletAddressByDomainResponse) SetWallets(v []ApiWalletData)`
 
 SetWallets sets Wallets field to given value.
 

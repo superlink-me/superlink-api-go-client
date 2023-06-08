@@ -13,10 +13,12 @@ docs/ApiAccessTokenCreateRequest.md
 docs/ApiAccessTokenDeleteRequest.md
 docs/ApiAccessTokenResponse.md
 docs/ApiBadRequestResponse.md
+docs/ApiCoin.md
 docs/ApiDNSRecord.md
 docs/ApiErrorResponse.md
 docs/ApiInternalServerErrorResponse.md
 docs/ApiResolveWalletAddressByDomainResponse.md
+docs/ApiWalletData.md
 docs/DataAccessTokenType.md
 docs/HealthAPI.md
 docs/ResolutionAPI.md
@@ -27,10 +29,12 @@ model_api_access_token_create_request.go
 model_api_access_token_delete_request.go
 model_api_access_token_response.go
 model_api_bad_request_response.go
+model_api_coin.go
 model_api_dns_record.go
 model_api_error_response.go
 model_api_internal_server_error_response.go
 model_api_resolve_wallet_address_by_domain_response.go
+model_api_wallet_data.go
 model_data_access_token_type.go
 response.go
 test/api_access_token_test.go

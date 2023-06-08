@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.0.1-alpha.7
+API version: v0.0.1-alpha.8
 Contact: support@superlink.me
 */
 
@@ -22,7 +22,7 @@ var _ MappedNullable = &ApiResolveWalletAddressByDomainResponse{}
 type ApiResolveWalletAddressByDomainResponse struct {
 	Domain *string `json:"domain,omitempty"`
 	Records []ApiDNSRecord `json:"records,omitempty"`
-	Wallets *map[string]string `json:"wallets,omitempty"`
+	Wallets []ApiWalletData `json:"wallets,omitempty"`
 }
 
 // NewApiResolveWalletAddressByDomainResponse instantiates a new ApiResolveWalletAddressByDomainResponse object
@@ -107,17 +107,17 @@ func (o *ApiResolveWalletAddressByDomainResponse) SetRecords(v []ApiDNSRecord) {
 }
 
 // GetWallets returns the Wallets field value if set, zero value otherwise.
-func (o *ApiResolveWalletAddressByDomainResponse) GetWallets() map[string]string {
+func (o *ApiResolveWalletAddressByDomainResponse) GetWallets() []ApiWalletData {
 	if o == nil || IsNil(o.Wallets) {
-		var ret map[string]string
+		var ret []ApiWalletData
 		return ret
 	}
-	return *o.Wallets
+	return o.Wallets
 }
 
 // GetWalletsOk returns a tuple with the Wallets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiResolveWalletAddressByDomainResponse) GetWalletsOk() (*map[string]string, bool) {
+func (o *ApiResolveWalletAddressByDomainResponse) GetWalletsOk() ([]ApiWalletData, bool) {
 	if o == nil || IsNil(o.Wallets) {
 		return nil, false
 	}
@@ -133,9 +133,9 @@ func (o *ApiResolveWalletAddressByDomainResponse) HasWallets() bool {
 	return false
 }
 
-// SetWallets gets a reference to the given map[string]string and assigns it to the Wallets field.
-func (o *ApiResolveWalletAddressByDomainResponse) SetWallets(v map[string]string) {
-	o.Wallets = &v
+// SetWallets gets a reference to the given []ApiWalletData and assigns it to the Wallets field.
+func (o *ApiResolveWalletAddressByDomainResponse) SetWallets(v []ApiWalletData) {
+	o.Wallets = v
 }
 
 func (o ApiResolveWalletAddressByDomainResponse) MarshalJSON() ([]byte, error) {
