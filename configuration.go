@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.0.2-alpha.3
+API version: v0.0.4-alpha.5
 Contact: support@superlink.me
 */
 
@@ -90,7 +90,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/v0.0.2-alpha.3/go",
+		UserAgent:        "OpenAPI-Generator/v0.0.4-alpha.5/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
