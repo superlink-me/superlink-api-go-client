@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.0.5
+API version: v0.1.3
 Contact: support@superlink.me
 */
 
@@ -30,7 +30,7 @@ type ApiResolveDataByDomainRequest struct {
 	domain string
 }
 
-func (r ApiResolveDataByDomainRequest) Execute() (*ApiResolveWalletAddressByDomainResponse, *http.Response, error) {
+func (r ApiResolveDataByDomainRequest) Execute() (*ApiResolveDomainResponse, *http.Response, error) {
 	return r.ApiService.ResolveDataByDomainExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *ResolutionAPIService) ResolveDataByDomain(ctx context.Context, domain s
 }
 
 // Execute executes the request
-//  @return ApiResolveWalletAddressByDomainResponse
-func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDomainRequest) (*ApiResolveWalletAddressByDomainResponse, *http.Response, error) {
+//  @return ApiResolveDomainResponse
+func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDomainRequest) (*ApiResolveDomainResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiResolveWalletAddressByDomainResponse
+		localVarReturnValue  *ApiResolveDomainResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResolutionAPIService.ResolveDataByDomain")

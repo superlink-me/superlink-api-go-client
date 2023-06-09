@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.2
+  version: v0.1.3
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -67,6 +67,8 @@ paths:
       security:
       - BearerAuth: []
       summary: Lists access tokens
+      tags:
+      - access-token
     post:
       description: Creates an admin token
       operationId: create-access-token
@@ -99,6 +101,8 @@ paths:
       security:
       - BearerAuth: []
       summary: Creates an admin token
+      tags:
+      - access-token
       x-codegen-request-body-name: request
   /v1/health:
     get:
@@ -145,6 +149,8 @@ paths:
       security:
       - BearerAuth: []
       summary: Resolves wallets and DNS records for a domain
+      tags:
+      - resolution
 components:
   schemas:
     api.AccessTokenCreateRequest:

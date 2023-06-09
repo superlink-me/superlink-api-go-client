@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ResolveDataByDomain
 
-> ApiResolveWalletAddressByDomainResponse ResolveDataByDomain(ctx, domain).Execute()
+> ApiResolveDomainResponse ResolveDataByDomain(ctx, domain).Execute()
 
 Resolves wallets and DNS records for a domain
 
@@ -38,7 +38,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByDomain``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ResolveDataByDomain`: ApiResolveWalletAddressByDomainResponse
+    // response from `ResolveDataByDomain`: ApiResolveDomainResponse
     fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByDomain`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiResolveWalletAddressByDomainResponse**](ApiResolveWalletAddressByDomainResponse.md)
+[**ApiResolveDomainResponse**](ApiResolveDomainResponse.md)
 
 ### Authorization
 

@@ -3,9 +3,12 @@
 .travis.yml
 README.md
 api/openapi.yaml
+api_access_token.go
 api_default.go
+api_resolution.go
 client.go
 configuration.go
+docs/AccessTokenAPI.md
 docs/ApiAccessTokenCreateRequest.md
 docs/ApiAccessTokenDeleteRequest.md
 docs/ApiAccessTokenResponse.md
@@ -19,6 +22,7 @@ docs/ApiTXTRecord.md
 docs/ApiWalletData.md
 docs/DataAccessTokenType.md
 docs/DefaultAPI.md
+docs/ResolutionAPI.md
 git_push.sh
 go.mod
 go.sum
@@ -35,5 +39,7 @@ model_api_txt_record.go
 model_api_wallet_data.go
 model_data_access_token_type.go
 response.go
+test/api_access_token_test.go
 test/api_default_test.go
+test/api_resolution_test.go
 utils.go

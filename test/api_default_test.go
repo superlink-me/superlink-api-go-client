@@ -22,18 +22,6 @@ func Test_superlink_DefaultAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test DefaultAPIService CreateAccessToken", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.DefaultAPI.CreateAccessToken(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test DefaultAPIService DeleteAccessToken", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -52,32 +40,6 @@ func Test_superlink_DefaultAPIService(t *testing.T) {
 		httpRes, err := apiClient.DefaultAPI.HealthCheck(context.Background()).Execute()
 
 		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DefaultAPIService ListAccessTokens", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.DefaultAPI.ListAccessTokens(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DefaultAPIService ResolveDataByDomain", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var domain string
-
-		resp, httpRes, err := apiClient.DefaultAPI.ResolveDataByDomain(context.Background(), domain).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
