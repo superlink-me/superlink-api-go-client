@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.1
+  version: v0.1.2
 servers:
 - url: https://api.superlink.me/
 paths:
