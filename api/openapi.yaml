@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.0.5
+  version: v0.1.1
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -47,8 +47,6 @@ paths:
       security:
       - BearerAuth: []
       summary: Deletes an access token
-      tags:
-      - access-token
       x-codegen-request-body-name: request
     get:
       description: Lists access tokens
@@ -69,8 +67,6 @@ paths:
       security:
       - BearerAuth: []
       summary: Lists access tokens
-      tags:
-      - access-token
     post:
       description: Creates an admin token
       operationId: create-access-token
@@ -103,8 +99,6 @@ paths:
       security:
       - BearerAuth: []
       summary: Creates an admin token
-      tags:
-      - access-token
       x-codegen-request-body-name: request
   /v1/health:
     get:
@@ -118,8 +112,6 @@ paths:
           content: {}
           description: Internal Server Error
       summary: Checks the health of the API
-      tags:
-      - health
   /v1/resolve/{domain}:
     get:
       description: resolve domain data by domain
@@ -136,7 +128,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/api.ResolveWalletAddressByDomainResponse'
+                $ref: '#/components/schemas/api.ResolveDomainResponse'
           description: OK
         "404":
           content:
@@ -153,8 +145,6 @@ paths:
       security:
       - BearerAuth: []
       summary: Resolves wallets and DNS records for a domain
-      tags:
-      - resolution
 components:
   schemas:
     api.AccessTokenCreateRequest:
@@ -270,9 +260,15 @@ components:
           example: Internal server error
           type: string
       type: object
-    api.ResolveWalletAddressByDomainResponse:
+    api.ResolveDomainResponse:
       example:
-        records:
+        txtRecords:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        provider: provider
+        dnsRecords:
         - name: firstname.lastname
           type: A
           ttl: 3600
@@ -281,7 +277,7 @@ components:
           type: A
           ttl: 3600
           value: 192.168.0.1
-        domain: firstname.lastname
+        domain: domain
         wallets:
         - address: <wallet address>
           tag: business
@@ -291,18 +287,36 @@ components:
           tag: business
           coin: null
           network: mainnet
+        contentHash: contentHash
       properties:
-        domain:
-          example: firstname.lastname
+        contentHash:
           type: string
-        records:
+        dnsRecords:
           items:
             $ref: '#/components/schemas/api.DNSRecord'
+          type: array
+        domain:
+          type: string
+        provider:
+          type: string
+        txtRecords:
+          items:
+            $ref: '#/components/schemas/api.TXTRecord'
           type: array
         wallets:
           items:
             $ref: '#/components/schemas/api.WalletData'
           type: array
+      type: object
+    api.TXTRecord:
+      example:
+        value: value
+        key: key
+      properties:
+        key:
+          type: string
+        value:
+          type: string
       type: object
     api.WalletData:
       example:
