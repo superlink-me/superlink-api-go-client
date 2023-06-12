@@ -34,6 +34,17 @@ func Test_superlink_AccessTokenAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test AccessTokenAPIService DeleteAccessToken", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		httpRes, err := apiClient.AccessTokenAPI.DeleteAccessToken(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AccessTokenAPIService ListAccessTokens", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
