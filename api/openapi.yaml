@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.4-alpha.2
+  version: v0.1.5
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -1879,10 +1879,12 @@ components:
         wallets:
         - address: <wallet address>
           tag: business
+          version: ERC20
           coin: null
           network: mainnet
         - address: <wallet address>
           tag: business
+          version: ERC20
           coin: null
           network: mainnet
         contentHash: contentHash
@@ -1920,6 +1922,7 @@ components:
       example:
         address: <wallet address>
         tag: business
+        version: ERC20
         coin: null
         network: mainnet
       properties:
@@ -1933,6 +1936,9 @@ components:
           type: string
         tag:
           example: business
+          type: string
+        version:
+          example: ERC20
           type: string
       type: object
     data.AccessTokenType:

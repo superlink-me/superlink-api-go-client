@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.4-alpha.2
+API version: v0.1.5
 Contact: support@superlink.me
 */
 
@@ -24,6 +24,7 @@ type ApiWalletData struct {
 	Coin *ApiCoin `json:"coin,omitempty"`
 	Network *string `json:"network,omitempty"`
 	Tag *string `json:"tag,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
 // NewApiWalletData instantiates a new ApiWalletData object
@@ -171,6 +172,38 @@ func (o *ApiWalletData) SetTag(v string) {
 	o.Tag = &v
 }
 
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *ApiWalletData) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiWalletData) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *ApiWalletData) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *ApiWalletData) SetVersion(v string) {
+	o.Version = &v
+}
+
 func (o ApiWalletData) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -192,6 +225,9 @@ func (o ApiWalletData) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tag) {
 		toSerialize["tag"] = o.Tag
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
 	}
 	return toSerialize, nil
 }

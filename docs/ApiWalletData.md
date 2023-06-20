@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Coin** | Pointer to [**ApiCoin**](ApiCoin.md) |  | [optional] 
 **Network** | Pointer to **string** |  | [optional] 
 **Tag** | Pointer to **string** |  | [optional] 
+**Version** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetTag sets Tag field to given value.
 `func (o *ApiWalletData) HasTag() bool`
 
 HasTag returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *ApiWalletData) GetVersion() string`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *ApiWalletData) GetVersionOk() (*string, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *ApiWalletData) SetVersion(v string)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *ApiWalletData) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
