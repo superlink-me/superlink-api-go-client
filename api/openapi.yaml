@@ -7,7 +7,7 @@ info:
   description: API for Superlink
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.5
+  version: v0.1.6-alpha.1
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -1023,6 +1023,7 @@ components:
       - EQ
       - QKC
       - FVDC
+      - USDC
       type: string
       x-enum-varnames:
       - BTC
@@ -1823,6 +1824,7 @@ components:
       - EQ
       - QKC
       - FVDC
+      - USDC
     api.DNSRecord:
       example:
         name: firstname.lastname

@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.5
+API version: v0.1.6-alpha.1
 Contact: support@superlink.me
 */
 
@@ -819,6 +819,7 @@ const (
 	EQ ApiCoin = "EQ"
 	QKC ApiCoin = "QKC"
 	FVDC ApiCoin = "FVDC"
+	USDC ApiCoin = "USDC"
 )
 
 // All allowed values of ApiCoin enum
@@ -1621,6 +1622,7 @@ var AllowedApiCoinEnumValues = []ApiCoin{
 	"EQ",
 	"QKC",
 	"FVDC",
+	"USDC",
 }
 
 func (v *ApiCoin) UnmarshalJSON(src []byte) error {
