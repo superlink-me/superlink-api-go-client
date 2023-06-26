@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Address** | Pointer to **string** |  | [optional] 
 **Coin** | Pointer to [**ApiCoin**](ApiCoin.md) |  | [optional] 
-**Network** | Pointer to **string** |  | [optional] 
-**Tag** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -78,56 +76,6 @@ SetCoin sets Coin field to given value.
 `func (o *ApiWalletData) HasCoin() bool`
 
 HasCoin returns a boolean if a field has been set.
-
-### GetNetwork
-
-`func (o *ApiWalletData) GetNetwork() string`
-
-GetNetwork returns the Network field if non-nil, zero value otherwise.
-
-### GetNetworkOk
-
-`func (o *ApiWalletData) GetNetworkOk() (*string, bool)`
-
-GetNetworkOk returns a tuple with the Network field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNetwork
-
-`func (o *ApiWalletData) SetNetwork(v string)`
-
-SetNetwork sets Network field to given value.
-
-### HasNetwork
-
-`func (o *ApiWalletData) HasNetwork() bool`
-
-HasNetwork returns a boolean if a field has been set.
-
-### GetTag
-
-`func (o *ApiWalletData) GetTag() string`
-
-GetTag returns the Tag field if non-nil, zero value otherwise.
-
-### GetTagOk
-
-`func (o *ApiWalletData) GetTagOk() (*string, bool)`
-
-GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTag
-
-`func (o *ApiWalletData) SetTag(v string)`
-
-SetTag sets Tag field to given value.
-
-### HasTag
-
-`func (o *ApiWalletData) HasTag() bool`
-
-HasTag returns a boolean if a field has been set.
 
 ### GetVersion
 

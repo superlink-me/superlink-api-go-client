@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.6-alpha.1
+API version: v0.1.6-alpha.2
 Contact: support@superlink.me
 */
 
@@ -23,7 +23,7 @@ type ApiResolveDomainResponse struct {
 	ContentHash *string `json:"contentHash,omitempty"`
 	DnsRecords []ApiDNSRecord `json:"dnsRecords,omitempty"`
 	Domain *string `json:"domain,omitempty"`
-	Provider *string `json:"provider,omitempty"`
+	NameService *ApiNameService `json:"nameService,omitempty"`
 	TxtRecords []ApiTXTRecord `json:"txtRecords,omitempty"`
 	Wallets []ApiWalletData `json:"wallets,omitempty"`
 }
@@ -141,36 +141,36 @@ func (o *ApiResolveDomainResponse) SetDomain(v string) {
 	o.Domain = &v
 }
 
-// GetProvider returns the Provider field value if set, zero value otherwise.
-func (o *ApiResolveDomainResponse) GetProvider() string {
-	if o == nil || IsNil(o.Provider) {
-		var ret string
+// GetNameService returns the NameService field value if set, zero value otherwise.
+func (o *ApiResolveDomainResponse) GetNameService() ApiNameService {
+	if o == nil || IsNil(o.NameService) {
+		var ret ApiNameService
 		return ret
 	}
-	return *o.Provider
+	return *o.NameService
 }
 
-// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// GetNameServiceOk returns a tuple with the NameService field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiResolveDomainResponse) GetProviderOk() (*string, bool) {
-	if o == nil || IsNil(o.Provider) {
+func (o *ApiResolveDomainResponse) GetNameServiceOk() (*ApiNameService, bool) {
+	if o == nil || IsNil(o.NameService) {
 		return nil, false
 	}
-	return o.Provider, true
+	return o.NameService, true
 }
 
-// HasProvider returns a boolean if a field has been set.
-func (o *ApiResolveDomainResponse) HasProvider() bool {
-	if o != nil && !IsNil(o.Provider) {
+// HasNameService returns a boolean if a field has been set.
+func (o *ApiResolveDomainResponse) HasNameService() bool {
+	if o != nil && !IsNil(o.NameService) {
 		return true
 	}
 
 	return false
 }
 
-// SetProvider gets a reference to the given string and assigns it to the Provider field.
-func (o *ApiResolveDomainResponse) SetProvider(v string) {
-	o.Provider = &v
+// SetNameService gets a reference to the given ApiNameService and assigns it to the NameService field.
+func (o *ApiResolveDomainResponse) SetNameService(v ApiNameService) {
+	o.NameService = &v
 }
 
 // GetTxtRecords returns the TxtRecords field value if set, zero value otherwise.
@@ -256,8 +256,8 @@ func (o ApiResolveDomainResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
-	if !IsNil(o.Provider) {
-		toSerialize["provider"] = o.Provider
+	if !IsNil(o.NameService) {
+		toSerialize["nameService"] = o.NameService
 	}
 	if !IsNil(o.TxtRecords) {
 		toSerialize["txtRecords"] = o.TxtRecords

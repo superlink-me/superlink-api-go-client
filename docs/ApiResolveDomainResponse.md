@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **ContentHash** | Pointer to **string** |  | [optional] 
 **DnsRecords** | Pointer to [**[]ApiDNSRecord**](ApiDNSRecord.md) |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
-**Provider** | Pointer to **string** |  | [optional] 
+**NameService** | Pointer to [**ApiNameService**](ApiNameService.md) |  | [optional] 
 **TxtRecords** | Pointer to [**[]ApiTXTRecord**](ApiTXTRecord.md) |  | [optional] 
 **Wallets** | Pointer to [**[]ApiWalletData**](ApiWalletData.md) |  | [optional] 
 
@@ -105,30 +105,30 @@ SetDomain sets Domain field to given value.
 
 HasDomain returns a boolean if a field has been set.
 
-### GetProvider
+### GetNameService
 
-`func (o *ApiResolveDomainResponse) GetProvider() string`
+`func (o *ApiResolveDomainResponse) GetNameService() ApiNameService`
 
-GetProvider returns the Provider field if non-nil, zero value otherwise.
+GetNameService returns the NameService field if non-nil, zero value otherwise.
 
-### GetProviderOk
+### GetNameServiceOk
 
-`func (o *ApiResolveDomainResponse) GetProviderOk() (*string, bool)`
+`func (o *ApiResolveDomainResponse) GetNameServiceOk() (*ApiNameService, bool)`
 
-GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+GetNameServiceOk returns a tuple with the NameService field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetProvider
+### SetNameService
 
-`func (o *ApiResolveDomainResponse) SetProvider(v string)`
+`func (o *ApiResolveDomainResponse) SetNameService(v ApiNameService)`
 
-SetProvider sets Provider field to given value.
+SetNameService sets NameService field to given value.
 
-### HasProvider
+### HasNameService
 
-`func (o *ApiResolveDomainResponse) HasProvider() bool`
+`func (o *ApiResolveDomainResponse) HasNameService() bool`
 
-HasProvider returns a boolean if a field has been set.
+HasNameService returns a boolean if a field has been set.
 
 ### GetTxtRecords
 

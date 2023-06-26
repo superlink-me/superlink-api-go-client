@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.6-alpha.1
+API version: v0.1.6-alpha.2
 Contact: support@superlink.me
 */
 
@@ -22,8 +22,6 @@ var _ MappedNullable = &ApiWalletData{}
 type ApiWalletData struct {
 	Address *string `json:"address,omitempty"`
 	Coin *ApiCoin `json:"coin,omitempty"`
-	Network *string `json:"network,omitempty"`
-	Tag *string `json:"tag,omitempty"`
 	Version *string `json:"version,omitempty"`
 }
 
@@ -108,70 +106,6 @@ func (o *ApiWalletData) SetCoin(v ApiCoin) {
 	o.Coin = &v
 }
 
-// GetNetwork returns the Network field value if set, zero value otherwise.
-func (o *ApiWalletData) GetNetwork() string {
-	if o == nil || IsNil(o.Network) {
-		var ret string
-		return ret
-	}
-	return *o.Network
-}
-
-// GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiWalletData) GetNetworkOk() (*string, bool) {
-	if o == nil || IsNil(o.Network) {
-		return nil, false
-	}
-	return o.Network, true
-}
-
-// HasNetwork returns a boolean if a field has been set.
-func (o *ApiWalletData) HasNetwork() bool {
-	if o != nil && !IsNil(o.Network) {
-		return true
-	}
-
-	return false
-}
-
-// SetNetwork gets a reference to the given string and assigns it to the Network field.
-func (o *ApiWalletData) SetNetwork(v string) {
-	o.Network = &v
-}
-
-// GetTag returns the Tag field value if set, zero value otherwise.
-func (o *ApiWalletData) GetTag() string {
-	if o == nil || IsNil(o.Tag) {
-		var ret string
-		return ret
-	}
-	return *o.Tag
-}
-
-// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiWalletData) GetTagOk() (*string, bool) {
-	if o == nil || IsNil(o.Tag) {
-		return nil, false
-	}
-	return o.Tag, true
-}
-
-// HasTag returns a boolean if a field has been set.
-func (o *ApiWalletData) HasTag() bool {
-	if o != nil && !IsNil(o.Tag) {
-		return true
-	}
-
-	return false
-}
-
-// SetTag gets a reference to the given string and assigns it to the Tag field.
-func (o *ApiWalletData) SetTag(v string) {
-	o.Tag = &v
-}
-
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *ApiWalletData) GetVersion() string {
 	if o == nil || IsNil(o.Version) {
@@ -219,12 +153,6 @@ func (o ApiWalletData) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Coin) {
 		toSerialize["coin"] = o.Coin
-	}
-	if !IsNil(o.Network) {
-		toSerialize["network"] = o.Network
-	}
-	if !IsNil(o.Tag) {
-		toSerialize["tag"] = o.Tag
 	}
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version

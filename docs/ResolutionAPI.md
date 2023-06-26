@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ResolveDataByDomain
 
-> ApiResolveDomainResponse ResolveDataByDomain(ctx, domain).Execute()
+> ApiResolveDomainResponse ResolveDataByDomain(ctx, domain).Nameservices(nameservices).Coins(coins).Execute()
 
 Resolves wallets and DNS records for a domain
 
@@ -30,10 +30,12 @@ import (
 
 func main() {
     domain := "domain_example" // string | firstname.lastname
+    nameservices := []string{"Nameservices_example"} // []string | superlink,ens,ud (optional)
+    coins := []string{"Coins_example"} // []string | BTC,ETH,MATIC (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Execute()
+    resp, r, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Nameservices(nameservices).Coins(coins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByDomain``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,6 +61,8 @@ Other parameters are passed through a pointer to a apiResolveDataByDomainRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **nameservices** | **[]string** | superlink,ens,ud | 
+ **coins** | **[]string** | BTC,ETH,MATIC | 
 
 ### Return type
 

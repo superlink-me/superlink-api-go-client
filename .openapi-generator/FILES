@@ -17,6 +17,7 @@ docs/ApiCoin.md
 docs/ApiDNSRecord.md
 docs/ApiErrorResponse.md
 docs/ApiInternalServerErrorResponse.md
+docs/ApiNameService.md
 docs/ApiResolveDomainResponse.md
 docs/ApiTXTRecord.md
 docs/ApiWalletData.md
@@ -34,6 +35,7 @@ model_api_coin.go
 model_api_dns_record.go
 model_api_error_response.go
 model_api_internal_server_error_response.go
+model_api_name_service.go
 model_api_resolve_domain_response.go
 model_api_txt_record.go
 model_api_wallet_data.go

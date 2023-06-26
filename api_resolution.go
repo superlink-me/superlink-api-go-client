@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.6-alpha.1
+API version: v0.1.6-alpha.2
 Contact: support@superlink.me
 */
 
@@ -28,6 +28,20 @@ type ApiResolveDataByDomainRequest struct {
 	ctx context.Context
 	ApiService *ResolutionAPIService
 	domain string
+	nameservices *[]string
+	coins *[]string
+}
+
+// superlink,ens,ud
+func (r ApiResolveDataByDomainRequest) Nameservices(nameservices []string) ApiResolveDataByDomainRequest {
+	r.nameservices = &nameservices
+	return r
+}
+
+// BTC,ETH,MATIC
+func (r ApiResolveDataByDomainRequest) Coins(coins []string) ApiResolveDataByDomainRequest {
+	r.coins = &coins
+	return r
 }
 
 func (r ApiResolveDataByDomainRequest) Execute() (*ApiResolveDomainResponse, *http.Response, error) {
@@ -73,6 +87,12 @@ func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDoma
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.nameservices != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "nameservices", r.nameservices, "csv")
+	}
+	if r.coins != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "coins", r.coins, "csv")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
