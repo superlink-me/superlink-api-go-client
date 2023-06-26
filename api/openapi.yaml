@@ -5,9 +5,11 @@ info:
     name: API Support
     url: https://superlink.me/about#contact-us
   description: API for Superlink
+  license:
+    name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.6-alpha.3
+  version: v0.1.6-alpha.4
 servers:
 - url: https://api.superlink.me/
 paths:
