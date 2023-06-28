@@ -52,6 +52,7 @@ jobs:
           fi
       - uses: ncipollo/release-action@v1
         with:
+          token: ${{ secrets.API_TOKEN_GITHUB }}
           tag: ${{ github.event.client_payload.tag }}
           name: ${{ github.event.client_payload.release_name }}
           body: ${{ github.event.client_payload.release_body }}
