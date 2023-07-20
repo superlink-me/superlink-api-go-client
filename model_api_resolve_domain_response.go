@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.13
+API version: v0.1.14
 Contact: support@superlink.me
 */
 
@@ -24,6 +24,7 @@ type ApiResolveDomainResponse struct {
 	DnsRecords []ApiDNSRecord `json:"dnsRecords,omitempty"`
 	Domain *string `json:"domain,omitempty"`
 	NameService *ApiNameService `json:"nameService,omitempty"`
+	OwnerAddress *string `json:"ownerAddress,omitempty"`
 	TxtRecords []ApiTXTRecord `json:"txtRecords,omitempty"`
 	Wallets []ApiWalletData `json:"wallets,omitempty"`
 }
@@ -173,6 +174,38 @@ func (o *ApiResolveDomainResponse) SetNameService(v ApiNameService) {
 	o.NameService = &v
 }
 
+// GetOwnerAddress returns the OwnerAddress field value if set, zero value otherwise.
+func (o *ApiResolveDomainResponse) GetOwnerAddress() string {
+	if o == nil || IsNil(o.OwnerAddress) {
+		var ret string
+		return ret
+	}
+	return *o.OwnerAddress
+}
+
+// GetOwnerAddressOk returns a tuple with the OwnerAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiResolveDomainResponse) GetOwnerAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.OwnerAddress) {
+		return nil, false
+	}
+	return o.OwnerAddress, true
+}
+
+// HasOwnerAddress returns a boolean if a field has been set.
+func (o *ApiResolveDomainResponse) HasOwnerAddress() bool {
+	if o != nil && !IsNil(o.OwnerAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerAddress gets a reference to the given string and assigns it to the OwnerAddress field.
+func (o *ApiResolveDomainResponse) SetOwnerAddress(v string) {
+	o.OwnerAddress = &v
+}
+
 // GetTxtRecords returns the TxtRecords field value if set, zero value otherwise.
 func (o *ApiResolveDomainResponse) GetTxtRecords() []ApiTXTRecord {
 	if o == nil || IsNil(o.TxtRecords) {
@@ -258,6 +291,9 @@ func (o ApiResolveDomainResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.NameService) {
 		toSerialize["nameService"] = o.NameService
+	}
+	if !IsNil(o.OwnerAddress) {
+		toSerialize["ownerAddress"] = o.OwnerAddress
 	}
 	if !IsNil(o.TxtRecords) {
 		toSerialize["txtRecords"] = o.TxtRecords

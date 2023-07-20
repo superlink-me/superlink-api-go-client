@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.13
+  version: v0.1.14
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -108,6 +108,41 @@ paths:
       tags:
       - access-token
       x-codegen-request-body-name: request
+  /v1/card-image/{domain}:
+    get:
+      description: returns the image for a "domain" nft
+      operationId: get-token-image-by-domain
+      parameters:
+      - description: firstname.lastname
+        in: path
+        name: domain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            image/svg+xml:
+              schema:
+                type: string
+          description: OK
+        "404":
+          content:
+            image/svg+xml:
+              schema:
+                $ref: '#/components/schemas/api.ErrorResponse'
+          description: Not Found
+        "500":
+          content:
+            image/svg+xml:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns a SVG image for a Superlink NFT
+      tags:
+      - nft
   /v1/health:
     get:
       description: Checks the health of the API
@@ -120,6 +155,41 @@ paths:
           content: {}
           description: Internal Server Error
       summary: Checks the health of the API
+  /v1/metadata/{domain}:
+    get:
+      description: returns the metadata for a "domain" nft
+      operationId: get-token-metadata-by-domain
+      parameters:
+      - description: firstname.lastname
+        in: path
+        name: domain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.DomainMetadataResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ErrorResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns metadata usually associated with NFTs uri
+      tags:
+      - nft
   /v1/resolve/{domain}:
     get:
       description: resolve domain data by domain
@@ -975,6 +1045,89 @@ paths:
       security:
       - BearerAuth: []
       summary: Resolves wallets and DNS records for a domain
+      tags:
+      - resolution
+  /v1/reverse:
+    post:
+      description: Assigns an address to a domain for reverse resolution
+      operationId: resolve-address-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.SetReverseAddressRequest'
+        description: set reverse address request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Conflict
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Assigns an address to a domain for reverse resolution
+      tags:
+      - resolution
+      x-codegen-request-body-name: request
+  /v1/reverse/{address}:
+    get:
+      description: resolve domain data by address
+      operationId: resolve-address-get
+      parameters:
+      - description: superlink
+        in: query
+        name: nameservice
+        schema:
+          enum:
+          - ud
+          - ens
+          - superlink
+          type: string
+      - description: 0x1234561234556
+        in: path
+        name: address
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ResolveDomainResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ErrorResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Resolves wallets and DNS records for an address
       tags:
       - resolution
 components:
@@ -2669,13 +2822,51 @@ components:
           example: 192.168.0.1
           type: string
       type: object
+    api.DomainMetadataResponse:
+      example:
+        image: https://api.superlink.me/card-image/jon.johnson.svg
+        external_url: https://superlink.me/animation?name=jon.johnson
+        namehash: 0x3538e2ebd840880e82448521324fc0c308fc6cd576a65a532a51c8d60c32b58a
+        tokenId: "24073090563576551262032245933984978621011965102670616730489196997318148273546"
+        image_url: https://api.superlink.me/card-image/jon.johnson.svg
+        name: jon.johnson
+        description: A blockchain domain. Use it to resolve your cryptocurrency addresses
+          and decentralized websites.
+        avatar: https://assets.superlink.me/avatar/b94c22d4-02b4-464e-aead-3f6cafceb1db
+      properties:
+        avatar:
+          example: https://assets.superlink.me/avatar/b94c22d4-02b4-464e-aead-3f6cafceb1db
+          type: string
+        description:
+          example: A blockchain domain. Use it to resolve your cryptocurrency addresses
+            and decentralized websites.
+          type: string
+        external_url:
+          example: https://superlink.me/animation?name=jon.johnson
+          type: string
+        image:
+          example: https://api.superlink.me/card-image/jon.johnson.svg
+          type: string
+        image_url:
+          example: https://api.superlink.me/card-image/jon.johnson.svg
+          type: string
+        name:
+          example: jon.johnson
+          type: string
+        namehash:
+          example: 0x3538e2ebd840880e82448521324fc0c308fc6cd576a65a532a51c8d60c32b58a
+          type: string
+        tokenId:
+          example: "24073090563576551262032245933984978621011965102670616730489196997318148273546"
+          type: string
+      type: object
     api.ErrorResponse:
       properties:
         field:
-          example: username
+          example: field
           type: string
         info:
-          example: Invalid input
+          example: error message
           type: string
       type: object
     api.InternalServerErrorResponse:
@@ -2719,6 +2910,7 @@ components:
         - address: <wallet address>
           version: ERC20
           coin: null
+        ownerAddress: ownerAddress
         contentHash: contentHash
       properties:
         contentHash:
@@ -2731,6 +2923,8 @@ components:
           type: string
         nameService:
           $ref: '#/components/schemas/api.NameService'
+        ownerAddress:
+          type: string
         txtRecords:
           items:
             $ref: '#/components/schemas/api.TXTRecord'
@@ -2739,6 +2933,21 @@ components:
           items:
             $ref: '#/components/schemas/api.WalletData'
           type: array
+      type: object
+    api.SetReverseAddressRequest:
+      properties:
+        address:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        domain:
+          example: firstname.lastname
+          type: string
+        signedMessage:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        userId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
       type: object
     api.TXTRecord:
       example:

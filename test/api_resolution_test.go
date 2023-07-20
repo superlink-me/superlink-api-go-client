@@ -22,6 +22,31 @@ func Test_superlink_ResolutionAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test ResolutionAPIService ResolveAddressGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var address string
+
+		resp, httpRes, err := apiClient.ResolutionAPI.ResolveAddressGet(context.Background(), address).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ResolutionAPIService ResolveAddressPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		httpRes, err := apiClient.ResolutionAPI.ResolveAddressPost(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ResolutionAPIService ResolveDataByDomain", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

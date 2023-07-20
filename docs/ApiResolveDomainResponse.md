@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **DnsRecords** | Pointer to [**[]ApiDNSRecord**](ApiDNSRecord.md) |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
 **NameService** | Pointer to [**ApiNameService**](ApiNameService.md) |  | [optional] 
+**OwnerAddress** | Pointer to **string** |  | [optional] 
 **TxtRecords** | Pointer to [**[]ApiTXTRecord**](ApiTXTRecord.md) |  | [optional] 
 **Wallets** | Pointer to [**[]ApiWalletData**](ApiWalletData.md) |  | [optional] 
 
@@ -129,6 +130,31 @@ SetNameService sets NameService field to given value.
 `func (o *ApiResolveDomainResponse) HasNameService() bool`
 
 HasNameService returns a boolean if a field has been set.
+
+### GetOwnerAddress
+
+`func (o *ApiResolveDomainResponse) GetOwnerAddress() string`
+
+GetOwnerAddress returns the OwnerAddress field if non-nil, zero value otherwise.
+
+### GetOwnerAddressOk
+
+`func (o *ApiResolveDomainResponse) GetOwnerAddressOk() (*string, bool)`
+
+GetOwnerAddressOk returns a tuple with the OwnerAddress field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerAddress
+
+`func (o *ApiResolveDomainResponse) SetOwnerAddress(v string)`
+
+SetOwnerAddress sets OwnerAddress field to given value.
+
+### HasOwnerAddress
+
+`func (o *ApiResolveDomainResponse) HasOwnerAddress() bool`
+
+HasOwnerAddress returns a boolean if a field has been set.
 
 ### GetTxtRecords
 
