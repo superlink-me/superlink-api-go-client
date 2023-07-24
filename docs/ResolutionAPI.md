@@ -4,15 +4,15 @@ All URIs are relative to *https://api.superlink.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ResolveAddressGet**](ResolutionAPI.md#ResolveAddressGet) | **Get** /v1/reverse/{address} | Resolves wallets and DNS records for an address
-[**ResolveAddressPost**](ResolutionAPI.md#ResolveAddressPost) | **Post** /v1/reverse | Assigns an address to a domain for reverse resolution
+[**ResolveDataByAddress**](ResolutionAPI.md#ResolveDataByAddress) | **Get** /v1/reverse/{address} | Resolves wallets and DNS records for an address
 [**ResolveDataByDomain**](ResolutionAPI.md#ResolveDataByDomain) | **Get** /v1/resolve/{domain} | Resolves wallets and DNS records for a domain
+[**SetReverseResolutionAddress**](ResolutionAPI.md#SetReverseResolutionAddress) | **Post** /v1/reverse | Assigns an address to a domain for reverse resolution
 
 
 
-## ResolveAddressGet
+## ResolveDataByAddress
 
-> ApiResolveDomainResponse ResolveAddressGet(ctx, address).Nameservice(nameservice).Execute()
+> ApiResolveDomainResponse ResolveDataByAddress(ctx, address).Nameservice(nameservice).Execute()
 
 Resolves wallets and DNS records for an address
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResolutionAPI.ResolveAddressGet(context.Background(), address).Nameservice(nameservice).Execute()
+    resp, r, err := apiClient.ResolutionAPI.ResolveDataByAddress(context.Background(), address).Nameservice(nameservice).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveAddressGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByAddress``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ResolveAddressGet`: ApiResolveDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveAddressGet`: %v\n", resp)
+    // response from `ResolveDataByAddress`: ApiResolveDomainResponse
+    fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByAddress`: %v\n", resp)
 }
 ```
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiResolveAddressGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResolveDataByAddressRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -75,70 +75,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ResolveAddressPost
-
-> ResolveAddressPost(ctx).Request(request).Execute()
-
-Assigns an address to a domain for reverse resolution
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
-)
-
-func main() {
-    request := *openapiclient.NewApiSetReverseAddressRequest() // ApiSetReverseAddressRequest | set reverse address request
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.ResolutionAPI.ResolveAddressPost(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveAddressPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiResolveAddressPostRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request** | [**ApiSetReverseAddressRequest**](ApiSetReverseAddressRequest.md) | set reverse address request | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -213,6 +149,70 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetReverseResolutionAddress
+
+> SetReverseResolutionAddress(ctx).Request(request).Execute()
+
+Assigns an address to a domain for reverse resolution
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/superlink-me/superlink-api-go-client"
+)
+
+func main() {
+    request := *openapiclient.NewApiSetReverseAddressRequest() // ApiSetReverseAddressRequest | set reverse address request
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ResolutionAPI.SetReverseResolutionAddress(context.Background()).Request(request).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.SetReverseResolutionAddress``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetReverseResolutionAddressRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**ApiSetReverseAddressRequest**](ApiSetReverseAddressRequest.md) | set reverse address request | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

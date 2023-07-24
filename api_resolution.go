@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.15
+API version: v0.1.16
 Contact: support@superlink.me
 */
 
@@ -24,7 +24,7 @@ import (
 // ResolutionAPIService ResolutionAPI service
 type ResolutionAPIService service
 
-type ApiResolveAddressGetRequest struct {
+type ApiResolveDataByAddressRequest struct {
 	ctx context.Context
 	ApiService *ResolutionAPIService
 	address string
@@ -32,26 +32,26 @@ type ApiResolveAddressGetRequest struct {
 }
 
 // superlink
-func (r ApiResolveAddressGetRequest) Nameservice(nameservice string) ApiResolveAddressGetRequest {
+func (r ApiResolveDataByAddressRequest) Nameservice(nameservice string) ApiResolveDataByAddressRequest {
 	r.nameservice = &nameservice
 	return r
 }
 
-func (r ApiResolveAddressGetRequest) Execute() (*ApiResolveDomainResponse, *http.Response, error) {
-	return r.ApiService.ResolveAddressGetExecute(r)
+func (r ApiResolveDataByAddressRequest) Execute() (*ApiResolveDomainResponse, *http.Response, error) {
+	return r.ApiService.ResolveDataByAddressExecute(r)
 }
 
 /*
-ResolveAddressGet Resolves wallets and DNS records for an address
+ResolveDataByAddress Resolves wallets and DNS records for an address
 
 resolve domain data by address
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param address 0x1234561234556
- @return ApiResolveAddressGetRequest
+ @return ApiResolveDataByAddressRequest
 */
-func (a *ResolutionAPIService) ResolveAddressGet(ctx context.Context, address string) ApiResolveAddressGetRequest {
-	return ApiResolveAddressGetRequest{
+func (a *ResolutionAPIService) ResolveDataByAddress(ctx context.Context, address string) ApiResolveDataByAddressRequest {
+	return ApiResolveDataByAddressRequest{
 		ApiService: a,
 		ctx: ctx,
 		address: address,
@@ -60,7 +60,7 @@ func (a *ResolutionAPIService) ResolveAddressGet(ctx context.Context, address st
 
 // Execute executes the request
 //  @return ApiResolveDomainResponse
-func (a *ResolutionAPIService) ResolveAddressGetExecute(r ApiResolveAddressGetRequest) (*ApiResolveDomainResponse, *http.Response, error) {
+func (a *ResolutionAPIService) ResolveDataByAddressExecute(r ApiResolveDataByAddressRequest) (*ApiResolveDomainResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -68,7 +68,7 @@ func (a *ResolutionAPIService) ResolveAddressGetExecute(r ApiResolveAddressGetRe
 		localVarReturnValue  *ApiResolveDomainResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResolutionAPIService.ResolveAddressGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResolutionAPIService.ResolveDataByAddress")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -170,152 +170,6 @@ func (a *ResolutionAPIService) ResolveAddressGetExecute(r ApiResolveAddressGetRe
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiResolveAddressPostRequest struct {
-	ctx context.Context
-	ApiService *ResolutionAPIService
-	request *ApiSetReverseAddressRequest
-}
-
-// set reverse address request
-func (r ApiResolveAddressPostRequest) Request(request ApiSetReverseAddressRequest) ApiResolveAddressPostRequest {
-	r.request = &request
-	return r
-}
-
-func (r ApiResolveAddressPostRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ResolveAddressPostExecute(r)
-}
-
-/*
-ResolveAddressPost Assigns an address to a domain for reverse resolution
-
-Assigns an address to a domain for reverse resolution
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiResolveAddressPostRequest
-*/
-func (a *ResolutionAPIService) ResolveAddressPost(ctx context.Context) ApiResolveAddressPostRequest {
-	return ApiResolveAddressPostRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-func (a *ResolutionAPIService) ResolveAddressPostExecute(r ApiResolveAddressPostRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResolutionAPIService.ResolveAddressPost")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/reverse"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.request == nil {
-		return nil, reportError("request is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.request
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["BearerAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ApiBadRequestResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiBadRequestResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiInternalServerErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
 }
 
 type ApiResolveDataByDomainRequest struct {
@@ -474,4 +328,150 @@ func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDoma
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSetReverseResolutionAddressRequest struct {
+	ctx context.Context
+	ApiService *ResolutionAPIService
+	request *ApiSetReverseAddressRequest
+}
+
+// set reverse address request
+func (r ApiSetReverseResolutionAddressRequest) Request(request ApiSetReverseAddressRequest) ApiSetReverseResolutionAddressRequest {
+	r.request = &request
+	return r
+}
+
+func (r ApiSetReverseResolutionAddressRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SetReverseResolutionAddressExecute(r)
+}
+
+/*
+SetReverseResolutionAddress Assigns an address to a domain for reverse resolution
+
+Assigns an address to a domain for reverse resolution
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSetReverseResolutionAddressRequest
+*/
+func (a *ResolutionAPIService) SetReverseResolutionAddress(ctx context.Context) ApiSetReverseResolutionAddressRequest {
+	return ApiSetReverseResolutionAddressRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *ResolutionAPIService) SetReverseResolutionAddressExecute(r ApiSetReverseResolutionAddressRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResolutionAPIService.SetReverseResolutionAddress")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/reverse"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.request == nil {
+		return nil, reportError("request is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.request
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["BearerAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiBadRequestResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ApiBadRequestResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiInternalServerErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }

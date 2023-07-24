@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.15
+  version: v0.1.16
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -1050,7 +1050,7 @@ paths:
   /v1/reverse:
     post:
       description: Assigns an address to a domain for reverse resolution
-      operationId: resolve-address-post
+      operationId: set-reverse-resolution-address
       requestBody:
         content:
           application/json:
@@ -1089,7 +1089,7 @@ paths:
   /v1/reverse/{address}:
     get:
       description: resolve domain data by address
-      operationId: resolve-address-get
+      operationId: resolve-data-by-address
       parameters:
       - description: superlink
         in: query
