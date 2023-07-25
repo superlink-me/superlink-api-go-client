@@ -4,7 +4,7 @@ All URIs are relative to *https://api.superlink.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetTokenImageByDomain**](NftAPI.md#GetTokenImageByDomain) | **Get** /v1/card-image/{domain} | Returns a SVG image for a Superlink NFT
+[**GetTokenImageByDomain**](NftAPI.md#GetTokenImageByDomain) | **Get** /v1/card-image/{domain}.svg | Returns a SVG image for a Superlink NFT
 [**GetTokenMetadataByDomain**](NftAPI.md#GetTokenMetadataByDomain) | **Get** /v1/metadata/{domain} | Returns metadata usually associated with NFTs uri
 
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 

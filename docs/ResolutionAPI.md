@@ -4,10 +4,75 @@ All URIs are relative to *https://api.superlink.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**RemoveReverseResolutionAddress**](ResolutionAPI.md#RemoveReverseResolutionAddress) | **Delete** /v1/reverse | Assigns a reverse resolution address from a domain
 [**ResolveDataByAddress**](ResolutionAPI.md#ResolveDataByAddress) | **Get** /v1/reverse/{address} | Resolves wallets and DNS records for an address
 [**ResolveDataByDomain**](ResolutionAPI.md#ResolveDataByDomain) | **Get** /v1/resolve/{domain} | Resolves wallets and DNS records for a domain
 [**SetReverseResolutionAddress**](ResolutionAPI.md#SetReverseResolutionAddress) | **Post** /v1/reverse | Assigns an address to a domain for reverse resolution
 
+
+
+## RemoveReverseResolutionAddress
+
+> RemoveReverseResolutionAddress(ctx).Request(request).Execute()
+
+Assigns a reverse resolution address from a domain
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/superlink-me/superlink-api-go-client"
+)
+
+func main() {
+    request := *openapiclient.NewApiReverseResolutionDeleteRequest() // ApiReverseResolutionDeleteRequest | reverse address delete request
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ResolutionAPI.RemoveReverseResolutionAddress(context.Background()).Request(request).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.RemoveReverseResolutionAddress``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRemoveReverseResolutionAddressRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**ApiReverseResolutionDeleteRequest**](ApiReverseResolutionDeleteRequest.md) | reverse address delete request | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## ResolveDataByAddress

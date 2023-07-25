@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.16
+  version: v0.1.17
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -108,7 +108,7 @@ paths:
       tags:
       - access-token
       x-codegen-request-body-name: request
-  /v1/card-image/{domain}:
+  /v1/card-image/{domain}.svg:
     get:
       description: returns the image for a "domain" nft
       operationId: get-token-image-by-domain
@@ -138,8 +138,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: Returns a SVG image for a Superlink NFT
       tags:
       - nft
@@ -185,8 +183,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: Returns metadata usually associated with NFTs uri
       tags:
       - nft
@@ -1048,6 +1044,38 @@ paths:
       tags:
       - resolution
   /v1/reverse:
+    delete:
+      description: Assigns a reverse resolution address from a domain
+      operationId: remove-reverse-resolution-address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.ReverseResolutionDeleteRequest'
+        description: reverse address delete request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Assigns a reverse resolution address from a domain
+      tags:
+      - resolution
+      x-codegen-request-body-name: request
     post:
       description: Assigns an address to a domain for reverse resolution
       operationId: set-reverse-resolution-address
@@ -2933,6 +2961,12 @@ components:
           items:
             $ref: '#/components/schemas/api.WalletData'
           type: array
+      type: object
+    api.ReverseResolutionDeleteRequest:
+      properties:
+        domain:
+          example: firstname.lastname
+          type: string
       type: object
     api.SetReverseAddressRequest:
       properties:

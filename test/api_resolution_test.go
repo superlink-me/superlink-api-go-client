@@ -22,6 +22,17 @@ func Test_superlink_ResolutionAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test ResolutionAPIService RemoveReverseResolutionAddress", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		httpRes, err := apiClient.ResolutionAPI.RemoveReverseResolutionAddress(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ResolutionAPIService ResolveDataByAddress", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
