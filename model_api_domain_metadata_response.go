@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.17
+API version: v0.1.18
 Contact: support@superlink.me
 */
 
@@ -20,7 +20,10 @@ var _ MappedNullable = &ApiDomainMetadataResponse{}
 
 // ApiDomainMetadataResponse struct for ApiDomainMetadataResponse
 type ApiDomainMetadataResponse struct {
+	AnimationUrl *string `json:"animation_url,omitempty"`
+	Attributes []ApiDomainMetadataAttribute `json:"attributes,omitempty"`
 	Avatar *string `json:"avatar,omitempty"`
+	BackgroundColor *string `json:"background_color,omitempty"`
 	Description *string `json:"description,omitempty"`
 	ExternalUrl *string `json:"external_url,omitempty"`
 	Image *string `json:"image,omitempty"`
@@ -45,6 +48,70 @@ func NewApiDomainMetadataResponse() *ApiDomainMetadataResponse {
 func NewApiDomainMetadataResponseWithDefaults() *ApiDomainMetadataResponse {
 	this := ApiDomainMetadataResponse{}
 	return &this
+}
+
+// GetAnimationUrl returns the AnimationUrl field value if set, zero value otherwise.
+func (o *ApiDomainMetadataResponse) GetAnimationUrl() string {
+	if o == nil || IsNil(o.AnimationUrl) {
+		var ret string
+		return ret
+	}
+	return *o.AnimationUrl
+}
+
+// GetAnimationUrlOk returns a tuple with the AnimationUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiDomainMetadataResponse) GetAnimationUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.AnimationUrl) {
+		return nil, false
+	}
+	return o.AnimationUrl, true
+}
+
+// HasAnimationUrl returns a boolean if a field has been set.
+func (o *ApiDomainMetadataResponse) HasAnimationUrl() bool {
+	if o != nil && !IsNil(o.AnimationUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnimationUrl gets a reference to the given string and assigns it to the AnimationUrl field.
+func (o *ApiDomainMetadataResponse) SetAnimationUrl(v string) {
+	o.AnimationUrl = &v
+}
+
+// GetAttributes returns the Attributes field value if set, zero value otherwise.
+func (o *ApiDomainMetadataResponse) GetAttributes() []ApiDomainMetadataAttribute {
+	if o == nil || IsNil(o.Attributes) {
+		var ret []ApiDomainMetadataAttribute
+		return ret
+	}
+	return o.Attributes
+}
+
+// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiDomainMetadataResponse) GetAttributesOk() ([]ApiDomainMetadataAttribute, bool) {
+	if o == nil || IsNil(o.Attributes) {
+		return nil, false
+	}
+	return o.Attributes, true
+}
+
+// HasAttributes returns a boolean if a field has been set.
+func (o *ApiDomainMetadataResponse) HasAttributes() bool {
+	if o != nil && !IsNil(o.Attributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributes gets a reference to the given []ApiDomainMetadataAttribute and assigns it to the Attributes field.
+func (o *ApiDomainMetadataResponse) SetAttributes(v []ApiDomainMetadataAttribute) {
+	o.Attributes = v
 }
 
 // GetAvatar returns the Avatar field value if set, zero value otherwise.
@@ -77,6 +144,38 @@ func (o *ApiDomainMetadataResponse) HasAvatar() bool {
 // SetAvatar gets a reference to the given string and assigns it to the Avatar field.
 func (o *ApiDomainMetadataResponse) SetAvatar(v string) {
 	o.Avatar = &v
+}
+
+// GetBackgroundColor returns the BackgroundColor field value if set, zero value otherwise.
+func (o *ApiDomainMetadataResponse) GetBackgroundColor() string {
+	if o == nil || IsNil(o.BackgroundColor) {
+		var ret string
+		return ret
+	}
+	return *o.BackgroundColor
+}
+
+// GetBackgroundColorOk returns a tuple with the BackgroundColor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiDomainMetadataResponse) GetBackgroundColorOk() (*string, bool) {
+	if o == nil || IsNil(o.BackgroundColor) {
+		return nil, false
+	}
+	return o.BackgroundColor, true
+}
+
+// HasBackgroundColor returns a boolean if a field has been set.
+func (o *ApiDomainMetadataResponse) HasBackgroundColor() bool {
+	if o != nil && !IsNil(o.BackgroundColor) {
+		return true
+	}
+
+	return false
+}
+
+// SetBackgroundColor gets a reference to the given string and assigns it to the BackgroundColor field.
+func (o *ApiDomainMetadataResponse) SetBackgroundColor(v string) {
+	o.BackgroundColor = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -313,8 +412,17 @@ func (o ApiDomainMetadataResponse) MarshalJSON() ([]byte, error) {
 
 func (o ApiDomainMetadataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AnimationUrl) {
+		toSerialize["animation_url"] = o.AnimationUrl
+	}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
 	if !IsNil(o.Avatar) {
 		toSerialize["avatar"] = o.Avatar
+	}
+	if !IsNil(o.BackgroundColor) {
+		toSerialize["background_color"] = o.BackgroundColor
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description

@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.17
+  version: v0.1.18
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -2850,20 +2850,48 @@ components:
           example: 192.168.0.1
           type: string
       type: object
+    api.DomainMetadataAttribute:
+      example:
+        value: "{}"
+        trait_type: trait_type
+      properties:
+        trait_type:
+          type: string
+        value:
+          description: This can be string or int
+          type: object
+      type: object
     api.DomainMetadataResponse:
       example:
         image: https://api.superlink.me/card-image/jon.johnson.svg
+        animation_url: https://superlink.me/animation?name=jon.johnson
         external_url: https://superlink.me/animation?name=jon.johnson
+        background_color: FFFFFF
         namehash: 0x3538e2ebd840880e82448521324fc0c308fc6cd576a65a532a51c8d60c32b58a
         tokenId: "24073090563576551262032245933984978621011965102670616730489196997318148273546"
         image_url: https://api.superlink.me/card-image/jon.johnson.svg
         name: jon.johnson
         description: A blockchain domain. Use it to resolve your cryptocurrency addresses
           and decentralized websites.
+        attributes:
+        - value: "{}"
+          trait_type: trait_type
+        - value: "{}"
+          trait_type: trait_type
         avatar: https://assets.superlink.me/avatar/b94c22d4-02b4-464e-aead-3f6cafceb1db
       properties:
+        animation_url:
+          example: https://superlink.me/animation?name=jon.johnson
+          type: string
+        attributes:
+          items:
+            $ref: '#/components/schemas/api.DomainMetadataAttribute'
+          type: array
         avatar:
           example: https://assets.superlink.me/avatar/b94c22d4-02b4-464e-aead-3f6cafceb1db
+          type: string
+        background_color:
+          example: FFFFFF
           type: string
         description:
           example: A blockchain domain. Use it to resolve your cryptocurrency addresses
@@ -3018,7 +3046,7 @@ components:
       - AccessTokenTypeCustomer
   securitySchemes:
     BearerAuth:
-      description: Type "Bearer" followed by a space and the JWT token.
+      description: Type "Bearer" followed by a space and the JWT token
       in: header
       name: Authorization
       type: apiKey

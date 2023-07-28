@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AnimationUrl** | Pointer to **string** |  | [optional] 
+**Attributes** | Pointer to [**[]ApiDomainMetadataAttribute**](ApiDomainMetadataAttribute.md) |  | [optional] 
 **Avatar** | Pointer to **string** |  | [optional] 
+**BackgroundColor** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **ExternalUrl** | Pointer to **string** |  | [optional] 
 **Image** | Pointer to **string** |  | [optional] 
@@ -32,6 +35,56 @@ NewApiDomainMetadataResponseWithDefaults instantiates a new ApiDomainMetadataRes
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetAnimationUrl
+
+`func (o *ApiDomainMetadataResponse) GetAnimationUrl() string`
+
+GetAnimationUrl returns the AnimationUrl field if non-nil, zero value otherwise.
+
+### GetAnimationUrlOk
+
+`func (o *ApiDomainMetadataResponse) GetAnimationUrlOk() (*string, bool)`
+
+GetAnimationUrlOk returns a tuple with the AnimationUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnimationUrl
+
+`func (o *ApiDomainMetadataResponse) SetAnimationUrl(v string)`
+
+SetAnimationUrl sets AnimationUrl field to given value.
+
+### HasAnimationUrl
+
+`func (o *ApiDomainMetadataResponse) HasAnimationUrl() bool`
+
+HasAnimationUrl returns a boolean if a field has been set.
+
+### GetAttributes
+
+`func (o *ApiDomainMetadataResponse) GetAttributes() []ApiDomainMetadataAttribute`
+
+GetAttributes returns the Attributes field if non-nil, zero value otherwise.
+
+### GetAttributesOk
+
+`func (o *ApiDomainMetadataResponse) GetAttributesOk() (*[]ApiDomainMetadataAttribute, bool)`
+
+GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttributes
+
+`func (o *ApiDomainMetadataResponse) SetAttributes(v []ApiDomainMetadataAttribute)`
+
+SetAttributes sets Attributes field to given value.
+
+### HasAttributes
+
+`func (o *ApiDomainMetadataResponse) HasAttributes() bool`
+
+HasAttributes returns a boolean if a field has been set.
+
 ### GetAvatar
 
 `func (o *ApiDomainMetadataResponse) GetAvatar() string`
@@ -56,6 +109,31 @@ SetAvatar sets Avatar field to given value.
 `func (o *ApiDomainMetadataResponse) HasAvatar() bool`
 
 HasAvatar returns a boolean if a field has been set.
+
+### GetBackgroundColor
+
+`func (o *ApiDomainMetadataResponse) GetBackgroundColor() string`
+
+GetBackgroundColor returns the BackgroundColor field if non-nil, zero value otherwise.
+
+### GetBackgroundColorOk
+
+`func (o *ApiDomainMetadataResponse) GetBackgroundColorOk() (*string, bool)`
+
+GetBackgroundColorOk returns a tuple with the BackgroundColor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBackgroundColor
+
+`func (o *ApiDomainMetadataResponse) SetBackgroundColor(v string)`
+
+SetBackgroundColor sets BackgroundColor field to given value.
+
+### HasBackgroundColor
+
+`func (o *ApiDomainMetadataResponse) HasBackgroundColor() bool`
+
+HasBackgroundColor returns a boolean if a field has been set.
 
 ### GetDescription
 
