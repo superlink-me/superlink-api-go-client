@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.19
+API version: v0.2.2
 Contact: support@superlink.me
 */
 
@@ -21,7 +21,6 @@ var _ MappedNullable = &ApiAccessTokenCreateRequest{}
 // ApiAccessTokenCreateRequest struct for ApiAccessTokenCreateRequest
 type ApiAccessTokenCreateRequest struct {
 	Label *string `json:"label,omitempty"`
-	Type *DataAccessTokenType `json:"type,omitempty"`
 	ValidFrom *string `json:"validFrom,omitempty"`
 	ValidTill *string `json:"validTill,omitempty"`
 }
@@ -73,38 +72,6 @@ func (o *ApiAccessTokenCreateRequest) HasLabel() bool {
 // SetLabel gets a reference to the given string and assigns it to the Label field.
 func (o *ApiAccessTokenCreateRequest) SetLabel(v string) {
 	o.Label = &v
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *ApiAccessTokenCreateRequest) GetType() DataAccessTokenType {
-	if o == nil || IsNil(o.Type) {
-		var ret DataAccessTokenType
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiAccessTokenCreateRequest) GetTypeOk() (*DataAccessTokenType, bool) {
-	if o == nil || IsNil(o.Type) {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *ApiAccessTokenCreateRequest) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given DataAccessTokenType and assigns it to the Type field.
-func (o *ApiAccessTokenCreateRequest) SetType(v DataAccessTokenType) {
-	o.Type = &v
 }
 
 // GetValidFrom returns the ValidFrom field value if set, zero value otherwise.
@@ -183,9 +150,6 @@ func (o ApiAccessTokenCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.ValidFrom) {
 		toSerialize["validFrom"] = o.ValidFrom

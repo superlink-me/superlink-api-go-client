@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Label** | Pointer to **string** |  | [optional] 
+**PartnerId** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **string** |  | [optional] 
 **ValidFrom** | Pointer to **string** |  | [optional] 
@@ -106,6 +107,31 @@ SetLabel sets Label field to given value.
 `func (o *ApiAccessTokenResponse) HasLabel() bool`
 
 HasLabel returns a boolean if a field has been set.
+
+### GetPartnerId
+
+`func (o *ApiAccessTokenResponse) GetPartnerId() string`
+
+GetPartnerId returns the PartnerId field if non-nil, zero value otherwise.
+
+### GetPartnerIdOk
+
+`func (o *ApiAccessTokenResponse) GetPartnerIdOk() (*string, bool)`
+
+GetPartnerIdOk returns a tuple with the PartnerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPartnerId
+
+`func (o *ApiAccessTokenResponse) SetPartnerId(v string)`
+
+SetPartnerId sets PartnerId field to given value.
+
+### HasPartnerId
+
+`func (o *ApiAccessTokenResponse) HasPartnerId() bool`
+
+HasPartnerId returns a boolean if a field has been set.
 
 ### GetType
 

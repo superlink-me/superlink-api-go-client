@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.19
+API version: v0.2.2
 Contact: support@superlink.me
 */
 
@@ -42,7 +42,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Superlink API vv0.1.19
+// APIClient manages communication with the Superlink API vv0.2.2
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -50,11 +50,15 @@ type APIClient struct {
 
 	// API Services
 
-	AccessTokenAPI *AccessTokenAPIService
+	AdminAPI *AdminAPIService
 
 	DefaultAPI *DefaultAPIService
 
+	MarketAPI *MarketAPIService
+
 	NftAPI *NftAPIService
+
+	PartnerAPI *PartnerAPIService
 
 	ResolutionAPI *ResolutionAPIService
 }
@@ -75,9 +79,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AccessTokenAPI = (*AccessTokenAPIService)(&c.common)
+	c.AdminAPI = (*AdminAPIService)(&c.common)
 	c.DefaultAPI = (*DefaultAPIService)(&c.common)
+	c.MarketAPI = (*MarketAPIService)(&c.common)
 	c.NftAPI = (*NftAPIService)(&c.common)
+	c.PartnerAPI = (*PartnerAPIService)(&c.common)
 	c.ResolutionAPI = (*ResolutionAPIService)(&c.common)
 
 	return c
@@ -446,6 +452,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 			return
 		}
 		_, err = f.Seek(0, io.SeekStart)
+		err = os.Remove(f.Name())
 		return
 	}
 	if f, ok := v.(**os.File); ok {
@@ -458,6 +465,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 			return
 		}
 		_, err = (*f).Seek(0, io.SeekStart)
+		err = os.Remove((*f).Name())
 		return
 	}
 	if xmlCheck.MatchString(contentType) {

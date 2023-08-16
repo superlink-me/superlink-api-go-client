@@ -21,60 +21,66 @@ import (
 )
 
 
-// NftAPIService NftAPI service
-type NftAPIService service
+// MarketAPIService MarketAPI service
+type MarketAPIService service
 
-type ApiGetTokenImageByDomainRequest struct {
+type ApiMarketPurchaseRequest struct {
 	ctx context.Context
-	ApiService *NftAPIService
-	domain string
+	ApiService *MarketAPIService
+	request *ApiPurchaseRequest
 }
 
-func (r ApiGetTokenImageByDomainRequest) Execute() (string, *http.Response, error) {
-	return r.ApiService.GetTokenImageByDomainExecute(r)
+// purchase request
+func (r ApiMarketPurchaseRequest) Request(request ApiPurchaseRequest) ApiMarketPurchaseRequest {
+	r.request = &request
+	return r
+}
+
+func (r ApiMarketPurchaseRequest) Execute() (*ApiMarketPurchaseResponse, *http.Response, error) {
+	return r.ApiService.MarketPurchaseExecute(r)
 }
 
 /*
-GetTokenImageByDomain Returns a SVG image for a Superlink NFT
+MarketPurchase Purchase returns the payment details required by Stripe
 
-returns the image for a "domain" nft
+Purchase returns the payment details required by Stripe
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param domain firstname.lastname
- @return ApiGetTokenImageByDomainRequest
+ @return ApiMarketPurchaseRequest
 */
-func (a *NftAPIService) GetTokenImageByDomain(ctx context.Context, domain string) ApiGetTokenImageByDomainRequest {
-	return ApiGetTokenImageByDomainRequest{
+func (a *MarketAPIService) MarketPurchase(ctx context.Context) ApiMarketPurchaseRequest {
+	return ApiMarketPurchaseRequest{
 		ApiService: a,
 		ctx: ctx,
-		domain: domain,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *NftAPIService) GetTokenImageByDomainExecute(r ApiGetTokenImageByDomainRequest) (string, *http.Response, error) {
+//  @return ApiMarketPurchaseResponse
+func (a *MarketAPIService) MarketPurchaseExecute(r ApiMarketPurchaseRequest) (*ApiMarketPurchaseResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  string
+		localVarReturnValue  *ApiMarketPurchaseResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NftAPIService.GetTokenImageByDomain")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.MarketPurchase")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/card-image/{domain}.svg"
-	localVarPath = strings.Replace(localVarPath, "{"+"domain"+"}", url.PathEscape(parameterValueToString(r.domain, "domain")), -1)
+	localVarPath := localBasePath + "/v1/market/purchase"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.request == nil {
+		return localVarReturnValue, nil, reportError("request is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -83,12 +89,28 @@ func (a *NftAPIService) GetTokenImageByDomainExecute(r ApiGetTokenImageByDomainR
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"image/svg+xml"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.request
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["BearerAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -111,17 +133,6 @@ func (a *NftAPIService) GetTokenImageByDomainExecute(r ApiGetTokenImageByDomainR
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiInternalServerErrorResponse
@@ -148,50 +159,50 @@ func (a *NftAPIService) GetTokenImageByDomainExecute(r ApiGetTokenImageByDomainR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetTokenMetadataByDomainRequest struct {
+type ApiMarketSearchRequest struct {
 	ctx context.Context
-	ApiService *NftAPIService
-	domain string
+	ApiService *MarketAPIService
+	query string
 }
 
-func (r ApiGetTokenMetadataByDomainRequest) Execute() (*ApiDomainMetadataResponse, *http.Response, error) {
-	return r.ApiService.GetTokenMetadataByDomainExecute(r)
+func (r ApiMarketSearchRequest) Execute() (*ApiMarketSearchResponse, *http.Response, error) {
+	return r.ApiService.MarketSearchExecute(r)
 }
 
 /*
-GetTokenMetadataByDomain Returns metadata usually associated with NFTs uri
+MarketSearch Returns market listings
 
-returns the metadata for a "domain" nft
+Returns market listings
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param domain firstname.lastname
- @return ApiGetTokenMetadataByDomainRequest
+ @param query johndoe
+ @return ApiMarketSearchRequest
 */
-func (a *NftAPIService) GetTokenMetadataByDomain(ctx context.Context, domain string) ApiGetTokenMetadataByDomainRequest {
-	return ApiGetTokenMetadataByDomainRequest{
+func (a *MarketAPIService) MarketSearch(ctx context.Context, query string) ApiMarketSearchRequest {
+	return ApiMarketSearchRequest{
 		ApiService: a,
 		ctx: ctx,
-		domain: domain,
+		query: query,
 	}
 }
 
 // Execute executes the request
-//  @return ApiDomainMetadataResponse
-func (a *NftAPIService) GetTokenMetadataByDomainExecute(r ApiGetTokenMetadataByDomainRequest) (*ApiDomainMetadataResponse, *http.Response, error) {
+//  @return ApiMarketSearchResponse
+func (a *MarketAPIService) MarketSearchExecute(r ApiMarketSearchRequest) (*ApiMarketSearchResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ApiDomainMetadataResponse
+		localVarReturnValue  *ApiMarketSearchResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NftAPIService.GetTokenMetadataByDomain")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketAPIService.MarketSearch")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/metadata/{domain}"
-	localVarPath = strings.Replace(localVarPath, "{"+"domain"+"}", url.PathEscape(parameterValueToString(r.domain, "domain")), -1)
+	localVarPath := localBasePath + "/v1/market/search/{query}"
+	localVarPath = strings.Replace(localVarPath, "{"+"query"+"}", url.PathEscape(parameterValueToString(r.query, "query")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -214,6 +225,20 @@ func (a *NftAPIService) GetTokenMetadataByDomainExecute(r ApiGetTokenMetadataByD
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["BearerAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -235,17 +260,6 @@ func (a *NftAPIService) GetTokenMetadataByDomainExecute(r ApiGetTokenMetadataByD
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiInternalServerErrorResponse

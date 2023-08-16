@@ -9,14 +9,14 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.1.19
+  version: v0.2.2
 servers:
 - url: https://api.superlink.me/
 paths:
-  /v1/access-token:
+  /v1/admin/access-token:
     delete:
       description: Deletes an access token
-      operationId: delete-access-token
+      operationId: admin-delete-access-token
       requestBody:
         content:
           '*/*':
@@ -50,11 +50,11 @@ paths:
       - BearerAuth: []
       summary: Deletes an access token
       tags:
-      - access-token
+      - admin
       x-codegen-request-body-name: request
     get:
       description: Lists access tokens
-      operationId: list-access-tokens
+      operationId: admin-list-access-tokens
       responses:
         "200":
           content:
@@ -72,15 +72,15 @@ paths:
       - BearerAuth: []
       summary: Lists access tokens
       tags:
-      - access-token
+      - admin
     post:
       description: Creates an admin token
-      operationId: create-access-token
+      operationId: admin-create-access-token
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/api.AccessTokenCreateRequest'
+              $ref: '#/components/schemas/api.AdminAccessTokenCreateRequest'
         description: access token create request
         required: true
       responses:
@@ -106,7 +106,135 @@ paths:
       - BearerAuth: []
       summary: Creates an admin token
       tags:
-      - access-token
+      - admin
+      x-codegen-request-body-name: request
+  /v1/admin/partner:
+    get:
+      description: Lists partners
+      operationId: admin-list-partners
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.PartnerResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Lists partners
+      tags:
+      - admin
+    post:
+      description: Creates a partner
+      operationId: admin-partner-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.AdminPartnerCreateRequest'
+        description: partner create request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.PartnerResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Creates a partner
+      tags:
+      - admin
+      x-codegen-request-body-name: request
+  /v1/admin/reverse:
+    delete:
+      description: Removes a reverse resolution address from a domain
+      operationId: remove-reverse-resolution-address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.ReverseResolutionDeleteRequest'
+        description: reverse address delete request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Removes a reverse resolution address from a domain
+      tags:
+      - admin
+      x-codegen-request-body-name: request
+    post:
+      description: Assigns an address to a domain for reverse resolution
+      operationId: set-reverse-resolution-address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.SetReverseAddressRequest'
+        description: set reverse address request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Conflict
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Assigns an address to a domain for reverse resolution
+      tags:
+      - admin
       x-codegen-request-body-name: request
   /v1/card-image/{domain}.svg:
     get:
@@ -153,6 +281,65 @@ paths:
           content: {}
           description: Internal Server Error
       summary: Checks the health of the API
+  /v1/market/purchase:
+    post:
+      description: Purchase returns the payment details required by Stripe
+      operationId: market-purchase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.PurchaseRequest'
+        description: purchase request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketPurchaseResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Purchase returns the payment details required by Stripe
+      tags:
+      - market
+      x-codegen-request-body-name: request
+  /v1/market/search/{query}:
+    get:
+      description: Returns market listings
+      operationId: market-search
+      parameters:
+      - description: johndoe
+        in: path
+        name: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketSearchResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns market listings
+      tags:
+      - market
   /v1/metadata/{domain}:
     get:
       description: returns the metadata for a "domain" nft
@@ -186,6 +373,123 @@ paths:
       summary: Returns metadata usually associated with NFTs uri
       tags:
       - nft
+  /v1/partner/access-token:
+    delete:
+      description: Deletes an access token
+      operationId: delete-access-token
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/api.AccessTokenDeleteRequest'
+        description: access token delete request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Deletes an access token
+      tags:
+      - partner
+      x-codegen-request-body-name: request
+    get:
+      description: Lists access tokens for a partner
+      operationId: list-access-tokens
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.AccessTokenResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Lists access tokens for a partner
+      tags:
+      - partner
+    post:
+      description: Creates an admin token for a partner
+      operationId: create-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.AccessTokenCreateRequest'
+        description: access token create request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.AccessTokenResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Creates an admin token for a partner
+      tags:
+      - partner
+      x-codegen-request-body-name: request
+  /v1/partner/purchases:
+    get:
+      description: Returns a list of all purchases
+      operationId: partner-purchases
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.PurchaseListResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns a list of all purchases
+      tags:
+      - partner
   /v1/resolve/{domain}:
     get:
       description: resolve domain data by domain
@@ -1043,77 +1347,6 @@ paths:
       summary: Resolves wallets and DNS records for a domain
       tags:
       - resolution
-  /v1/reverse:
-    delete:
-      description: Assigns a reverse resolution address from a domain
-      operationId: remove-reverse-resolution-address
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/api.ReverseResolutionDeleteRequest'
-        description: reverse address delete request
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No Content
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api.BadRequestResponse'
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api.InternalServerErrorResponse'
-          description: Internal Server Error
-      security:
-      - BearerAuth: []
-      summary: Assigns a reverse resolution address from a domain
-      tags:
-      - resolution
-      x-codegen-request-body-name: request
-    post:
-      description: Assigns an address to a domain for reverse resolution
-      operationId: set-reverse-resolution-address
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/api.SetReverseAddressRequest'
-        description: set reverse address request
-        required: true
-      responses:
-        "204":
-          content: {}
-          description: No Content
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api.BadRequestResponse'
-          description: Bad Request
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api.BadRequestResponse'
-          description: Conflict
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/api.InternalServerErrorResponse'
-          description: Internal Server Error
-      security:
-      - BearerAuth: []
-      summary: Assigns an address to a domain for reverse resolution
-      tags:
-      - resolution
-      x-codegen-request-body-name: request
   /v1/reverse/{address}:
     get:
       description: resolve domain data by address
@@ -1165,11 +1398,6 @@ components:
         label:
           example: company-xyz
           type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/data.AccessTokenType'
-          example: CUSTOMER
-          type: object
         validFrom:
           example: 2023-06-08T00:00:00Z
           type: string
@@ -1189,6 +1417,7 @@ components:
         validTill: 2023-06-15T23:59:59Z
         id: 248b8553-effa-4d99-a906-041a54f7df87
         label: company-xyz
+        partnerId: 328b8553-effa-4d99-a906-041a54f7df87
         validFrom: 2023-06-08T00:00:00Z
         type: ADMIN
         value: <JWT>
@@ -1202,6 +1431,9 @@ components:
           type: string
         label:
           example: company-xyz
+          type: string
+        partnerId:
+          example: 328b8553-effa-4d99-a906-041a54f7df87
           type: string
         type:
           enum:
@@ -1219,6 +1451,32 @@ components:
           type: string
         value:
           example: <JWT>
+          type: string
+      type: object
+    api.AdminAccessTokenCreateRequest:
+      properties:
+        label:
+          example: company-xyz
+          type: string
+        partnerId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/data.AccessTokenType'
+          example: CUSTOMER
+          type: object
+        validFrom:
+          example: 2023-06-08T00:00:00Z
+          type: string
+        validTill:
+          example: 2023-06-15T23:59:59Z
+          type: string
+      type: object
+    api.AdminPartnerCreateRequest:
+      properties:
+        name:
+          example: company-xyz
           type: string
       type: object
     api.BadRequestResponse:
@@ -2931,6 +3189,63 @@ components:
           example: Internal server error
           type: string
       type: object
+    api.MarketListing:
+      example:
+        nameService: superlink
+        price: 59.99
+        domain: firstname.lastname
+        currency: USD
+      properties:
+        currency:
+          example: USD
+          type: string
+        domain:
+          example: firstname.lastname
+          type: string
+        nameService:
+          example: superlink
+          type: string
+        price:
+          example: 59.99
+          type: number
+      type: object
+    api.MarketPurchaseResponse:
+      example:
+        stripePaymentIntent: pi_1234567890abcdef1234567890abcdef
+        stripeEphemeralKey: ek_test_1234567890abcdef1234567890abcdef
+        stripePublishableKey: pk_test_1234567890abcdef1234567890abcdef
+        stripeCustomerId: cus_1234567890abcdef1234567890abcdef
+      properties:
+        stripeCustomerId:
+          example: cus_1234567890abcdef1234567890abcdef
+          type: string
+        stripeEphemeralKey:
+          example: ek_test_1234567890abcdef1234567890abcdef
+          type: string
+        stripePaymentIntent:
+          example: pi_1234567890abcdef1234567890abcdef
+          type: string
+        stripePublishableKey:
+          example: pk_test_1234567890abcdef1234567890abcdef
+          type: string
+      type: object
+    api.MarketSearchResponse:
+      example:
+        marketListings:
+        - nameService: superlink
+          price: 59.99
+          domain: firstname.lastname
+          currency: USD
+        - nameService: superlink
+          price: 59.99
+          domain: firstname.lastname
+          currency: USD
+      properties:
+        marketListings:
+          items:
+            $ref: '#/components/schemas/api.MarketListing'
+          type: array
+      type: object
     api.NameService:
       enum:
       - ud
@@ -2941,6 +3256,93 @@ components:
       - UD
       - ENS
       - SUPERLINK
+    api.PartnerResponse:
+      example:
+        createdAt: 2023-06-08T10:30:00Z
+        name: company-xyz
+        id: 248b8553-effa-4d99-a906-041a54f7df87
+        updatedAt: 2023-06-08T15:45:00Z
+      properties:
+        createdAt:
+          example: 2023-06-08T10:30:00Z
+          type: string
+        id:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+        name:
+          example: company-xyz
+          type: string
+        updatedAt:
+          example: 2023-06-08T15:45:00Z
+          type: string
+      type: object
+    api.PurchaseListResponse:
+      example:
+        purchases:
+        - nameService: superlink
+          price: 59.99
+          domain: firstname.lastname
+          currency: USD
+          ownerAddress: 0x1234567890abcdef1234567890abcdef12345678
+          partnerId: 1234567890abcdef1234567890abcdef12345678
+        - nameService: superlink
+          price: 59.99
+          domain: firstname.lastname
+          currency: USD
+          ownerAddress: 0x1234567890abcdef1234567890abcdef12345678
+          partnerId: 1234567890abcdef1234567890abcdef12345678
+      properties:
+        purchases:
+          items:
+            $ref: '#/components/schemas/api.PurchaseResponse'
+          type: array
+      type: object
+    api.PurchaseRequest:
+      properties:
+        customerEmailAddress:
+          example: example@gmail.com
+          type: string
+        customerName:
+          example: John Doe
+          type: string
+        domain:
+          example: firstname.lastname
+          type: string
+        ownerAddress:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        stripeConnectedAccountId:
+          example: acct_1J1Z2X2Y2Z2X2Y2Z
+          type: string
+      type: object
+    api.PurchaseResponse:
+      example:
+        nameService: superlink
+        price: 59.99
+        domain: firstname.lastname
+        currency: USD
+        ownerAddress: 0x1234567890abcdef1234567890abcdef12345678
+        partnerId: 1234567890abcdef1234567890abcdef12345678
+      properties:
+        currency:
+          example: USD
+          type: string
+        domain:
+          example: firstname.lastname
+          type: string
+        nameService:
+          example: superlink
+          type: string
+        ownerAddress:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        partnerId:
+          example: 1234567890abcdef1234567890abcdef12345678
+          type: string
+        price:
+          example: 59.99
+          type: number
+      type: object
     api.ResolveDomainResponse:
       example:
         txtRecords:
@@ -3046,7 +3448,7 @@ components:
       - AccessTokenTypeCustomer
   securitySchemes:
     BearerAuth:
-      description: Type "Bearer" followed by a space and the JWT token
+      description: Type "Bearer" followed by a space and the JWT token.
       in: header
       name: Authorization
       type: apiKey

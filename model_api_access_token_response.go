@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.1.19
+API version: v0.2.2
 Contact: support@superlink.me
 */
 
@@ -23,6 +23,7 @@ type ApiAccessTokenResponse struct {
 	CreatedAt *string `json:"createdAt,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Label *string `json:"label,omitempty"`
+	PartnerId *string `json:"partnerId,omitempty"`
 	Type *string `json:"type,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 	ValidFrom *string `json:"validFrom,omitempty"`
@@ -141,6 +142,38 @@ func (o *ApiAccessTokenResponse) HasLabel() bool {
 // SetLabel gets a reference to the given string and assigns it to the Label field.
 func (o *ApiAccessTokenResponse) SetLabel(v string) {
 	o.Label = &v
+}
+
+// GetPartnerId returns the PartnerId field value if set, zero value otherwise.
+func (o *ApiAccessTokenResponse) GetPartnerId() string {
+	if o == nil || IsNil(o.PartnerId) {
+		var ret string
+		return ret
+	}
+	return *o.PartnerId
+}
+
+// GetPartnerIdOk returns a tuple with the PartnerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiAccessTokenResponse) GetPartnerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PartnerId) {
+		return nil, false
+	}
+	return o.PartnerId, true
+}
+
+// HasPartnerId returns a boolean if a field has been set.
+func (o *ApiAccessTokenResponse) HasPartnerId() bool {
+	if o != nil && !IsNil(o.PartnerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPartnerId gets a reference to the given string and assigns it to the PartnerId field.
+func (o *ApiAccessTokenResponse) SetPartnerId(v string) {
+	o.PartnerId = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -321,6 +354,9 @@ func (o ApiAccessTokenResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
+	}
+	if !IsNil(o.PartnerId) {
+		toSerialize["partnerId"] = o.PartnerId
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type

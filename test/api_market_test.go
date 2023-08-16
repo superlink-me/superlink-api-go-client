@@ -1,7 +1,7 @@
 /*
 Superlink
 
-Testing ResolutionAPIService
+Testing MarketAPIService
 
 */
 
@@ -17,18 +17,16 @@ import (
 	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
-func Test_superlink_ResolutionAPIService(t *testing.T) {
+func Test_superlink_MarketAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ResolutionAPIService ResolveDataByAddress", func(t *testing.T) {
+	t.Run("Test MarketAPIService MarketPurchase", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var address string
-
-		resp, httpRes, err := apiClient.ResolutionAPI.ResolveDataByAddress(context.Background(), address).Execute()
+		resp, httpRes, err := apiClient.MarketAPI.MarketPurchase(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -36,13 +34,13 @@ func Test_superlink_ResolutionAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ResolutionAPIService ResolveDataByDomain", func(t *testing.T) {
+	t.Run("Test MarketAPIService MarketSearch", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var domain string
+		var query string
 
-		resp, httpRes, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Execute()
+		resp, httpRes, err := apiClient.MarketAPI.MarketSearch(context.Background(), query).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
