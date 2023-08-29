@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CustomerEmailAddress** | Pointer to **string** |  | [optional] 
-**CustomerName** | Pointer to **string** |  | [optional] 
+**CheckoutId** | Pointer to **string** |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
+**ExternalUserId** | Pointer to **string** |  | [optional] 
 **OwnerAddress** | Pointer to **string** |  | [optional] 
 **StripeConnectedAccountId** | Pointer to **string** |  | [optional] 
 
@@ -29,55 +29,30 @@ NewApiPurchaseRequestWithDefaults instantiates a new ApiPurchaseRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetCustomerEmailAddress
+### GetCheckoutId
 
-`func (o *ApiPurchaseRequest) GetCustomerEmailAddress() string`
+`func (o *ApiPurchaseRequest) GetCheckoutId() string`
 
-GetCustomerEmailAddress returns the CustomerEmailAddress field if non-nil, zero value otherwise.
+GetCheckoutId returns the CheckoutId field if non-nil, zero value otherwise.
 
-### GetCustomerEmailAddressOk
+### GetCheckoutIdOk
 
-`func (o *ApiPurchaseRequest) GetCustomerEmailAddressOk() (*string, bool)`
+`func (o *ApiPurchaseRequest) GetCheckoutIdOk() (*string, bool)`
 
-GetCustomerEmailAddressOk returns a tuple with the CustomerEmailAddress field if it's non-nil, zero value otherwise
+GetCheckoutIdOk returns a tuple with the CheckoutId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCustomerEmailAddress
+### SetCheckoutId
 
-`func (o *ApiPurchaseRequest) SetCustomerEmailAddress(v string)`
+`func (o *ApiPurchaseRequest) SetCheckoutId(v string)`
 
-SetCustomerEmailAddress sets CustomerEmailAddress field to given value.
+SetCheckoutId sets CheckoutId field to given value.
 
-### HasCustomerEmailAddress
+### HasCheckoutId
 
-`func (o *ApiPurchaseRequest) HasCustomerEmailAddress() bool`
+`func (o *ApiPurchaseRequest) HasCheckoutId() bool`
 
-HasCustomerEmailAddress returns a boolean if a field has been set.
-
-### GetCustomerName
-
-`func (o *ApiPurchaseRequest) GetCustomerName() string`
-
-GetCustomerName returns the CustomerName field if non-nil, zero value otherwise.
-
-### GetCustomerNameOk
-
-`func (o *ApiPurchaseRequest) GetCustomerNameOk() (*string, bool)`
-
-GetCustomerNameOk returns a tuple with the CustomerName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCustomerName
-
-`func (o *ApiPurchaseRequest) SetCustomerName(v string)`
-
-SetCustomerName sets CustomerName field to given value.
-
-### HasCustomerName
-
-`func (o *ApiPurchaseRequest) HasCustomerName() bool`
-
-HasCustomerName returns a boolean if a field has been set.
+HasCheckoutId returns a boolean if a field has been set.
 
 ### GetDomain
 
@@ -103,6 +78,31 @@ SetDomain sets Domain field to given value.
 `func (o *ApiPurchaseRequest) HasDomain() bool`
 
 HasDomain returns a boolean if a field has been set.
+
+### GetExternalUserId
+
+`func (o *ApiPurchaseRequest) GetExternalUserId() string`
+
+GetExternalUserId returns the ExternalUserId field if non-nil, zero value otherwise.
+
+### GetExternalUserIdOk
+
+`func (o *ApiPurchaseRequest) GetExternalUserIdOk() (*string, bool)`
+
+GetExternalUserIdOk returns a tuple with the ExternalUserId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalUserId
+
+`func (o *ApiPurchaseRequest) SetExternalUserId(v string)`
+
+SetExternalUserId sets ExternalUserId field to given value.
+
+### HasExternalUserId
+
+`func (o *ApiPurchaseRequest) HasExternalUserId() bool`
+
+HasExternalUserId returns a boolean if a field has been set.
 
 ### GetOwnerAddress
 

@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.2.2
+API version: v0.3.0
 Contact: support@superlink.me
 */
 
@@ -20,6 +20,7 @@ var _ MappedNullable = &ApiMarketPurchaseResponse{}
 
 // ApiMarketPurchaseResponse struct for ApiMarketPurchaseResponse
 type ApiMarketPurchaseResponse struct {
+	CheckoutId *string `json:"checkoutId,omitempty"`
 	StripeCustomerId *string `json:"stripeCustomerId,omitempty"`
 	StripeEphemeralKey *string `json:"stripeEphemeralKey,omitempty"`
 	StripePaymentIntent *string `json:"stripePaymentIntent,omitempty"`
@@ -41,6 +42,38 @@ func NewApiMarketPurchaseResponse() *ApiMarketPurchaseResponse {
 func NewApiMarketPurchaseResponseWithDefaults() *ApiMarketPurchaseResponse {
 	this := ApiMarketPurchaseResponse{}
 	return &this
+}
+
+// GetCheckoutId returns the CheckoutId field value if set, zero value otherwise.
+func (o *ApiMarketPurchaseResponse) GetCheckoutId() string {
+	if o == nil || IsNil(o.CheckoutId) {
+		var ret string
+		return ret
+	}
+	return *o.CheckoutId
+}
+
+// GetCheckoutIdOk returns a tuple with the CheckoutId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiMarketPurchaseResponse) GetCheckoutIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CheckoutId) {
+		return nil, false
+	}
+	return o.CheckoutId, true
+}
+
+// HasCheckoutId returns a boolean if a field has been set.
+func (o *ApiMarketPurchaseResponse) HasCheckoutId() bool {
+	if o != nil && !IsNil(o.CheckoutId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckoutId gets a reference to the given string and assigns it to the CheckoutId field.
+func (o *ApiMarketPurchaseResponse) SetCheckoutId(v string) {
+	o.CheckoutId = &v
 }
 
 // GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
@@ -181,6 +214,9 @@ func (o ApiMarketPurchaseResponse) MarshalJSON() ([]byte, error) {
 
 func (o ApiMarketPurchaseResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CheckoutId) {
+		toSerialize["checkoutId"] = o.CheckoutId
+	}
 	if !IsNil(o.StripeCustomerId) {
 		toSerialize["stripeCustomerId"] = o.StripeCustomerId
 	}

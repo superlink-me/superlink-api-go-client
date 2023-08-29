@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.2.2
+API version: v0.3.0
 Contact: support@superlink.me
 */
 
@@ -20,9 +20,9 @@ var _ MappedNullable = &ApiPurchaseRequest{}
 
 // ApiPurchaseRequest struct for ApiPurchaseRequest
 type ApiPurchaseRequest struct {
-	CustomerEmailAddress *string `json:"customerEmailAddress,omitempty"`
-	CustomerName *string `json:"customerName,omitempty"`
+	CheckoutId *string `json:"checkoutId,omitempty"`
 	Domain *string `json:"domain,omitempty"`
+	ExternalUserId *string `json:"externalUserId,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
 	StripeConnectedAccountId *string `json:"stripeConnectedAccountId,omitempty"`
 }
@@ -44,68 +44,36 @@ func NewApiPurchaseRequestWithDefaults() *ApiPurchaseRequest {
 	return &this
 }
 
-// GetCustomerEmailAddress returns the CustomerEmailAddress field value if set, zero value otherwise.
-func (o *ApiPurchaseRequest) GetCustomerEmailAddress() string {
-	if o == nil || IsNil(o.CustomerEmailAddress) {
+// GetCheckoutId returns the CheckoutId field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetCheckoutId() string {
+	if o == nil || IsNil(o.CheckoutId) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerEmailAddress
+	return *o.CheckoutId
 }
 
-// GetCustomerEmailAddressOk returns a tuple with the CustomerEmailAddress field value if set, nil otherwise
+// GetCheckoutIdOk returns a tuple with the CheckoutId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiPurchaseRequest) GetCustomerEmailAddressOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerEmailAddress) {
+func (o *ApiPurchaseRequest) GetCheckoutIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CheckoutId) {
 		return nil, false
 	}
-	return o.CustomerEmailAddress, true
+	return o.CheckoutId, true
 }
 
-// HasCustomerEmailAddress returns a boolean if a field has been set.
-func (o *ApiPurchaseRequest) HasCustomerEmailAddress() bool {
-	if o != nil && !IsNil(o.CustomerEmailAddress) {
+// HasCheckoutId returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasCheckoutId() bool {
+	if o != nil && !IsNil(o.CheckoutId) {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerEmailAddress gets a reference to the given string and assigns it to the CustomerEmailAddress field.
-func (o *ApiPurchaseRequest) SetCustomerEmailAddress(v string) {
-	o.CustomerEmailAddress = &v
-}
-
-// GetCustomerName returns the CustomerName field value if set, zero value otherwise.
-func (o *ApiPurchaseRequest) GetCustomerName() string {
-	if o == nil || IsNil(o.CustomerName) {
-		var ret string
-		return ret
-	}
-	return *o.CustomerName
-}
-
-// GetCustomerNameOk returns a tuple with the CustomerName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiPurchaseRequest) GetCustomerNameOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerName) {
-		return nil, false
-	}
-	return o.CustomerName, true
-}
-
-// HasCustomerName returns a boolean if a field has been set.
-func (o *ApiPurchaseRequest) HasCustomerName() bool {
-	if o != nil && !IsNil(o.CustomerName) {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerName gets a reference to the given string and assigns it to the CustomerName field.
-func (o *ApiPurchaseRequest) SetCustomerName(v string) {
-	o.CustomerName = &v
+// SetCheckoutId gets a reference to the given string and assigns it to the CheckoutId field.
+func (o *ApiPurchaseRequest) SetCheckoutId(v string) {
+	o.CheckoutId = &v
 }
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
@@ -138,6 +106,38 @@ func (o *ApiPurchaseRequest) HasDomain() bool {
 // SetDomain gets a reference to the given string and assigns it to the Domain field.
 func (o *ApiPurchaseRequest) SetDomain(v string) {
 	o.Domain = &v
+}
+
+// GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetExternalUserId() string {
+	if o == nil || IsNil(o.ExternalUserId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalUserId
+}
+
+// GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiPurchaseRequest) GetExternalUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalUserId) {
+		return nil, false
+	}
+	return o.ExternalUserId, true
+}
+
+// HasExternalUserId returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasExternalUserId() bool {
+	if o != nil && !IsNil(o.ExternalUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalUserId gets a reference to the given string and assigns it to the ExternalUserId field.
+func (o *ApiPurchaseRequest) SetExternalUserId(v string) {
+	o.ExternalUserId = &v
 }
 
 // GetOwnerAddress returns the OwnerAddress field value if set, zero value otherwise.
@@ -214,14 +214,14 @@ func (o ApiPurchaseRequest) MarshalJSON() ([]byte, error) {
 
 func (o ApiPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CustomerEmailAddress) {
-		toSerialize["customerEmailAddress"] = o.CustomerEmailAddress
-	}
-	if !IsNil(o.CustomerName) {
-		toSerialize["customerName"] = o.CustomerName
+	if !IsNil(o.CheckoutId) {
+		toSerialize["checkoutId"] = o.CheckoutId
 	}
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
+	}
+	if !IsNil(o.ExternalUserId) {
+		toSerialize["externalUserId"] = o.ExternalUserId
 	}
 	if !IsNil(o.OwnerAddress) {
 		toSerialize["ownerAddress"] = o.OwnerAddress

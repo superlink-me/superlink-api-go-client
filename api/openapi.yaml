@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.2.2
+  version: v0.3.0
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -3214,8 +3214,12 @@ components:
         stripePaymentIntent: pi_1234567890abcdef1234567890abcdef
         stripeEphemeralKey: ek_test_1234567890abcdef1234567890abcdef
         stripePublishableKey: pk_test_1234567890abcdef1234567890abcdef
+        checkoutId: 92353d2b-c3f5-4b3b-b214-c34b490b7324
         stripeCustomerId: cus_1234567890abcdef1234567890abcdef
       properties:
+        checkoutId:
+          example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
+          type: string
         stripeCustomerId:
           example: cus_1234567890abcdef1234567890abcdef
           type: string
@@ -3299,14 +3303,14 @@ components:
       type: object
     api.PurchaseRequest:
       properties:
-        customerEmailAddress:
-          example: example@gmail.com
-          type: string
-        customerName:
-          example: John Doe
+        checkoutId:
+          example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
           type: string
         domain:
           example: firstname.lastname
+          type: string
+        externalUserId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
           type: string
         ownerAddress:
           example: 0x1234567890abcdef1234567890abcdef12345678

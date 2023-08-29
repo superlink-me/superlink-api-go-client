@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.2.2
+API version: v0.3.0
 Contact: support@superlink.me
 */
 
@@ -42,7 +42,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Superlink API vv0.2.2
+// APIClient manages communication with the Superlink API vv0.3.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
