@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.4
+API version: v0.3.5
 Contact: support@superlink.me
 */
 
@@ -293,6 +293,17 @@ func (a *ResolutionAPIService) ResolveDataByDomainExecute(r ApiResolveDataByDoma
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiErrorResponse
