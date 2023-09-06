@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.5
+API version: v0.3.7
 Contact: support@superlink.me
 */
 
@@ -23,7 +23,7 @@ type ApiMarketListing struct {
 	Currency *string `json:"currency,omitempty"`
 	Domain *string `json:"domain,omitempty"`
 	NameService *string `json:"nameService,omitempty"`
-	Price *float32 `json:"price,omitempty"`
+	Price *map[string]float32 `json:"price,omitempty"`
 }
 
 // NewApiMarketListing instantiates a new ApiMarketListing object
@@ -140,9 +140,9 @@ func (o *ApiMarketListing) SetNameService(v string) {
 }
 
 // GetPrice returns the Price field value if set, zero value otherwise.
-func (o *ApiMarketListing) GetPrice() float32 {
+func (o *ApiMarketListing) GetPrice() map[string]float32 {
 	if o == nil || IsNil(o.Price) {
-		var ret float32
+		var ret map[string]float32
 		return ret
 	}
 	return *o.Price
@@ -150,7 +150,7 @@ func (o *ApiMarketListing) GetPrice() float32 {
 
 // GetPriceOk returns a tuple with the Price field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiMarketListing) GetPriceOk() (*float32, bool) {
+func (o *ApiMarketListing) GetPriceOk() (*map[string]float32, bool) {
 	if o == nil || IsNil(o.Price) {
 		return nil, false
 	}
@@ -166,8 +166,8 @@ func (o *ApiMarketListing) HasPrice() bool {
 	return false
 }
 
-// SetPrice gets a reference to the given float32 and assigns it to the Price field.
-func (o *ApiMarketListing) SetPrice(v float32) {
+// SetPrice gets a reference to the given map[string]float32 and assigns it to the Price field.
+func (o *ApiMarketListing) SetPrice(v map[string]float32) {
 	o.Price = &v
 }
 

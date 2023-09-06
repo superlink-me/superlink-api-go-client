@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.5
+API version: v0.3.7
 Contact: support@superlink.me
 */
 
@@ -21,6 +21,7 @@ var _ MappedNullable = &ApiPurchaseRequest{}
 // ApiPurchaseRequest struct for ApiPurchaseRequest
 type ApiPurchaseRequest struct {
 	CheckoutId *string `json:"checkoutId,omitempty"`
+	Demo *bool `json:"demo,omitempty"`
 	Domain *string `json:"domain,omitempty"`
 	ExternalUserId *string `json:"externalUserId,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
@@ -74,6 +75,38 @@ func (o *ApiPurchaseRequest) HasCheckoutId() bool {
 // SetCheckoutId gets a reference to the given string and assigns it to the CheckoutId field.
 func (o *ApiPurchaseRequest) SetCheckoutId(v string) {
 	o.CheckoutId = &v
+}
+
+// GetDemo returns the Demo field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetDemo() bool {
+	if o == nil || IsNil(o.Demo) {
+		var ret bool
+		return ret
+	}
+	return *o.Demo
+}
+
+// GetDemoOk returns a tuple with the Demo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiPurchaseRequest) GetDemoOk() (*bool, bool) {
+	if o == nil || IsNil(o.Demo) {
+		return nil, false
+	}
+	return o.Demo, true
+}
+
+// HasDemo returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasDemo() bool {
+	if o != nil && !IsNil(o.Demo) {
+		return true
+	}
+
+	return false
+}
+
+// SetDemo gets a reference to the given bool and assigns it to the Demo field.
+func (o *ApiPurchaseRequest) SetDemo(v bool) {
+	o.Demo = &v
 }
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
@@ -216,6 +249,9 @@ func (o ApiPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CheckoutId) {
 		toSerialize["checkoutId"] = o.CheckoutId
+	}
+	if !IsNil(o.Demo) {
+		toSerialize["demo"] = o.Demo
 	}
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain

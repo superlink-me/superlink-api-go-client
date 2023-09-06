@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.3.5
+  version: v0.3.7
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -3198,7 +3198,8 @@ components:
     api.MarketListing:
       example:
         nameService: superlink
-        price: 59.99
+        price:
+          key: 0.8008281904610115
         domain: firstname.lastname
         currency: USD
       properties:
@@ -3212,8 +3213,9 @@ components:
           example: superlink
           type: string
         price:
-          example: 59.99
-          type: number
+          additionalProperties:
+            type: number
+          type: object
       type: object
     api.MarketPurchaseResponse:
       example:
@@ -3243,11 +3245,13 @@ components:
       example:
         marketListings:
         - nameService: superlink
-          price: 59.99
+          price:
+            key: 0.8008281904610115
           domain: firstname.lastname
           currency: USD
         - nameService: superlink
-          price: 59.99
+          price:
+            key: 0.8008281904610115
           domain: firstname.lastname
           currency: USD
       properties:
@@ -3312,6 +3316,9 @@ components:
         checkoutId:
           example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
           type: string
+        demo:
+          example: false
+          type: boolean
         domain:
           example: firstname.lastname
           type: string

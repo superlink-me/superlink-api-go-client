@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CheckoutId** | Pointer to **string** |  | [optional] 
+**Demo** | Pointer to **bool** |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
 **ExternalUserId** | Pointer to **string** |  | [optional] 
 **OwnerAddress** | Pointer to **string** |  | [optional] 
@@ -53,6 +54,31 @@ SetCheckoutId sets CheckoutId field to given value.
 `func (o *ApiPurchaseRequest) HasCheckoutId() bool`
 
 HasCheckoutId returns a boolean if a field has been set.
+
+### GetDemo
+
+`func (o *ApiPurchaseRequest) GetDemo() bool`
+
+GetDemo returns the Demo field if non-nil, zero value otherwise.
+
+### GetDemoOk
+
+`func (o *ApiPurchaseRequest) GetDemoOk() (*bool, bool)`
+
+GetDemoOk returns a tuple with the Demo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDemo
+
+`func (o *ApiPurchaseRequest) SetDemo(v bool)`
+
+SetDemo sets Demo field to given value.
+
+### HasDemo
+
+`func (o *ApiPurchaseRequest) HasDemo() bool`
+
+HasDemo returns a boolean if a field has been set.
 
 ### GetDomain
 

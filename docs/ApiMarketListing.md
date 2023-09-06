@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Currency** | Pointer to **string** |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
 **NameService** | Pointer to **string** |  | [optional] 
-**Price** | Pointer to **float32** |  | [optional] 
+**Price** | Pointer to **map[string]float32** |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasNameService returns a boolean if a field has been set.
 
 ### GetPrice
 
-`func (o *ApiMarketListing) GetPrice() float32`
+`func (o *ApiMarketListing) GetPrice() map[string]float32`
 
 GetPrice returns the Price field if non-nil, zero value otherwise.
 
 ### GetPriceOk
 
-`func (o *ApiMarketListing) GetPriceOk() (*float32, bool)`
+`func (o *ApiMarketListing) GetPriceOk() (*map[string]float32, bool)`
 
 GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrice
 
-`func (o *ApiMarketListing) SetPrice(v float32)`
+`func (o *ApiMarketListing) SetPrice(v map[string]float32)`
 
 SetPrice sets Price field to given value.
 
