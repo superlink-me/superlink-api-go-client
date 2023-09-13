@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.9
+API version: v0.3.11
 Contact: support@superlink.me
 */
 
@@ -26,6 +26,7 @@ type ApiPurchaseRequest struct {
 	ExternalUserId *string `json:"externalUserId,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
 	StripeConnectedAccountId *string `json:"stripeConnectedAccountId,omitempty"`
+	Years *int32 `json:"years,omitempty"`
 }
 
 // NewApiPurchaseRequest instantiates a new ApiPurchaseRequest object
@@ -237,6 +238,38 @@ func (o *ApiPurchaseRequest) SetStripeConnectedAccountId(v string) {
 	o.StripeConnectedAccountId = &v
 }
 
+// GetYears returns the Years field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetYears() int32 {
+	if o == nil || IsNil(o.Years) {
+		var ret int32
+		return ret
+	}
+	return *o.Years
+}
+
+// GetYearsOk returns a tuple with the Years field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiPurchaseRequest) GetYearsOk() (*int32, bool) {
+	if o == nil || IsNil(o.Years) {
+		return nil, false
+	}
+	return o.Years, true
+}
+
+// HasYears returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasYears() bool {
+	if o != nil && !IsNil(o.Years) {
+		return true
+	}
+
+	return false
+}
+
+// SetYears gets a reference to the given int32 and assigns it to the Years field.
+func (o *ApiPurchaseRequest) SetYears(v int32) {
+	o.Years = &v
+}
+
 func (o ApiPurchaseRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -264,6 +297,9 @@ func (o ApiPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.StripeConnectedAccountId) {
 		toSerialize["stripeConnectedAccountId"] = o.StripeConnectedAccountId
+	}
+	if !IsNil(o.Years) {
+		toSerialize["years"] = o.Years
 	}
 	return toSerialize, nil
 }

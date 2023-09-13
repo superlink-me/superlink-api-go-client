@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **ExternalUserId** | Pointer to **string** |  | [optional] 
 **OwnerAddress** | Pointer to **string** |  | [optional] 
 **StripeConnectedAccountId** | Pointer to **string** |  | [optional] 
+**Years** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetStripeConnectedAccountId sets StripeConnectedAccountId field to given value.
 `func (o *ApiPurchaseRequest) HasStripeConnectedAccountId() bool`
 
 HasStripeConnectedAccountId returns a boolean if a field has been set.
+
+### GetYears
+
+`func (o *ApiPurchaseRequest) GetYears() int32`
+
+GetYears returns the Years field if non-nil, zero value otherwise.
+
+### GetYearsOk
+
+`func (o *ApiPurchaseRequest) GetYearsOk() (*int32, bool)`
+
+GetYearsOk returns a tuple with the Years field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetYears
+
+`func (o *ApiPurchaseRequest) SetYears(v int32)`
+
+SetYears sets Years field to given value.
+
+### HasYears
+
+`func (o *ApiPurchaseRequest) HasYears() bool`
+
+HasYears returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
