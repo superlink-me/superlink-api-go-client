@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.14
+API version: v0.3.15
 Contact: support@superlink.me
 */
 
