@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.21
+API version: v0.3.22
 Contact: support@superlink.me
 */
 
@@ -24,6 +24,7 @@ const (
 	UD ApiNameService = "ud"
 	ENS ApiNameService = "ens"
 	SUPERLINK ApiNameService = "superlink"
+	ICANN ApiNameService = "icann"
 )
 
 // All allowed values of ApiNameService enum
@@ -31,6 +32,7 @@ var AllowedApiNameServiceEnumValues = []ApiNameService{
 	"ud",
 	"ens",
 	"superlink",
+	"icann",
 }
 
 func (v *ApiNameService) UnmarshalJSON(src []byte) error {

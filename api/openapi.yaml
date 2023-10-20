@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.3.21
+  version: v0.3.22
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -281,6 +281,98 @@ paths:
           content: {}
           description: Internal Server Error
       summary: Checks the health of the API
+  /v1/market/crypto/estimate:
+    get:
+      description: CryptoEstimate returns the estimated conversion rates for supported
+        crypto payment options
+      operationId: market-crypto-estimate
+      parameters:
+      - description: string valid
+        in: query
+        name: basecurrency
+        schema:
+          maxLength: 4
+          minLength: 2
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketCryptoEstimationResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: CryptoEstimate returns the estimated conversion rates for supported
+        crypto payment options
+      tags:
+      - market
+  /v1/market/crypto/purchase:
+    post:
+      description: CryptoPurchase returns the payment details required for crypto
+        payment
+      operationId: market-crypto-purchase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.CryptoPurchaseRequest'
+        description: crypto purchase request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketCryptoPurchaseResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: CryptoPurchase returns the payment details required for crypto payment
+      tags:
+      - market
+      x-codegen-request-body-name: request
+  /v1/market/order/{orderID}:
+    get:
+      description: Returns order information
+      operationId: market-order
+      parameters:
+      - description: 92456d2b-c315-4b2b-b234-c674490b7324
+        in: path
+        name: orderID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketplaceOrderResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns order information
+      tags:
+      - market
   /v1/market/purchase:
     post:
       description: Purchase returns the payment details required by Stripe
@@ -511,6 +603,7 @@ paths:
             - ud
             - ens
             - superlink
+            - icann
             type: string
           type: array
         style: form
@@ -1366,6 +1459,7 @@ paths:
           - ud
           - ens
           - superlink
+          - icann
           type: string
       - description: 0x1234561234556
         in: path
@@ -3094,6 +3188,27 @@ components:
       - QKC
       - FVDC
       - USDC
+    api.CryptoPurchaseRequest:
+      properties:
+        currency:
+          example: ETH
+          type: string
+        demo:
+          example: false
+          type: boolean
+        domain:
+          example: firstname.lastname
+          type: string
+        ownerAddress:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        ownerEmail:
+          example: nora@gmail.com
+          type: string
+        years:
+          example: 1
+          type: integer
+      type: object
     api.DNSRecord:
       example:
         name: firstname.lastname
@@ -3195,6 +3310,70 @@ components:
           example: Internal server error
           type: string
       type: object
+    api.MarketCryptoEstimation:
+      example:
+        symbol: eth
+        name: Ethereum
+        exhangeRate: 0.001
+      properties:
+        exhangeRate:
+          example: 0.001
+          type: number
+        name:
+          example: Ethereum
+          type: string
+        symbol:
+          example: eth
+          type: string
+      type: object
+    api.MarketCryptoEstimationResponse:
+      example:
+        estimations:
+        - symbol: eth
+          name: Ethereum
+          exhangeRate: 0.001
+        - symbol: eth
+          name: Ethereum
+          exhangeRate: 0.001
+      properties:
+        estimations:
+          items:
+            $ref: '#/components/schemas/api.MarketCryptoEstimation'
+          type: array
+      type: object
+    api.MarketCryptoPurchaseResponse:
+      example:
+        amount: 0.001
+        protocol: ETH
+        address: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+        orderID: 92456d2b-c315-4b2b-b234-c674490b7324
+        paymentId: fa13ba20-da1d-426f-a0e4-f7629caae626
+        expiryDateEpoch: 1697009575596
+        uri: ethereum:0x4c0f4c2ad289be425e034e9475fa243b5f6ccab4?value=1.349965E+16
+      properties:
+        address:
+          example: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+          type: string
+        amount:
+          description: PaymentDetails     CryptoPaymentDetails `json:"paymentDetails"`
+          example: 0.001
+          type: number
+        expiryDateEpoch:
+          example: 1697009575596
+          type: integer
+        orderID:
+          example: 92456d2b-c315-4b2b-b234-c674490b7324
+          type: string
+        paymentId:
+          example: fa13ba20-da1d-426f-a0e4-f7629caae626
+          type: string
+        protocol:
+          example: ETH
+          type: string
+        uri:
+          example: ethereum:0x4c0f4c2ad289be425e034e9475fa243b5f6ccab4?value=1.349965E+16
+          type: string
+      type: object
     api.MarketListing:
       example:
         nameService: superlink
@@ -3220,6 +3399,7 @@ components:
     api.MarketPurchaseResponse:
       example:
         stripePaymentIntent: pi_1234567890abcdef1234567890abcdef
+        orderID: 92456d2b-c315-4b2b-b234-c674490b7324
         stripeEphemeralKey: ek_test_1234567890abcdef1234567890abcdef
         stripePublishableKey: pk_test_1234567890abcdef1234567890abcdef
         checkoutId: 92353d2b-c3f5-4b3b-b214-c34b490b7324
@@ -3227,6 +3407,9 @@ components:
       properties:
         checkoutId:
           example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
+          type: string
+        orderID:
+          example: 92456d2b-c315-4b2b-b234-c674490b7324
           type: string
         stripeCustomerId:
           example: cus_1234567890abcdef1234567890abcdef
@@ -3260,16 +3443,78 @@ components:
             $ref: '#/components/schemas/api.MarketListing'
           type: array
       type: object
+    api.MarketplaceOrderResponse:
+      example:
+        nameService: ens
+        orderStatus: PENDING
+        paymentReferenceId: 92456d2b-c315-4b2b-b234-c674490b7324
+        baseCurrency: USD
+        paymentType: crypto
+        createdAt: 2023-06-08T10:30:00Z
+        price: 0.001
+        domain: noramiller.eth
+        currency: ETH
+        id: 92456d2b-c315-4b2b-b234-c674490b7324
+        ownerAddress: 0x4c0f4c2ad123be4256784e9475fa243b5f6ccab4
+        basePrice: 15.0
+        orderStatusReason: Waiting for transaction
+        updatedAt: 2024-01-02T11:20:00Z
+      properties:
+        baseCurrency:
+          example: USD
+          type: string
+        basePrice:
+          example: 15.0
+          type: number
+        createdAt:
+          example: 2023-06-08T10:30:00Z
+          type: string
+        currency:
+          example: ETH
+          type: string
+        domain:
+          example: noramiller.eth
+          type: string
+        id:
+          example: 92456d2b-c315-4b2b-b234-c674490b7324
+          type: string
+        nameService:
+          example: ens
+          type: string
+        orderStatus:
+          example: PENDING
+          type: string
+        orderStatusReason:
+          example: Waiting for transaction
+          type: string
+        ownerAddress:
+          example: 0x4c0f4c2ad123be4256784e9475fa243b5f6ccab4
+          type: string
+        paymentReferenceId:
+          example: 92456d2b-c315-4b2b-b234-c674490b7324
+          type: string
+        paymentType:
+          example: crypto
+          type: string
+        price:
+          example: 0.001
+          type: number
+        updatedAt:
+          example: 2024-01-02T11:20:00Z
+          type: string
+      type: object
     api.NameService:
       enum:
       - ud
       - ens
       - superlink
+      - icann
       type: string
       x-enum-varnames:
       - UD
       - ENS
       - SUPERLINK
+      - ICANN
     api.PartnerResponse:
       example:
         createdAt: 2023-06-08T10:30:00Z

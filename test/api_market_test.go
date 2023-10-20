@@ -22,6 +22,44 @@ func Test_superlink_MarketAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test MarketAPIService MarketCryptoEstimate", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.MarketAPI.MarketCryptoEstimate(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test MarketAPIService MarketCryptoPurchase", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.MarketAPI.MarketCryptoPurchase(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test MarketAPIService MarketOrder", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var orderID string
+
+		resp, httpRes, err := apiClient.MarketAPI.MarketOrder(context.Background(), orderID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test MarketAPIService MarketPurchase", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
