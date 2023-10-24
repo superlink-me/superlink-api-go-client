@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CheckoutId** | Pointer to **string** |  | [optional] 
-**OrderID** | Pointer to **string** |  | [optional] 
+**OrderId** | Pointer to **string** |  | [optional] 
 **StripeCustomerId** | Pointer to **string** |  | [optional] 
 **StripeEphemeralKey** | Pointer to **string** |  | [optional] 
 **StripePaymentIntent** | Pointer to **string** |  | [optional] 
@@ -55,30 +55,30 @@ SetCheckoutId sets CheckoutId field to given value.
 
 HasCheckoutId returns a boolean if a field has been set.
 
-### GetOrderID
+### GetOrderId
 
-`func (o *ApiMarketPurchaseResponse) GetOrderID() string`
+`func (o *ApiMarketPurchaseResponse) GetOrderId() string`
 
-GetOrderID returns the OrderID field if non-nil, zero value otherwise.
+GetOrderId returns the OrderId field if non-nil, zero value otherwise.
 
-### GetOrderIDOk
+### GetOrderIdOk
 
-`func (o *ApiMarketPurchaseResponse) GetOrderIDOk() (*string, bool)`
+`func (o *ApiMarketPurchaseResponse) GetOrderIdOk() (*string, bool)`
 
-GetOrderIDOk returns a tuple with the OrderID field if it's non-nil, zero value otherwise
+GetOrderIdOk returns a tuple with the OrderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOrderID
+### SetOrderId
 
-`func (o *ApiMarketPurchaseResponse) SetOrderID(v string)`
+`func (o *ApiMarketPurchaseResponse) SetOrderId(v string)`
 
-SetOrderID sets OrderID field to given value.
+SetOrderId sets OrderId field to given value.
 
-### HasOrderID
+### HasOrderId
 
-`func (o *ApiMarketPurchaseResponse) HasOrderID() bool`
+`func (o *ApiMarketPurchaseResponse) HasOrderId() bool`
 
-HasOrderID returns a boolean if a field has been set.
+HasOrderId returns a boolean if a field has been set.
 
 ### GetStripeCustomerId
 

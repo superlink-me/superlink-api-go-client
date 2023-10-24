@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Currency** | Pointer to **string** |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
+**Features** | Pointer to **[]string** |  | [optional] 
 **NameService** | Pointer to **string** |  | [optional] 
 **Price** | Pointer to **map[string]float32** |  | [optional] 
 
@@ -77,6 +78,31 @@ SetDomain sets Domain field to given value.
 `func (o *ApiMarketListing) HasDomain() bool`
 
 HasDomain returns a boolean if a field has been set.
+
+### GetFeatures
+
+`func (o *ApiMarketListing) GetFeatures() []string`
+
+GetFeatures returns the Features field if non-nil, zero value otherwise.
+
+### GetFeaturesOk
+
+`func (o *ApiMarketListing) GetFeaturesOk() (*[]string, bool)`
+
+GetFeaturesOk returns a tuple with the Features field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFeatures
+
+`func (o *ApiMarketListing) SetFeatures(v []string)`
+
+SetFeatures sets Features field to given value.
+
+### HasFeatures
+
+`func (o *ApiMarketListing) HasFeatures() bool`
+
+HasFeatures returns a boolean if a field has been set.
 
 ### GetNameService
 

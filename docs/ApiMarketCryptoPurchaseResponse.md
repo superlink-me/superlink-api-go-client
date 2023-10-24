@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Address** | Pointer to **string** |  | [optional] 
 **Amount** | Pointer to **float32** | PaymentDetails     CryptoPaymentDetails &#x60;json:\&quot;paymentDetails\&quot;&#x60; | [optional] 
 **ExpiryDateEpoch** | Pointer to **int32** |  | [optional] 
-**OrderID** | Pointer to **string** |  | [optional] 
+**OrderId** | Pointer to **string** |  | [optional] 
 **PaymentId** | Pointer to **string** |  | [optional] 
 **Protocol** | Pointer to **string** |  | [optional] 
 **Uri** | Pointer to **string** |  | [optional] 
@@ -106,30 +106,30 @@ SetExpiryDateEpoch sets ExpiryDateEpoch field to given value.
 
 HasExpiryDateEpoch returns a boolean if a field has been set.
 
-### GetOrderID
+### GetOrderId
 
-`func (o *ApiMarketCryptoPurchaseResponse) GetOrderID() string`
+`func (o *ApiMarketCryptoPurchaseResponse) GetOrderId() string`
 
-GetOrderID returns the OrderID field if non-nil, zero value otherwise.
+GetOrderId returns the OrderId field if non-nil, zero value otherwise.
 
-### GetOrderIDOk
+### GetOrderIdOk
 
-`func (o *ApiMarketCryptoPurchaseResponse) GetOrderIDOk() (*string, bool)`
+`func (o *ApiMarketCryptoPurchaseResponse) GetOrderIdOk() (*string, bool)`
 
-GetOrderIDOk returns a tuple with the OrderID field if it's non-nil, zero value otherwise
+GetOrderIdOk returns a tuple with the OrderId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOrderID
+### SetOrderId
 
-`func (o *ApiMarketCryptoPurchaseResponse) SetOrderID(v string)`
+`func (o *ApiMarketCryptoPurchaseResponse) SetOrderId(v string)`
 
-SetOrderID sets OrderID field to given value.
+SetOrderId sets OrderId field to given value.
 
-### HasOrderID
+### HasOrderId
 
-`func (o *ApiMarketCryptoPurchaseResponse) HasOrderID() bool`
+`func (o *ApiMarketCryptoPurchaseResponse) HasOrderId() bool`
 
-HasOrderID returns a boolean if a field has been set.
+HasOrderId returns a boolean if a field has been set.
 
 ### GetPaymentId
 

@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.25
+API version: v0.3.26
 Contact: support@superlink.me
 */
 
@@ -24,7 +24,7 @@ type ApiMarketCryptoPurchaseResponse struct {
 	// PaymentDetails     CryptoPaymentDetails `json:\"paymentDetails\"`
 	Amount *float32 `json:"amount,omitempty"`
 	ExpiryDateEpoch *int32 `json:"expiryDateEpoch,omitempty"`
-	OrderID *string `json:"orderID,omitempty"`
+	OrderId *string `json:"orderId,omitempty"`
 	PaymentId *string `json:"paymentId,omitempty"`
 	Protocol *string `json:"protocol,omitempty"`
 	Uri *string `json:"uri,omitempty"`
@@ -143,36 +143,36 @@ func (o *ApiMarketCryptoPurchaseResponse) SetExpiryDateEpoch(v int32) {
 	o.ExpiryDateEpoch = &v
 }
 
-// GetOrderID returns the OrderID field value if set, zero value otherwise.
-func (o *ApiMarketCryptoPurchaseResponse) GetOrderID() string {
-	if o == nil || IsNil(o.OrderID) {
+// GetOrderId returns the OrderId field value if set, zero value otherwise.
+func (o *ApiMarketCryptoPurchaseResponse) GetOrderId() string {
+	if o == nil || IsNil(o.OrderId) {
 		var ret string
 		return ret
 	}
-	return *o.OrderID
+	return *o.OrderId
 }
 
-// GetOrderIDOk returns a tuple with the OrderID field value if set, nil otherwise
+// GetOrderIdOk returns a tuple with the OrderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiMarketCryptoPurchaseResponse) GetOrderIDOk() (*string, bool) {
-	if o == nil || IsNil(o.OrderID) {
+func (o *ApiMarketCryptoPurchaseResponse) GetOrderIdOk() (*string, bool) {
+	if o == nil || IsNil(o.OrderId) {
 		return nil, false
 	}
-	return o.OrderID, true
+	return o.OrderId, true
 }
 
-// HasOrderID returns a boolean if a field has been set.
-func (o *ApiMarketCryptoPurchaseResponse) HasOrderID() bool {
-	if o != nil && !IsNil(o.OrderID) {
+// HasOrderId returns a boolean if a field has been set.
+func (o *ApiMarketCryptoPurchaseResponse) HasOrderId() bool {
+	if o != nil && !IsNil(o.OrderId) {
 		return true
 	}
 
 	return false
 }
 
-// SetOrderID gets a reference to the given string and assigns it to the OrderID field.
-func (o *ApiMarketCryptoPurchaseResponse) SetOrderID(v string) {
-	o.OrderID = &v
+// SetOrderId gets a reference to the given string and assigns it to the OrderId field.
+func (o *ApiMarketCryptoPurchaseResponse) SetOrderId(v string) {
+	o.OrderId = &v
 }
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise.
@@ -290,8 +290,8 @@ func (o ApiMarketCryptoPurchaseResponse) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.ExpiryDateEpoch) {
 		toSerialize["expiryDateEpoch"] = o.ExpiryDateEpoch
 	}
-	if !IsNil(o.OrderID) {
-		toSerialize["orderID"] = o.OrderID
+	if !IsNil(o.OrderId) {
+		toSerialize["orderId"] = o.OrderId
 	}
 	if !IsNil(o.PaymentId) {
 		toSerialize["paymentId"] = o.PaymentId

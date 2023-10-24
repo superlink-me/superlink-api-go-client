@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.25
+API version: v0.3.26
 Contact: support@superlink.me
 */
 
@@ -22,6 +22,7 @@ var _ MappedNullable = &ApiMarketListing{}
 type ApiMarketListing struct {
 	Currency *string `json:"currency,omitempty"`
 	Domain *string `json:"domain,omitempty"`
+	Features []string `json:"features,omitempty"`
 	NameService *string `json:"nameService,omitempty"`
 	Price *map[string]float32 `json:"price,omitempty"`
 }
@@ -107,6 +108,38 @@ func (o *ApiMarketListing) SetDomain(v string) {
 	o.Domain = &v
 }
 
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *ApiMarketListing) GetFeatures() []string {
+	if o == nil || IsNil(o.Features) {
+		var ret []string
+		return ret
+	}
+	return o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiMarketListing) GetFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *ApiMarketListing) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatures gets a reference to the given []string and assigns it to the Features field.
+func (o *ApiMarketListing) SetFeatures(v []string) {
+	o.Features = v
+}
+
 // GetNameService returns the NameService field value if set, zero value otherwise.
 func (o *ApiMarketListing) GetNameService() string {
 	if o == nil || IsNil(o.NameService) {
@@ -186,6 +219,9 @@ func (o ApiMarketListing) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
+	}
+	if !IsNil(o.Features) {
+		toSerialize["features"] = o.Features
 	}
 	if !IsNil(o.NameService) {
 		toSerialize["nameService"] = o.NameService

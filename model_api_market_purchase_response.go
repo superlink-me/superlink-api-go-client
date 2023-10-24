@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.25
+API version: v0.3.26
 Contact: support@superlink.me
 */
 
@@ -21,7 +21,7 @@ var _ MappedNullable = &ApiMarketPurchaseResponse{}
 // ApiMarketPurchaseResponse struct for ApiMarketPurchaseResponse
 type ApiMarketPurchaseResponse struct {
 	CheckoutId *string `json:"checkoutId,omitempty"`
-	OrderID *string `json:"orderID,omitempty"`
+	OrderId *string `json:"orderId,omitempty"`
 	StripeCustomerId *string `json:"stripeCustomerId,omitempty"`
 	StripeEphemeralKey *string `json:"stripeEphemeralKey,omitempty"`
 	StripePaymentIntent *string `json:"stripePaymentIntent,omitempty"`
@@ -77,36 +77,36 @@ func (o *ApiMarketPurchaseResponse) SetCheckoutId(v string) {
 	o.CheckoutId = &v
 }
 
-// GetOrderID returns the OrderID field value if set, zero value otherwise.
-func (o *ApiMarketPurchaseResponse) GetOrderID() string {
-	if o == nil || IsNil(o.OrderID) {
+// GetOrderId returns the OrderId field value if set, zero value otherwise.
+func (o *ApiMarketPurchaseResponse) GetOrderId() string {
+	if o == nil || IsNil(o.OrderId) {
 		var ret string
 		return ret
 	}
-	return *o.OrderID
+	return *o.OrderId
 }
 
-// GetOrderIDOk returns a tuple with the OrderID field value if set, nil otherwise
+// GetOrderIdOk returns a tuple with the OrderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiMarketPurchaseResponse) GetOrderIDOk() (*string, bool) {
-	if o == nil || IsNil(o.OrderID) {
+func (o *ApiMarketPurchaseResponse) GetOrderIdOk() (*string, bool) {
+	if o == nil || IsNil(o.OrderId) {
 		return nil, false
 	}
-	return o.OrderID, true
+	return o.OrderId, true
 }
 
-// HasOrderID returns a boolean if a field has been set.
-func (o *ApiMarketPurchaseResponse) HasOrderID() bool {
-	if o != nil && !IsNil(o.OrderID) {
+// HasOrderId returns a boolean if a field has been set.
+func (o *ApiMarketPurchaseResponse) HasOrderId() bool {
+	if o != nil && !IsNil(o.OrderId) {
 		return true
 	}
 
 	return false
 }
 
-// SetOrderID gets a reference to the given string and assigns it to the OrderID field.
-func (o *ApiMarketPurchaseResponse) SetOrderID(v string) {
-	o.OrderID = &v
+// SetOrderId gets a reference to the given string and assigns it to the OrderId field.
+func (o *ApiMarketPurchaseResponse) SetOrderId(v string) {
+	o.OrderId = &v
 }
 
 // GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
@@ -250,8 +250,8 @@ func (o ApiMarketPurchaseResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CheckoutId) {
 		toSerialize["checkoutId"] = o.CheckoutId
 	}
-	if !IsNil(o.OrderID) {
-		toSerialize["orderID"] = o.OrderID
+	if !IsNil(o.OrderId) {
+		toSerialize["orderId"] = o.OrderId
 	}
 	if !IsNil(o.StripeCustomerId) {
 		toSerialize["stripeCustomerId"] = o.StripeCustomerId

@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.3.25
+  version: v0.3.26
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -3346,7 +3346,7 @@ components:
         amount: 0.001
         protocol: ETH
         address: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
-        orderID: 92456d2b-c315-4b2b-b234-c674490b7324
+        orderId: 92456d2b-c315-4b2b-b234-c674490b7324
         paymentId: fa13ba20-da1d-426f-a0e4-f7629caae626
         expiryDateEpoch: 1697009575596
         uri: ethereum:0x4c0f4c2ad289be425e034e9475fa243b5f6ccab4?value=1.349965E+16
@@ -3361,7 +3361,7 @@ components:
         expiryDateEpoch:
           example: 1697009575596
           type: integer
-        orderID:
+        orderId:
           example: 92456d2b-c315-4b2b-b234-c674490b7324
           type: string
         paymentId:
@@ -3376,6 +3376,10 @@ components:
       type: object
     api.MarketListing:
       example:
+        features:
+        - "[\"email\""
+        - '"userId"'
+        - "\"web3\"]"
         nameService: superlink
         price:
           key: 0.8008281904610115
@@ -3388,6 +3392,14 @@ components:
         domain:
           example: firstname.lastname
           type: string
+        features:
+          example:
+          - "[\"email\""
+          - '"userId"'
+          - "\"web3\"]"
+          items:
+            type: string
+          type: array
         nameService:
           example: superlink
           type: string
@@ -3399,7 +3411,7 @@ components:
     api.MarketPurchaseResponse:
       example:
         stripePaymentIntent: pi_1234567890abcdef1234567890abcdef
-        orderID: 92456d2b-c315-4b2b-b234-c674490b7324
+        orderId: 92456d2b-c315-4b2b-b234-c674490b7324
         stripeEphemeralKey: ek_test_1234567890abcdef1234567890abcdef
         stripePublishableKey: pk_test_1234567890abcdef1234567890abcdef
         checkoutId: 92353d2b-c3f5-4b3b-b214-c34b490b7324
@@ -3408,7 +3420,7 @@ components:
         checkoutId:
           example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
           type: string
-        orderID:
+        orderId:
           example: 92456d2b-c315-4b2b-b234-c674490b7324
           type: string
         stripeCustomerId:
@@ -3427,12 +3439,20 @@ components:
     api.MarketSearchResponse:
       example:
         marketListings:
-        - nameService: superlink
+        - features:
+          - "[\"email\""
+          - '"userId"'
+          - "\"web3\"]"
+          nameService: superlink
           price:
             key: 0.8008281904610115
           domain: firstname.lastname
           currency: USD
-        - nameService: superlink
+        - features:
+          - "[\"email\""
+          - '"userId"'
+          - "\"web3\"]"
+          nameService: superlink
           price:
             key: 0.8008281904610115
           domain: firstname.lastname
