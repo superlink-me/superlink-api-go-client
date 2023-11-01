@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.3.31
+  version: v0.3.32
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -3204,6 +3204,9 @@ components:
           type: string
         ownerEmail:
           example: nora@gmail.com
+          type: string
+        ownerName:
+          example: Nora
           type: string
         years:
           example: 1

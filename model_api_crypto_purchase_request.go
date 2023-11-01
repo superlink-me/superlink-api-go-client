@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.31
+API version: v0.3.32
 Contact: support@superlink.me
 */
 
@@ -25,6 +25,7 @@ type ApiCryptoPurchaseRequest struct {
 	Domain *string `json:"domain,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
 	OwnerEmail *string `json:"ownerEmail,omitempty"`
+	OwnerName *string `json:"ownerName,omitempty"`
 	Years *int32 `json:"years,omitempty"`
 }
 
@@ -205,6 +206,38 @@ func (o *ApiCryptoPurchaseRequest) SetOwnerEmail(v string) {
 	o.OwnerEmail = &v
 }
 
+// GetOwnerName returns the OwnerName field value if set, zero value otherwise.
+func (o *ApiCryptoPurchaseRequest) GetOwnerName() string {
+	if o == nil || IsNil(o.OwnerName) {
+		var ret string
+		return ret
+	}
+	return *o.OwnerName
+}
+
+// GetOwnerNameOk returns a tuple with the OwnerName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiCryptoPurchaseRequest) GetOwnerNameOk() (*string, bool) {
+	if o == nil || IsNil(o.OwnerName) {
+		return nil, false
+	}
+	return o.OwnerName, true
+}
+
+// HasOwnerName returns a boolean if a field has been set.
+func (o *ApiCryptoPurchaseRequest) HasOwnerName() bool {
+	if o != nil && !IsNil(o.OwnerName) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerName gets a reference to the given string and assigns it to the OwnerName field.
+func (o *ApiCryptoPurchaseRequest) SetOwnerName(v string) {
+	o.OwnerName = &v
+}
+
 // GetYears returns the Years field value if set, zero value otherwise.
 func (o *ApiCryptoPurchaseRequest) GetYears() int32 {
 	if o == nil || IsNil(o.Years) {
@@ -261,6 +294,9 @@ func (o ApiCryptoPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OwnerEmail) {
 		toSerialize["ownerEmail"] = o.OwnerEmail
+	}
+	if !IsNil(o.OwnerName) {
+		toSerialize["ownerName"] = o.OwnerName
 	}
 	if !IsNil(o.Years) {
 		toSerialize["years"] = o.Years

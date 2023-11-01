@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Domain** | Pointer to **string** |  | [optional] 
 **OwnerAddress** | Pointer to **string** |  | [optional] 
 **OwnerEmail** | Pointer to **string** |  | [optional] 
+**OwnerName** | Pointer to **string** |  | [optional] 
 **Years** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -154,6 +155,31 @@ SetOwnerEmail sets OwnerEmail field to given value.
 `func (o *ApiCryptoPurchaseRequest) HasOwnerEmail() bool`
 
 HasOwnerEmail returns a boolean if a field has been set.
+
+### GetOwnerName
+
+`func (o *ApiCryptoPurchaseRequest) GetOwnerName() string`
+
+GetOwnerName returns the OwnerName field if non-nil, zero value otherwise.
+
+### GetOwnerNameOk
+
+`func (o *ApiCryptoPurchaseRequest) GetOwnerNameOk() (*string, bool)`
+
+GetOwnerNameOk returns a tuple with the OwnerName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerName
+
+`func (o *ApiCryptoPurchaseRequest) SetOwnerName(v string)`
+
+SetOwnerName sets OwnerName field to given value.
+
+### HasOwnerName
+
+`func (o *ApiCryptoPurchaseRequest) HasOwnerName() bool`
+
+HasOwnerName returns a boolean if a field has been set.
 
 ### GetYears
 
