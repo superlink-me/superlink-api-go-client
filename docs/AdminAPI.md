@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**AdminListAccessTokens**](AdminAPI.md#AdminListAccessTokens) | **Get** /v1/admin/access-token | Lists access tokens
 [**AdminListPartners**](AdminAPI.md#AdminListPartners) | **Get** /v1/admin/partner | Lists partners
 [**AdminPartnerCreate**](AdminAPI.md#AdminPartnerCreate) | **Post** /v1/admin/partner | Creates a partner
+[**HnsTldRegister**](AdminAPI.md#HnsTldRegister) | **Post** /v1/admin/hns/tld/register | HNSTLDRegister registers a Handshake TLD
 [**RemoveReverseResolutionAddress**](AdminAPI.md#RemoveReverseResolutionAddress) | **Delete** /v1/admin/reverse | Removes a reverse resolution address from a domain
 [**SetReverseResolutionAddress**](AdminAPI.md#SetReverseResolutionAddress) | **Post** /v1/admin/reverse | Assigns an address to a domain for reverse resolution
 
@@ -28,24 +29,24 @@ Creates an admin token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiAdminAccessTokenCreateRequest() // ApiAdminAccessTokenCreateRequest | access token create request
+	request := *openapiclient.NewApiAdminAccessTokenCreateRequest() // ApiAdminAccessTokenCreateRequest | access token create request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AdminAPI.AdminCreateAccessToken(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminCreateAccessToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AdminCreateAccessToken`: ApiAccessTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminCreateAccessToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.AdminCreateAccessToken(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminCreateAccessToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdminCreateAccessToken`: ApiAccessTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminCreateAccessToken`: %v\n", resp)
 }
 ```
 
@@ -94,22 +95,22 @@ Deletes an access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiAccessTokenDeleteRequest() // ApiAccessTokenDeleteRequest | access token delete request
+	request := *openapiclient.NewApiAccessTokenDeleteRequest() // ApiAccessTokenDeleteRequest | access token delete request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AdminAPI.AdminDeleteAccessToken(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminDeleteAccessToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AdminAPI.AdminDeleteAccessToken(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminDeleteAccessToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -158,23 +159,23 @@ Lists access tokens
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AdminAPI.AdminListAccessTokens(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminListAccessTokens``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AdminListAccessTokens`: ApiAccessTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminListAccessTokens`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.AdminListAccessTokens(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminListAccessTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdminListAccessTokens`: ApiAccessTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminListAccessTokens`: %v\n", resp)
 }
 ```
 
@@ -219,23 +220,23 @@ Lists partners
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AdminAPI.AdminListPartners(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminListPartners``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AdminListPartners`: ApiPartnerResponse
-    fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminListPartners`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.AdminListPartners(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminListPartners``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdminListPartners`: ApiPartnerResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminListPartners`: %v\n", resp)
 }
 ```
 
@@ -280,24 +281,24 @@ Creates a partner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiAdminPartnerCreateRequest() // ApiAdminPartnerCreateRequest | partner create request
+	request := *openapiclient.NewApiAdminPartnerCreateRequest() // ApiAdminPartnerCreateRequest | partner create request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AdminAPI.AdminPartnerCreate(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminPartnerCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AdminPartnerCreate`: ApiPartnerResponse
-    fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminPartnerCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.AdminPartnerCreate(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.AdminPartnerCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdminPartnerCreate`: ApiPartnerResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.AdminPartnerCreate`: %v\n", resp)
 }
 ```
 
@@ -332,6 +333,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## HnsTldRegister
+
+> ApiHNSRegisterTLDResponse HnsTldRegister(ctx).Request(request).Execute()
+
+HNSTLDRegister registers a Handshake TLD
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
+)
+
+func main() {
+	request := *openapiclient.NewApiHNSRegisterTLDRequest() // ApiHNSRegisterTLDRequest | register hns tld request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AdminAPI.HnsTldRegister(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.HnsTldRegister``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `HnsTldRegister`: ApiHNSRegisterTLDResponse
+	fmt.Fprintf(os.Stdout, "Response from `AdminAPI.HnsTldRegister`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiHnsTldRegisterRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**ApiHNSRegisterTLDRequest**](ApiHNSRegisterTLDRequest.md) | register hns tld request | 
+
+### Return type
+
+[**ApiHNSRegisterTLDResponse**](ApiHNSRegisterTLDResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## RemoveReverseResolutionAddress
 
 > RemoveReverseResolutionAddress(ctx).Request(request).Execute()
@@ -346,22 +413,22 @@ Removes a reverse resolution address from a domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiReverseResolutionDeleteRequest() // ApiReverseResolutionDeleteRequest | reverse address delete request
+	request := *openapiclient.NewApiReverseResolutionDeleteRequest() // ApiReverseResolutionDeleteRequest | reverse address delete request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AdminAPI.RemoveReverseResolutionAddress(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.RemoveReverseResolutionAddress``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AdminAPI.RemoveReverseResolutionAddress(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.RemoveReverseResolutionAddress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -410,22 +477,22 @@ Assigns an address to a domain for reverse resolution
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiSetReverseAddressRequest() // ApiSetReverseAddressRequest | set reverse address request
+	request := *openapiclient.NewApiSetReverseAddressRequest() // ApiSetReverseAddressRequest | set reverse address request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.AdminAPI.SetReverseResolutionAddress(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.SetReverseResolutionAddress``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AdminAPI.SetReverseResolutionAddress(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AdminAPI.SetReverseResolutionAddress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

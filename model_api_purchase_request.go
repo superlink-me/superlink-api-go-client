@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -21,11 +21,12 @@ var _ MappedNullable = &ApiPurchaseRequest{}
 // ApiPurchaseRequest struct for ApiPurchaseRequest
 type ApiPurchaseRequest struct {
 	CheckoutId *string `json:"checkoutId,omitempty"`
-	Demo *bool `json:"demo,omitempty"`
 	Domain *string `json:"domain,omitempty"`
 	ExternalUserId *string `json:"externalUserId,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
+	PartnerId *string `json:"partnerId,omitempty"`
 	StripeConnectedAccountId *string `json:"stripeConnectedAccountId,omitempty"`
+	WalletAddrs []ApiAddressRecord `json:"walletAddrs,omitempty"`
 	Years *int32 `json:"years,omitempty"`
 }
 
@@ -76,38 +77,6 @@ func (o *ApiPurchaseRequest) HasCheckoutId() bool {
 // SetCheckoutId gets a reference to the given string and assigns it to the CheckoutId field.
 func (o *ApiPurchaseRequest) SetCheckoutId(v string) {
 	o.CheckoutId = &v
-}
-
-// GetDemo returns the Demo field value if set, zero value otherwise.
-func (o *ApiPurchaseRequest) GetDemo() bool {
-	if o == nil || IsNil(o.Demo) {
-		var ret bool
-		return ret
-	}
-	return *o.Demo
-}
-
-// GetDemoOk returns a tuple with the Demo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiPurchaseRequest) GetDemoOk() (*bool, bool) {
-	if o == nil || IsNil(o.Demo) {
-		return nil, false
-	}
-	return o.Demo, true
-}
-
-// HasDemo returns a boolean if a field has been set.
-func (o *ApiPurchaseRequest) HasDemo() bool {
-	if o != nil && !IsNil(o.Demo) {
-		return true
-	}
-
-	return false
-}
-
-// SetDemo gets a reference to the given bool and assigns it to the Demo field.
-func (o *ApiPurchaseRequest) SetDemo(v bool) {
-	o.Demo = &v
 }
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
@@ -206,6 +175,38 @@ func (o *ApiPurchaseRequest) SetOwnerAddress(v string) {
 	o.OwnerAddress = &v
 }
 
+// GetPartnerId returns the PartnerId field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetPartnerId() string {
+	if o == nil || IsNil(o.PartnerId) {
+		var ret string
+		return ret
+	}
+	return *o.PartnerId
+}
+
+// GetPartnerIdOk returns a tuple with the PartnerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiPurchaseRequest) GetPartnerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PartnerId) {
+		return nil, false
+	}
+	return o.PartnerId, true
+}
+
+// HasPartnerId returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasPartnerId() bool {
+	if o != nil && !IsNil(o.PartnerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPartnerId gets a reference to the given string and assigns it to the PartnerId field.
+func (o *ApiPurchaseRequest) SetPartnerId(v string) {
+	o.PartnerId = &v
+}
+
 // GetStripeConnectedAccountId returns the StripeConnectedAccountId field value if set, zero value otherwise.
 func (o *ApiPurchaseRequest) GetStripeConnectedAccountId() string {
 	if o == nil || IsNil(o.StripeConnectedAccountId) {
@@ -236,6 +237,38 @@ func (o *ApiPurchaseRequest) HasStripeConnectedAccountId() bool {
 // SetStripeConnectedAccountId gets a reference to the given string and assigns it to the StripeConnectedAccountId field.
 func (o *ApiPurchaseRequest) SetStripeConnectedAccountId(v string) {
 	o.StripeConnectedAccountId = &v
+}
+
+// GetWalletAddrs returns the WalletAddrs field value if set, zero value otherwise.
+func (o *ApiPurchaseRequest) GetWalletAddrs() []ApiAddressRecord {
+	if o == nil || IsNil(o.WalletAddrs) {
+		var ret []ApiAddressRecord
+		return ret
+	}
+	return o.WalletAddrs
+}
+
+// GetWalletAddrsOk returns a tuple with the WalletAddrs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiPurchaseRequest) GetWalletAddrsOk() ([]ApiAddressRecord, bool) {
+	if o == nil || IsNil(o.WalletAddrs) {
+		return nil, false
+	}
+	return o.WalletAddrs, true
+}
+
+// HasWalletAddrs returns a boolean if a field has been set.
+func (o *ApiPurchaseRequest) HasWalletAddrs() bool {
+	if o != nil && !IsNil(o.WalletAddrs) {
+		return true
+	}
+
+	return false
+}
+
+// SetWalletAddrs gets a reference to the given []ApiAddressRecord and assigns it to the WalletAddrs field.
+func (o *ApiPurchaseRequest) SetWalletAddrs(v []ApiAddressRecord) {
+	o.WalletAddrs = v
 }
 
 // GetYears returns the Years field value if set, zero value otherwise.
@@ -283,9 +316,6 @@ func (o ApiPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CheckoutId) {
 		toSerialize["checkoutId"] = o.CheckoutId
 	}
-	if !IsNil(o.Demo) {
-		toSerialize["demo"] = o.Demo
-	}
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
@@ -295,8 +325,14 @@ func (o ApiPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OwnerAddress) {
 		toSerialize["ownerAddress"] = o.OwnerAddress
 	}
+	if !IsNil(o.PartnerId) {
+		toSerialize["partnerId"] = o.PartnerId
+	}
 	if !IsNil(o.StripeConnectedAccountId) {
 		toSerialize["stripeConnectedAccountId"] = o.StripeConnectedAccountId
+	}
+	if !IsNil(o.WalletAddrs) {
+		toSerialize["walletAddrs"] = o.WalletAddrs
 	}
 	if !IsNil(o.Years) {
 		toSerialize["years"] = o.Years

@@ -5,11 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Currency** | Pointer to **string** |  | [optional] 
-**Demo** | Pointer to **bool** |  | [optional] 
 **Domain** | Pointer to **string** |  | [optional] 
 **OwnerAddress** | Pointer to **string** |  | [optional] 
 **OwnerEmail** | Pointer to **string** |  | [optional] 
 **OwnerName** | Pointer to **string** |  | [optional] 
+**PartnerId** | Pointer to **string** |  | [optional] 
+**WalletAddrs** | Pointer to [**[]ApiAddressRecord**](ApiAddressRecord.md) |  | [optional] 
 **Years** | Pointer to **int32** |  | [optional] 
 
 ## Methods
@@ -55,31 +56,6 @@ SetCurrency sets Currency field to given value.
 `func (o *ApiCryptoPurchaseRequest) HasCurrency() bool`
 
 HasCurrency returns a boolean if a field has been set.
-
-### GetDemo
-
-`func (o *ApiCryptoPurchaseRequest) GetDemo() bool`
-
-GetDemo returns the Demo field if non-nil, zero value otherwise.
-
-### GetDemoOk
-
-`func (o *ApiCryptoPurchaseRequest) GetDemoOk() (*bool, bool)`
-
-GetDemoOk returns a tuple with the Demo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDemo
-
-`func (o *ApiCryptoPurchaseRequest) SetDemo(v bool)`
-
-SetDemo sets Demo field to given value.
-
-### HasDemo
-
-`func (o *ApiCryptoPurchaseRequest) HasDemo() bool`
-
-HasDemo returns a boolean if a field has been set.
 
 ### GetDomain
 
@@ -180,6 +156,56 @@ SetOwnerName sets OwnerName field to given value.
 `func (o *ApiCryptoPurchaseRequest) HasOwnerName() bool`
 
 HasOwnerName returns a boolean if a field has been set.
+
+### GetPartnerId
+
+`func (o *ApiCryptoPurchaseRequest) GetPartnerId() string`
+
+GetPartnerId returns the PartnerId field if non-nil, zero value otherwise.
+
+### GetPartnerIdOk
+
+`func (o *ApiCryptoPurchaseRequest) GetPartnerIdOk() (*string, bool)`
+
+GetPartnerIdOk returns a tuple with the PartnerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPartnerId
+
+`func (o *ApiCryptoPurchaseRequest) SetPartnerId(v string)`
+
+SetPartnerId sets PartnerId field to given value.
+
+### HasPartnerId
+
+`func (o *ApiCryptoPurchaseRequest) HasPartnerId() bool`
+
+HasPartnerId returns a boolean if a field has been set.
+
+### GetWalletAddrs
+
+`func (o *ApiCryptoPurchaseRequest) GetWalletAddrs() []ApiAddressRecord`
+
+GetWalletAddrs returns the WalletAddrs field if non-nil, zero value otherwise.
+
+### GetWalletAddrsOk
+
+`func (o *ApiCryptoPurchaseRequest) GetWalletAddrsOk() (*[]ApiAddressRecord, bool)`
+
+GetWalletAddrsOk returns a tuple with the WalletAddrs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWalletAddrs
+
+`func (o *ApiCryptoPurchaseRequest) SetWalletAddrs(v []ApiAddressRecord)`
+
+SetWalletAddrs sets WalletAddrs field to given value.
+
+### HasWalletAddrs
+
+`func (o *ApiCryptoPurchaseRequest) HasWalletAddrs() bool`
+
+HasWalletAddrs returns a boolean if a field has been set.
 
 ### GetYears
 

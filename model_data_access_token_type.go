@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -23,12 +23,18 @@ type DataAccessTokenType string
 const (
 	AccessTokenTypeAdmin DataAccessTokenType = "ADMIN"
 	AccessTokenTypeCustomer DataAccessTokenType = "CUSTOMER"
+	AccessTokenTypeUser DataAccessTokenType = "USER"
+	AccessTokenTypeWallet DataAccessTokenType = "WALLET"
+	AccessTokenTypeInvalid DataAccessTokenType = "INVALID"
 )
 
 // All allowed values of DataAccessTokenType enum
 var AllowedDataAccessTokenTypeEnumValues = []DataAccessTokenType{
 	"ADMIN",
 	"CUSTOMER",
+	"USER",
+	"WALLET",
+	"INVALID",
 }
 
 func (v *DataAccessTokenType) UnmarshalJSON(src []byte) error {

@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CheckoutId** | Pointer to **string** |  | [optional] 
 **OrderId** | Pointer to **string** |  | [optional] 
+**StripeCheckoutSession** | Pointer to **string** |  | [optional] 
 **StripeCustomerId** | Pointer to **string** |  | [optional] 
 **StripeEphemeralKey** | Pointer to **string** |  | [optional] 
-**StripePaymentIntent** | Pointer to **string** |  | [optional] 
 **StripePublishableKey** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -80,6 +80,31 @@ SetOrderId sets OrderId field to given value.
 
 HasOrderId returns a boolean if a field has been set.
 
+### GetStripeCheckoutSession
+
+`func (o *ApiMarketPurchaseResponse) GetStripeCheckoutSession() string`
+
+GetStripeCheckoutSession returns the StripeCheckoutSession field if non-nil, zero value otherwise.
+
+### GetStripeCheckoutSessionOk
+
+`func (o *ApiMarketPurchaseResponse) GetStripeCheckoutSessionOk() (*string, bool)`
+
+GetStripeCheckoutSessionOk returns a tuple with the StripeCheckoutSession field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStripeCheckoutSession
+
+`func (o *ApiMarketPurchaseResponse) SetStripeCheckoutSession(v string)`
+
+SetStripeCheckoutSession sets StripeCheckoutSession field to given value.
+
+### HasStripeCheckoutSession
+
+`func (o *ApiMarketPurchaseResponse) HasStripeCheckoutSession() bool`
+
+HasStripeCheckoutSession returns a boolean if a field has been set.
+
 ### GetStripeCustomerId
 
 `func (o *ApiMarketPurchaseResponse) GetStripeCustomerId() string`
@@ -129,31 +154,6 @@ SetStripeEphemeralKey sets StripeEphemeralKey field to given value.
 `func (o *ApiMarketPurchaseResponse) HasStripeEphemeralKey() bool`
 
 HasStripeEphemeralKey returns a boolean if a field has been set.
-
-### GetStripePaymentIntent
-
-`func (o *ApiMarketPurchaseResponse) GetStripePaymentIntent() string`
-
-GetStripePaymentIntent returns the StripePaymentIntent field if non-nil, zero value otherwise.
-
-### GetStripePaymentIntentOk
-
-`func (o *ApiMarketPurchaseResponse) GetStripePaymentIntentOk() (*string, bool)`
-
-GetStripePaymentIntentOk returns a tuple with the StripePaymentIntent field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStripePaymentIntent
-
-`func (o *ApiMarketPurchaseResponse) SetStripePaymentIntent(v string)`
-
-SetStripePaymentIntent sets StripePaymentIntent field to given value.
-
-### HasStripePaymentIntent
-
-`func (o *ApiMarketPurchaseResponse) HasStripePaymentIntent() bool`
-
-HasStripePaymentIntent returns a boolean if a field has been set.
 
 ### GetStripePublishableKey
 

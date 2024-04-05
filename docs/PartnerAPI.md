@@ -25,24 +25,24 @@ Creates an admin token for a partner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiAccessTokenCreateRequest() // ApiAccessTokenCreateRequest | access token create request
+	request := *openapiclient.NewApiAccessTokenCreateRequest() // ApiAccessTokenCreateRequest | access token create request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PartnerAPI.CreateAccessToken(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.CreateAccessToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAccessToken`: ApiAccessTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.CreateAccessToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PartnerAPI.CreateAccessToken(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.CreateAccessToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAccessToken`: ApiAccessTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.CreateAccessToken`: %v\n", resp)
 }
 ```
 
@@ -91,22 +91,22 @@ Deletes an access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiAccessTokenDeleteRequest() // ApiAccessTokenDeleteRequest | access token delete request
+	request := *openapiclient.NewApiAccessTokenDeleteRequest() // ApiAccessTokenDeleteRequest | access token delete request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    r, err := apiClient.PartnerAPI.DeleteAccessToken(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.DeleteAccessToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PartnerAPI.DeleteAccessToken(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.DeleteAccessToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -155,23 +155,23 @@ Lists access tokens for a partner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PartnerAPI.ListAccessTokens(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.ListAccessTokens``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAccessTokens`: ApiAccessTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.ListAccessTokens`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PartnerAPI.ListAccessTokens(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.ListAccessTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAccessTokens`: ApiAccessTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.ListAccessTokens`: %v\n", resp)
 }
 ```
 
@@ -216,23 +216,23 @@ Returns a list of all purchases
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PartnerAPI.PartnerPurchases(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.PartnerPurchases``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PartnerPurchases`: ApiPurchaseListResponse
-    fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.PartnerPurchases`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PartnerAPI.PartnerPurchases(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PartnerAPI.PartnerPurchases``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PartnerPurchases`: ApiPurchaseListResponse
+	fmt.Fprintf(os.Stdout, "Response from `PartnerAPI.PartnerPurchases`: %v\n", resp)
 }
 ```
 

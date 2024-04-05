@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -42,7 +42,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Superlink API vv0.3.34
+// APIClient manages communication with the Superlink API vv0.4.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -54,13 +54,23 @@ type APIClient struct {
 
 	DefaultAPI *DefaultAPIService
 
+	DomainInfoAPI *DomainInfoAPIService
+
+	HnsAPI *HnsAPIService
+
+	LoginAPI *LoginAPIService
+
 	MarketAPI *MarketAPIService
 
 	NftAPI *NftAPIService
 
 	PartnerAPI *PartnerAPIService
 
+	ProveAPI *ProveAPIService
+
 	ResolutionAPI *ResolutionAPIService
+
+	SubdomainAPI *SubdomainAPIService
 }
 
 type service struct {
@@ -81,10 +91,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.AdminAPI = (*AdminAPIService)(&c.common)
 	c.DefaultAPI = (*DefaultAPIService)(&c.common)
+	c.DomainInfoAPI = (*DomainInfoAPIService)(&c.common)
+	c.HnsAPI = (*HnsAPIService)(&c.common)
+	c.LoginAPI = (*LoginAPIService)(&c.common)
 	c.MarketAPI = (*MarketAPIService)(&c.common)
 	c.NftAPI = (*NftAPIService)(&c.common)
 	c.PartnerAPI = (*PartnerAPIService)(&c.common)
+	c.ProveAPI = (*ProveAPIService)(&c.common)
 	c.ResolutionAPI = (*ResolutionAPIService)(&c.common)
+	c.SubdomainAPI = (*SubdomainAPIService)(&c.common)
 
 	return c
 }

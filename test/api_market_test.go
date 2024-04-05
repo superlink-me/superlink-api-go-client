@@ -76,9 +76,19 @@ func Test_superlink_MarketAPIService(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var query string
+		resp, httpRes, err := apiClient.MarketAPI.MarketSearch(context.Background()).Execute()
 
-		resp, httpRes, err := apiClient.MarketAPI.MarketSearch(context.Background(), query).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test MarketAPIService MarketSuggestion", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.MarketAPI.MarketSuggestion(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -22,9 +22,9 @@ var _ MappedNullable = &ApiMarketPurchaseResponse{}
 type ApiMarketPurchaseResponse struct {
 	CheckoutId *string `json:"checkoutId,omitempty"`
 	OrderId *string `json:"orderId,omitempty"`
+	StripeCheckoutSession *string `json:"stripeCheckoutSession,omitempty"`
 	StripeCustomerId *string `json:"stripeCustomerId,omitempty"`
 	StripeEphemeralKey *string `json:"stripeEphemeralKey,omitempty"`
-	StripePaymentIntent *string `json:"stripePaymentIntent,omitempty"`
 	StripePublishableKey *string `json:"stripePublishableKey,omitempty"`
 }
 
@@ -109,6 +109,38 @@ func (o *ApiMarketPurchaseResponse) SetOrderId(v string) {
 	o.OrderId = &v
 }
 
+// GetStripeCheckoutSession returns the StripeCheckoutSession field value if set, zero value otherwise.
+func (o *ApiMarketPurchaseResponse) GetStripeCheckoutSession() string {
+	if o == nil || IsNil(o.StripeCheckoutSession) {
+		var ret string
+		return ret
+	}
+	return *o.StripeCheckoutSession
+}
+
+// GetStripeCheckoutSessionOk returns a tuple with the StripeCheckoutSession field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiMarketPurchaseResponse) GetStripeCheckoutSessionOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeCheckoutSession) {
+		return nil, false
+	}
+	return o.StripeCheckoutSession, true
+}
+
+// HasStripeCheckoutSession returns a boolean if a field has been set.
+func (o *ApiMarketPurchaseResponse) HasStripeCheckoutSession() bool {
+	if o != nil && !IsNil(o.StripeCheckoutSession) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeCheckoutSession gets a reference to the given string and assigns it to the StripeCheckoutSession field.
+func (o *ApiMarketPurchaseResponse) SetStripeCheckoutSession(v string) {
+	o.StripeCheckoutSession = &v
+}
+
 // GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
 func (o *ApiMarketPurchaseResponse) GetStripeCustomerId() string {
 	if o == nil || IsNil(o.StripeCustomerId) {
@@ -173,38 +205,6 @@ func (o *ApiMarketPurchaseResponse) SetStripeEphemeralKey(v string) {
 	o.StripeEphemeralKey = &v
 }
 
-// GetStripePaymentIntent returns the StripePaymentIntent field value if set, zero value otherwise.
-func (o *ApiMarketPurchaseResponse) GetStripePaymentIntent() string {
-	if o == nil || IsNil(o.StripePaymentIntent) {
-		var ret string
-		return ret
-	}
-	return *o.StripePaymentIntent
-}
-
-// GetStripePaymentIntentOk returns a tuple with the StripePaymentIntent field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiMarketPurchaseResponse) GetStripePaymentIntentOk() (*string, bool) {
-	if o == nil || IsNil(o.StripePaymentIntent) {
-		return nil, false
-	}
-	return o.StripePaymentIntent, true
-}
-
-// HasStripePaymentIntent returns a boolean if a field has been set.
-func (o *ApiMarketPurchaseResponse) HasStripePaymentIntent() bool {
-	if o != nil && !IsNil(o.StripePaymentIntent) {
-		return true
-	}
-
-	return false
-}
-
-// SetStripePaymentIntent gets a reference to the given string and assigns it to the StripePaymentIntent field.
-func (o *ApiMarketPurchaseResponse) SetStripePaymentIntent(v string) {
-	o.StripePaymentIntent = &v
-}
-
 // GetStripePublishableKey returns the StripePublishableKey field value if set, zero value otherwise.
 func (o *ApiMarketPurchaseResponse) GetStripePublishableKey() string {
 	if o == nil || IsNil(o.StripePublishableKey) {
@@ -253,14 +253,14 @@ func (o ApiMarketPurchaseResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OrderId) {
 		toSerialize["orderId"] = o.OrderId
 	}
+	if !IsNil(o.StripeCheckoutSession) {
+		toSerialize["stripeCheckoutSession"] = o.StripeCheckoutSession
+	}
 	if !IsNil(o.StripeCustomerId) {
 		toSerialize["stripeCustomerId"] = o.StripeCustomerId
 	}
 	if !IsNil(o.StripeEphemeralKey) {
 		toSerialize["stripeEphemeralKey"] = o.StripeEphemeralKey
-	}
-	if !IsNil(o.StripePaymentIntent) {
-		toSerialize["stripePaymentIntent"] = o.StripePaymentIntent
 	}
 	if !IsNil(o.StripePublishableKey) {
 		toSerialize["stripePublishableKey"] = o.StripePublishableKey

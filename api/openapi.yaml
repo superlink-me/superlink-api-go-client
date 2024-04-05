@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.3.34
+  version: v0.4.1
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -105,6 +105,54 @@ paths:
       security:
       - BearerAuth: []
       summary: Creates an admin token
+      tags:
+      - admin
+      x-codegen-request-body-name: request
+  /v1/admin/hns/tld/register:
+    post:
+      description: HNSTLDRegister registers a Handshake TLD
+      operationId: hns-tld-register
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/api.HNSRegisterTLDRequest'
+        description: register hns tld request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.HNSRegisterTLDResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: HNSTLDRegister registers a Handshake TLD
       tags:
       - admin
       x-codegen-request-body-name: request
@@ -269,6 +317,32 @@ paths:
       summary: Returns a SVG image for a Superlink NFT
       tags:
       - nft
+  /v1/domain:
+    get:
+      description: returns all the domains owned by a given ownerAddress
+      operationId: get-all-domains
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.GetAllDomainsResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ErrorResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns all the domains owned by a given ownerAddress
+      tags:
+      - domain-info
   /v1/health:
     get:
       description: Checks the health of the API
@@ -281,19 +355,425 @@ paths:
           content: {}
           description: Internal Server Error
       summary: Checks the health of the API
+  /v1/hns/tld/{tld}/check-if-claimed/{address}:
+    get:
+      description: tests if the wallet has already claimed a domain for this TLD.
+      operationId: hns-tld-check-claimed
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      - description: 0x123456789
+        in: path
+        name: address
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Conflict
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: tests if the wallet has already claimed a domain for this TLD.
+      tags:
+      - hns
+  /v1/hns/tld/{tld}/sld/mint:
+    post:
+      description: HNSCreateDomain creates a handshake domain
+      operationId: hns-domain-create
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.HNSCreateDomainRequest'
+        description: register hns tld request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.HNSDomainAvailableResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: HNSCreateDomain creates a handshake domain
+      tags:
+      - hns
+      x-codegen-request-body-name: request
+  /v1/hns/tld/{tld}/sld/mint-with-sig:
+    post:
+      description: creates a handshake domain authenticated by a signed message
+      operationId: hns-domain-create-sig
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/api.HNSCreateDomainWithWalletRequest'
+        description: register hns domain request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.HNSDomainAvailableResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: creates a handshake domain authenticated by a signed message
+      tags:
+      - hns
+      x-codegen-request-body-name: request
+  /v1/hns/tld/{tld}/sld/{sld}:
+    delete:
+      description: deletes a handshake domain
+      operationId: hns-domain-delete
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      - description: google
+        in: path
+        name: sld
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: deletes a handshake domain
+      tags:
+      - hns
+  /v1/hns/tld/{tld}/sld/{sld}/available:
+    get:
+      description: checks if a handshake domain is available to mint
+      operationId: hns-domain-available
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      - description: google
+        in: path
+        name: sld
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.HNSDomainAvailableResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: checks if a handshake domain is available to mint
+      tags:
+      - hns
+  /v1/hns/tld/{tld}/validate:
+    get:
+      description: HNSTLDValidation tests if the TLD blockchain DNS records are valid.
+      operationId: hns-tld-validate
+      parameters:
+      - description: com
+        in: path
+        name: tld
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketPurchaseResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: HNSTLDValidation tests if the TLD blockchain DNS records are valid.
+      tags:
+      - hns
+  /v1/login/email/{emailAddress}:
+    post:
+      description: Sends the e-mail that contains the magic link to login a specfic
+        user
+      operationId: send-login-email
+      parameters:
+      - description: /superlinks
+        in: query
+        name: returnUrl
+        schema:
+          type: string
+      - description: test@superlink.me
+        in: path
+        name: emailAddress
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Sends the e-mail that contains the magic link to login a specfic user
+      tags:
+      - login
+  /v1/login/link/{loginToken}:
+    get:
+      description: Sets the auth cookie for a client provided a valid encrypted json
+      operationId: login-with-link
+      parameters:
+      - description: /superlinks
+        in: query
+        name: returnUrl
+        schema:
+          type: string
+      - description: ycA4dEverAzydH0Df2si5QAqoFFeYJxDdszP2WIBEQ6rx%2FT98aJQ7HZSAl7abC1f%2BDYBlL6bQxOrr%2FVHgabyqC4ln1c8L%2BmkDRFC9QsR67kcW%2BZc92KAv9eGKdOyHgIjarjUw3FmQSeQpKsAtGytVRBzhVHLHQ%3D%3D
+        in: path
+        name: loginToken
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.AccessTokenResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Login via a magic link
+      tags:
+      - login
+  /v1/login/wallet/{ownerAddress}:
+    post:
+      description: Sets the auth cookie for a client provided a valid wallet + signed
+        message
+      operationId: login-with-wallet
+      parameters:
+      - description: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+        in: path
+        name: ownerAddress
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.WalletLoginRequest'
+        description: wallet login request
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "302":
+          content: {}
+          description: Found
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Login with a valid wallet
+      tags:
+      - login
+      x-codegen-request-body-name: request
   /v1/market/crypto/estimate:
     get:
       description: CryptoEstimate returns the estimated conversion rates for supported
         crypto payment options
       operationId: market-crypto-estimate
-      parameters:
-      - description: string valid
-        in: query
-        name: basecurrency
-        schema:
-          maxLength: 4
-          minLength: 2
-          type: string
       responses:
         "200":
           content:
@@ -307,8 +787,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: CryptoEstimate returns the estimated conversion rates for supported
         crypto payment options
       tags:
@@ -338,8 +816,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: CryptoPurchase returns the payment details required for crypto payment
       tags:
       - market
@@ -368,8 +844,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: Returns order information
       tags:
       - market
@@ -397,23 +871,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: Purchase returns the payment details required by Stripe
       tags:
       - market
       x-codegen-request-body-name: request
-  /v1/market/search/{query}:
-    get:
+  /v1/market/search:
+    post:
       description: Returns market listings
       operationId: market-search
-      parameters:
-      - description: johndoe
-        in: path
-        name: query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.MarketSearchRequest'
+        description: market search request
         required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -427,11 +899,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
-      security:
-      - BearerAuth: []
       summary: Returns market listings
       tags:
       - market
+      x-codegen-request-body-name: request
+  /v1/market/suggest:
+    post:
+      description: Returns market listings for suggestions
+      operationId: market-suggestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.MarketSuggestRequest'
+        description: market suggest request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.MarketSearchResponse'
+          description: OK
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns market listings for suggestions
+      tags:
+      - market
+      x-codegen-request-body-name: request
   /v1/metadata/{domain}:
     get:
       description: returns the metadata for a "domain" nft
@@ -465,6 +964,550 @@ paths:
       summary: Returns metadata usually associated with NFTs uri
       tags:
       - nft
+  /v1/parentdomains/{parentDomain}:
+    get:
+      description: Validates if parent domain is correctly configured for use with
+        ens subdomains
+      operationId: parentdomain-validation
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ParentDomainValidationResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Validates if parent domain is correctly configured for use with ens
+        subdomains
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/addresses/{ethAddress}/reverse-resolve:
+    get:
+      description: Returns reverse-resolution of a provided eth address limited to
+        provided parentdomain
+      operationId: subdomain-reverse-resolve
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+        in: path
+        name: ethAddress
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainReverseResolveResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns reverse-resolution of a provided eth address limited to provided
+        parentdomain
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/buy:
+    post:
+      description: Purchases and sets up a parent domain for use with ens subdomains
+      operationId: parentdomain-purchase
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.ParentDomainPurchaseRequest'
+        description: purchase parent domain
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Purchases and sets up a parent domain for use with ens subdomains
+      tags:
+      - subdomain
+      x-codegen-request-body-name: request
+  /v1/parentdomains/{parentDomain}/claimed/{ethAddress}:
+    get:
+      description: Returns subdomain availability
+      operationId: subdomain-claimed
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+        in: path
+        name: ethAddress
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainAvailableResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns subdomain availability
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/list:
+    get:
+      description: Paginates over all subdomains in descending order of the creation
+        date
+      operationId: subdomain-list
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+        in: query
+        name: pagination-token
+        schema:
+          type: string
+      - description: "100"
+        in: query
+        name: page-size
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainListResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Paginates over all subdomains in descending order of the creation date
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/per-day:
+    get:
+      description: Paginates over per-day aggregated counts for subdomains created
+        given a parentdomain
+      operationId: subdomain-per-day
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+        in: query
+        name: pagination-token
+        schema:
+          type: string
+      - description: "100"
+        in: query
+        name: page-size
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainPerDayResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Paginates over per-day aggregated counts for subdomains created given
+        a parentdomain
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/search:
+    get:
+      description: Returns a list of available parent-domains provided the preferred
+        parent ddomain
+      operationId: parentdomain-search
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ParentDomainSearchResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns a list of available parent-domains provided the preferred parent
+        ddomain
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/subdomains/{subDomainName}:
+    delete:
+      description: Deletes a subdomain for provided parentdomain (Omnipotent)
+      operationId: subdomain-revoke
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: test
+        in: path
+        name: subDomainName
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Deletes a subdomain for provided parentdomain (Omnipotent)
+      tags:
+      - subdomain
+    get:
+      description: Returns subdomain availability
+      operationId: subdomain-available
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: test
+        in: path
+        name: subDomainName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainAvailableResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns subdomain availability
+      tags:
+      - subdomain
+    post:
+      description: Creates a subdomain for provided parentdomain
+      operationId: subdomain-mint
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: test
+        in: path
+        name: subDomainName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.SubDomainMintRequest'
+        description: create subdomain
+        required: true
+      responses:
+        "201":
+          content: {}
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Creates a subdomain for provided parentdomain
+      tags:
+      - subdomain
+      x-codegen-request-body-name: request
+  /v1/parentdomains/{parentDomain}/subdomains/{subDomainName}/mint-with-sig:
+    post:
+      description: Creates a subdomain for provided parentdomain with signature
+      operationId: subdomain-mint-sig
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: test
+        in: path
+        name: subDomainName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.SubDomainMintWithSigRequest'
+        description: create subdomain
+        required: true
+      responses:
+        "201":
+          content: {}
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Creates a subdomain for provided parentdomain with signature
+      tags:
+      - subdomain
+      x-codegen-request-body-name: request
+  /v1/parentdomains/{parentDomain}/subdomains/{subDomainName}/resolve:
+    get:
+      description: Returns resolution of a provided subdomain
+      operationId: subdomain-resolve
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      - description: test
+        in: path
+        name: subDomainName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainResolveResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      summary: Returns resolution of a provided subdomain
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/total:
+    get:
+      description: Returns the total number of subdomains registered to parentdomain
+      operationId: subdomain-total
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.SubDomainTotalResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Returns the total number of subdomains registered to parentdomain
+      tags:
+      - subdomain
   /v1/partner/access-token:
     delete:
       description: Deletes an access token
@@ -582,6 +1625,42 @@ paths:
       summary: Returns a list of all purchases
       tags:
       - partner
+  /v1/prove/wallet/eth/{ownerAddress}:
+    get:
+      description: Gets message which should be signed by an eth wallet as proof of
+        ownership
+      operationId: get-eth-wallet-message
+      parameters:
+      - description: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+        in: path
+        name: ownerAddress
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.WalletMessageResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get message which should be signed by an eth wallet as proof of ownership
+      tags:
+      - prove
   /v1/resolve/{domain}:
     get:
       description: resolve domain data by domain
@@ -1553,6 +2632,15 @@ components:
           example: <JWT>
           type: string
       type: object
+    api.AddressRecord:
+      properties:
+        addr:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        coinId:
+          example: 60
+          type: integer
+      type: object
     api.AdminAccessTokenCreateRequest:
       properties:
         label:
@@ -1580,6 +2668,12 @@ components:
           type: string
       type: object
     api.BadRequestResponse:
+      example:
+        errors:
+        - field: field
+          info: error message
+        - field: field
+          info: error message
       properties:
         errors:
           items:
@@ -3193,9 +4287,6 @@ components:
         currency:
           example: ETH
           type: string
-        demo:
-          example: false
-          type: boolean
         domain:
           example: firstname.lastname
           type: string
@@ -3208,6 +4299,13 @@ components:
         ownerName:
           example: Nora
           type: string
+        partnerId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+        walletAddrs:
+          items:
+            $ref: '#/components/schemas/api.AddressRecord'
+          type: array
         years:
           example: 1
           type: integer
@@ -3230,6 +4328,30 @@ components:
           type: string
         value:
           example: 192.168.0.1
+          type: string
+      type: object
+    api.DomainBasicInformation:
+      example:
+        createdAt: 2024-01-01 07:31:02.315
+        image: https://api.superlink.me/card-image/jon.johnson.svg
+        name: jon.johnson
+        type: Superlink
+        status: Active
+      properties:
+        createdAt:
+          example: 2024-01-01 07:31:02.315
+          type: string
+        image:
+          example: https://api.superlink.me/card-image/jon.johnson.svg
+          type: string
+        name:
+          example: jon.johnson
+          type: string
+        status:
+          example: Active
+          type: string
+        type:
+          example: Superlink
           type: string
       type: object
     api.DomainMetadataAttribute:
@@ -3299,6 +4421,9 @@ components:
           type: string
       type: object
     api.ErrorResponse:
+      example:
+        field: field
+        info: error message
       properties:
         field:
           example: field
@@ -3307,7 +4432,118 @@ components:
           example: error message
           type: string
       type: object
+    api.GetAllDomainsResponse:
+      example:
+        domains:
+        - createdAt: 2024-01-01 07:31:02.315
+          image: https://api.superlink.me/card-image/jon.johnson.svg
+          name: jon.johnson
+          type: Superlink
+          status: Active
+        - createdAt: 2024-01-01 07:31:02.315
+          image: https://api.superlink.me/card-image/jon.johnson.svg
+          name: jon.johnson
+          type: Superlink
+          status: Active
+      properties:
+        domains:
+          items:
+            $ref: '#/components/schemas/api.DomainBasicInformation'
+          type: array
+      type: object
+    api.HNSBlockchainRecords:
+      example:
+        a: 1.2.3.4
+        ds2: 0ead833907382ecfbe7134dc3ded40befe91f4d59a9c8bf3247b6a390b678bbb
+        ds1: 64385959c14e13c10600e82ae0e203e5c7c317a4
+        ds4: 4ef86f59cc6a0aaa9658a293871b6ca1ba93b2b60853949a9cbc79b10101b3572b3e3537974fda3d8b038bc42ed3f649
+      properties:
+        a:
+          example: 1.2.3.4
+          type: string
+        ds1:
+          example: 64385959c14e13c10600e82ae0e203e5c7c317a4
+          type: string
+        ds2:
+          example: 0ead833907382ecfbe7134dc3ded40befe91f4d59a9c8bf3247b6a390b678bbb
+          type: string
+        ds4:
+          example: 4ef86f59cc6a0aaa9658a293871b6ca1ba93b2b60853949a9cbc79b10101b3572b3e3537974fda3d8b038bc42ed3f649
+          type: string
+      type: object
+    api.HNSCreateDomainRequest:
+      properties:
+        addresses:
+          additionalProperties:
+            type: string
+          type: object
+        domain:
+          example: domain.com
+          type: string
+        ownerAddress:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+      type: object
+    api.HNSCreateDomainWithWalletRequest:
+      properties:
+        addresses:
+          additionalProperties:
+            type: string
+          type: object
+        domain:
+          example: domain.com
+          type: string
+        message:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        ownerAddress:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        signedMessage:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+      type: object
+    api.HNSDomainAvailableResponse:
+      example:
+        domain: test1.test
+        status: available
+      properties:
+        domain:
+          example: test1.test
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/api.SubdomainStatus'
+          example: available
+          type: object
+      type: object
+    api.HNSRegisterTLDRequest:
+      properties:
+        partnerId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
+        tld:
+          example: com
+          type: string
+      type: object
+    api.HNSRegisterTLDResponse:
+      example:
+        records:
+          a: 1.2.3.4
+          ds2: 0ead833907382ecfbe7134dc3ded40befe91f4d59a9c8bf3247b6a390b678bbb
+          ds1: 64385959c14e13c10600e82ae0e203e5c7c317a4
+          ds4: 4ef86f59cc6a0aaa9658a293871b6ca1ba93b2b60853949a9cbc79b10101b3572b3e3537974fda3d8b038bc42ed3f649
+        tld: test
+      properties:
+        records:
+          $ref: '#/components/schemas/api.HNSBlockchainRecords'
+        tld:
+          example: test
+          type: string
+      type: object
     api.InternalServerErrorResponse:
+      example:
+        message: Internal server error
       properties:
         message:
           example: Internal server error
@@ -3331,6 +4567,8 @@ components:
       type: object
     api.MarketCryptoEstimationResponse:
       example:
+        fiatCurrency: USD
+        region: US
         estimations:
         - symbol: eth
           name: Ethereum
@@ -3343,6 +4581,12 @@ components:
           items:
             $ref: '#/components/schemas/api.MarketCryptoEstimation'
           type: array
+        fiatCurrency:
+          example: USD
+          type: string
+        region:
+          example: US
+          type: string
       type: object
     api.MarketCryptoPurchaseResponse:
       example:
@@ -3413,7 +4657,7 @@ components:
       type: object
     api.MarketPurchaseResponse:
       example:
-        stripePaymentIntent: pi_1234567890abcdef1234567890abcdef
+        stripeCheckoutSession: cs_1234567890abcdef1234567890abcdef
         orderId: 92456d2b-c315-4b2b-b234-c674490b7324
         stripeEphemeralKey: ek_test_1234567890abcdef1234567890abcdef
         stripePublishableKey: pk_test_1234567890abcdef1234567890abcdef
@@ -3426,17 +4670,27 @@ components:
         orderId:
           example: 92456d2b-c315-4b2b-b234-c674490b7324
           type: string
+        stripeCheckoutSession:
+          example: cs_1234567890abcdef1234567890abcdef
+          type: string
         stripeCustomerId:
           example: cus_1234567890abcdef1234567890abcdef
           type: string
         stripeEphemeralKey:
           example: ek_test_1234567890abcdef1234567890abcdef
           type: string
-        stripePaymentIntent:
-          example: pi_1234567890abcdef1234567890abcdef
-          type: string
         stripePublishableKey:
           example: pk_test_1234567890abcdef1234567890abcdef
+          type: string
+      type: object
+    api.MarketSearchRequest:
+      properties:
+        addrs:
+          items:
+            $ref: '#/components/schemas/api.AddressRecord'
+          type: array
+        query:
+          example: john doe
           type: string
       type: object
     api.MarketSearchResponse:
@@ -3465,6 +4719,16 @@ components:
           items:
             $ref: '#/components/schemas/api.MarketListing'
           type: array
+      type: object
+    api.MarketSuggestRequest:
+      properties:
+        addrs:
+          items:
+            $ref: '#/components/schemas/api.AddressRecord'
+          type: array
+        query:
+          example: john doe
+          type: string
       type: object
     api.MarketplaceOrderResponse:
       example:
@@ -3538,6 +4802,38 @@ components:
       - ENS
       - SUPERLINK
       - ICANN
+    api.ParentDomainPurchaseRequest:
+      properties:
+        domainContactDetails:
+          $ref: '#/components/schemas/api_ParentDomainPurchaseRequest_domainContactDetails'
+      type: object
+    api.ParentDomainSearchResponse:
+      example:
+        availableParentDomain:
+        - availableParentDomain
+        - availableParentDomain
+      properties:
+        availableParentDomain:
+          items:
+            type: string
+          type: array
+      type: object
+    api.ParentDomainValidationResponse:
+      example:
+        reason: "Parent incorrectly configured: no ENS text record configured"
+        parentDomain: test.eth
+        status: true
+      properties:
+        parentDomain:
+          example: test.eth
+          type: string
+        reason:
+          example: "Parent incorrectly configured: no ENS text record configured"
+          type: string
+        status:
+          example: true
+          type: boolean
+      type: object
     api.PartnerResponse:
       example:
         createdAt: 2023-06-08T10:30:00Z
@@ -3584,9 +4880,6 @@ components:
         checkoutId:
           example: 92353d2b-c3f5-4b3b-b214-c34b490b7324
           type: string
-        demo:
-          example: false
-          type: boolean
         domain:
           example: firstname.lastname
           type: string
@@ -3596,9 +4889,16 @@ components:
         ownerAddress:
           example: 0x1234567890abcdef1234567890abcdef12345678
           type: string
+        partnerId:
+          example: 248b8553-effa-4d99-a906-041a54f7df87
+          type: string
         stripeConnectedAccountId:
           example: acct_1J1Z2X2Y2Z2X2Y2Z
           type: string
+        walletAddrs:
+          items:
+            $ref: '#/components/schemas/api.AddressRecord'
+          type: array
         years:
           example: 1
           type: integer
@@ -3701,6 +5001,164 @@ components:
           example: 248b8553-effa-4d99-a906-041a54f7df87
           type: string
       type: object
+    api.SubDomainAvailableResponse:
+      example:
+        domain: test1.test.eth
+        status: available
+      properties:
+        domain:
+          example: test1.test.eth
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/api.SubdomainStatus'
+          example: available
+          type: object
+      type: object
+    api.SubDomainItem:
+      example:
+        createdTimestamp: 2024-01-01 07:31:02.315
+        name: test.superlink.me
+      properties:
+        createdTimestamp:
+          example: 2024-01-01 07:31:02.315
+          type: string
+        name:
+          example: test.superlink.me
+          type: string
+      type: object
+    api.SubDomainListResponse:
+      example:
+        nextPaginationToken: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+        total: 28
+        names:
+        - createdTimestamp: 2024-01-01 07:31:02.315
+          name: test.superlink.me
+        - createdTimestamp: 2024-01-01 07:31:02.315
+          name: test.superlink.me
+      properties:
+        names:
+          items:
+            $ref: '#/components/schemas/api.SubDomainItem'
+          type: array
+        nextPaginationToken:
+          example: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+          type: string
+        total:
+          example: 28
+          type: integer
+      type: object
+    api.SubDomainMintRequest:
+      properties:
+        nameData:
+          $ref: '#/components/schemas/api.SubDomainNameData'
+      type: object
+    api.SubDomainMintWithSigRequest:
+      properties:
+        message:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        nameData:
+          $ref: '#/components/schemas/api.SubDomainNameData'
+        signedMessage:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+      type: object
+    api.SubDomainNameData:
+      example:
+        contenthash: 0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe
+        addresses:
+          key: addresses
+        text:
+          key: text
+      properties:
+        addresses:
+          additionalProperties:
+            type: string
+          type: object
+        contenthash:
+          example: 0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe
+          type: string
+        text:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    api.SubDomainPerDayCount:
+      example:
+        date: 2024-01-01
+        count: 28
+      properties:
+        count:
+          example: 28
+          type: integer
+        date:
+          example: 2024-01-01
+          type: string
+      type: object
+    api.SubDomainPerDayResponse:
+      example:
+        nextPaginationToken: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+        total: 128
+        aggregates:
+        - date: 2024-01-01
+          count: 28
+        - date: 2024-01-01
+          count: 28
+      properties:
+        aggregates:
+          items:
+            $ref: '#/components/schemas/api.SubDomainPerDayCount'
+          type: array
+        nextPaginationToken:
+          example: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+          type: string
+        total:
+          example: 128
+          type: integer
+      type: object
+    api.SubDomainResolveResponse:
+      example:
+        domain: test1.test.eth
+        nameData:
+          contenthash: 0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe
+          addresses:
+            key: addresses
+          text:
+            key: text
+      properties:
+        domain:
+          example: test1.test.eth
+          type: string
+        nameData:
+          $ref: '#/components/schemas/api.SubDomainNameData'
+      type: object
+    api.SubDomainReverseResolveResponse:
+      example:
+        domain: test1.test.eth
+      properties:
+        domain:
+          example: test1.test.eth
+          type: string
+      type: object
+    api.SubDomainTotalResponse:
+      example:
+        count: 28
+      properties:
+        count:
+          example: 28
+          type: integer
+      type: object
+    api.SubdomainStatus:
+      enum:
+      - available
+      - unavailable
+      - revoked
+      type: string
+      x-enum-varnames:
+      - SubdomainStatusAvailable
+      - SubdomainStatusUnavailable
+      - SubdomainStatusRevoked
     api.TXTRecord:
       example:
         value: value
@@ -3726,14 +5184,91 @@ components:
           example: ERC20
           type: string
       type: object
+    api.WalletLoginRequest:
+      properties:
+        message:
+          example: |-
+            Sign this message for authorization to log in to superlink
+            OwnerAddress: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+            CreationTime: 2006-01-02T15:04:05-0700
+            ExpiryTime: 2006-01-02T15:04:05-0700
+            UniqueSignature: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+          type: string
+        redirectUrl:
+          example: https://superlink.me/superlinks
+          type: string
+        signedMessage:
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+      type: object
+    api.WalletMessageResponse:
+      example:
+        message: |-
+          Sign this message for authorization to log in to superlink
+          OwnerAddress: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+          CreationTime: 2006-01-02T15:04:05-0700
+          ExpiryTime: 2006-01-02T15:04:05-0700
+          UniqueSignature: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+      properties:
+        message:
+          example: |-
+            Sign this message for authorization to log in to superlink
+            OwnerAddress: 0xA5D70E12348Fef6A123EBD1231b123c51235E321
+            CreationTime: 2006-01-02T15:04:05-0700
+            ExpiryTime: 2006-01-02T15:04:05-0700
+            UniqueSignature: KCJuYW1lIjoiYWJjLmRlZi5naGkiLCJkYXRlIjoiMjAyMS0xMS0xMSIp
+          type: string
+      type: object
     data.AccessTokenType:
       enum:
       - ADMIN
       - CUSTOMER
+      - USER
+      - WALLET
+      - INVALID
       type: string
       x-enum-varnames:
       - AccessTokenTypeAdmin
       - AccessTokenTypeCustomer
+      - AccessTokenTypeUser
+      - AccessTokenTypeWallet
+      - AccessTokenTypeInvalid
+    api_ParentDomainPurchaseRequest_domainContactDetails:
+      properties:
+        address1:
+          example: 15 Church St
+          type: string
+        address2:
+          example: "Door 25, The building"
+          type: string
+        city:
+          example: New York
+          type: string
+        country:
+          example: US
+          type: string
+        email:
+          example: nora.miller@gmail.com
+          type: string
+        nameFirst:
+          example: Nora
+          type: string
+        nameLast:
+          example: Miller
+          type: string
+        phoneCountryCode:
+          example: "+1"
+          type: string
+        phoneNumber:
+          example: "1234123412"
+          type: string
+        postalCode:
+          example: "12345"
+          type: string
+        state:
+          example: CA
+          type: string
+      type: object
   securitySchemes:
     BearerAuth:
       description: Type "Bearer" followed by a space and the JWT token.

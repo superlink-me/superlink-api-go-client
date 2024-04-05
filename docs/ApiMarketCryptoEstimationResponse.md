@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Estimations** | Pointer to [**[]ApiMarketCryptoEstimation**](ApiMarketCryptoEstimation.md) |  | [optional] 
+**FiatCurrency** | Pointer to **string** |  | [optional] 
+**Region** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -49,6 +51,56 @@ SetEstimations sets Estimations field to given value.
 `func (o *ApiMarketCryptoEstimationResponse) HasEstimations() bool`
 
 HasEstimations returns a boolean if a field has been set.
+
+### GetFiatCurrency
+
+`func (o *ApiMarketCryptoEstimationResponse) GetFiatCurrency() string`
+
+GetFiatCurrency returns the FiatCurrency field if non-nil, zero value otherwise.
+
+### GetFiatCurrencyOk
+
+`func (o *ApiMarketCryptoEstimationResponse) GetFiatCurrencyOk() (*string, bool)`
+
+GetFiatCurrencyOk returns a tuple with the FiatCurrency field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFiatCurrency
+
+`func (o *ApiMarketCryptoEstimationResponse) SetFiatCurrency(v string)`
+
+SetFiatCurrency sets FiatCurrency field to given value.
+
+### HasFiatCurrency
+
+`func (o *ApiMarketCryptoEstimationResponse) HasFiatCurrency() bool`
+
+HasFiatCurrency returns a boolean if a field has been set.
+
+### GetRegion
+
+`func (o *ApiMarketCryptoEstimationResponse) GetRegion() string`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *ApiMarketCryptoEstimationResponse) GetRegionOk() (*string, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *ApiMarketCryptoEstimationResponse) SetRegion(v string)`
+
+SetRegion sets Region field to given value.
+
+### HasRegion
+
+`func (o *ApiMarketCryptoEstimationResponse) HasRegion() bool`
+
+HasRegion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -8,13 +8,14 @@ Method | HTTP request | Description
 [**MarketCryptoPurchase**](MarketAPI.md#MarketCryptoPurchase) | **Post** /v1/market/crypto/purchase | CryptoPurchase returns the payment details required for crypto payment
 [**MarketOrder**](MarketAPI.md#MarketOrder) | **Get** /v1/market/order/{orderID} | Returns order information
 [**MarketPurchase**](MarketAPI.md#MarketPurchase) | **Post** /v1/market/purchase | Purchase returns the payment details required by Stripe
-[**MarketSearch**](MarketAPI.md#MarketSearch) | **Get** /v1/market/search/{query} | Returns market listings
+[**MarketSearch**](MarketAPI.md#MarketSearch) | **Post** /v1/market/search | Returns market listings
+[**MarketSuggestion**](MarketAPI.md#MarketSuggestion) | **Post** /v1/market/suggest | Returns market listings for suggestions
 
 
 
 ## MarketCryptoEstimate
 
-> ApiMarketCryptoEstimationResponse MarketCryptoEstimate(ctx).Basecurrency(basecurrency).Execute()
+> ApiMarketCryptoEstimationResponse MarketCryptoEstimate(ctx).Execute()
 
 CryptoEstimate returns the estimated conversion rates for supported crypto payment options
 
@@ -26,39 +27,34 @@ CryptoEstimate returns the estimated conversion rates for supported crypto payme
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    basecurrency := "basecurrency_example" // string | string valid (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketAPI.MarketCryptoEstimate(context.Background()).Basecurrency(basecurrency).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketCryptoEstimate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MarketCryptoEstimate`: ApiMarketCryptoEstimationResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketCryptoEstimate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketCryptoEstimate(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketCryptoEstimate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketCryptoEstimate`: ApiMarketCryptoEstimationResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketCryptoEstimate`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiMarketCryptoEstimateRequest struct via the builder pattern
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **basecurrency** | **string** | string valid | 
 
 ### Return type
 
@@ -66,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -92,24 +88,24 @@ CryptoPurchase returns the payment details required for crypto payment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiCryptoPurchaseRequest() // ApiCryptoPurchaseRequest | crypto purchase request
+	request := *openapiclient.NewApiCryptoPurchaseRequest() // ApiCryptoPurchaseRequest | crypto purchase request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketAPI.MarketCryptoPurchase(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketCryptoPurchase``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MarketCryptoPurchase`: ApiMarketCryptoPurchaseResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketCryptoPurchase`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketCryptoPurchase(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketCryptoPurchase``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketCryptoPurchase`: ApiMarketCryptoPurchaseResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketCryptoPurchase`: %v\n", resp)
 }
 ```
 
@@ -132,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -158,24 +154,24 @@ Returns order information
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    orderID := "orderID_example" // string | 92456d2b-c315-4b2b-b234-c674490b7324
+	orderID := "orderID_example" // string | 92456d2b-c315-4b2b-b234-c674490b7324
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketAPI.MarketOrder(context.Background(), orderID).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketOrder``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MarketOrder`: ApiMarketplaceOrderResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketOrder`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketOrder(context.Background(), orderID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketOrder``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketOrder`: ApiMarketplaceOrderResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketOrder`: %v\n", resp)
 }
 ```
 
@@ -202,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -228,24 +224,24 @@ Purchase returns the payment details required by Stripe
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    request := *openapiclient.NewApiPurchaseRequest() // ApiPurchaseRequest | purchase request
+	request := *openapiclient.NewApiPurchaseRequest() // ApiPurchaseRequest | purchase request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketAPI.MarketPurchase(context.Background()).Request(request).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketPurchase``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MarketPurchase`: ApiMarketPurchaseResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketPurchase`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketPurchase(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketPurchase``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketPurchase`: ApiMarketPurchaseResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketPurchase`: %v\n", resp)
 }
 ```
 
@@ -268,7 +264,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -282,7 +278,7 @@ Name | Type | Description  | Notes
 
 ## MarketSearch
 
-> ApiMarketSearchResponse MarketSearch(ctx, query).Execute()
+> ApiMarketSearchResponse MarketSearch(ctx).Request(request).Execute()
 
 Returns market listings
 
@@ -294,34 +290,30 @@ Returns market listings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    query := "query_example" // string | johndoe
+	request := *openapiclient.NewApiMarketSearchRequest() // ApiMarketSearchRequest | market search request
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MarketAPI.MarketSearch(context.Background(), query).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketSearch``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MarketSearch`: ApiMarketSearchResponse
-    fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketSearch`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketSearch(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketSearch``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketSearch`: ApiMarketSearchResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketSearch`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**query** | **string** | johndoe | 
 
 ### Other Parameters
 
@@ -330,7 +322,7 @@ Other parameters are passed through a pointer to a apiMarketSearchRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
+ **request** | [**ApiMarketSearchRequest**](ApiMarketSearchRequest.md) | market search request | 
 
 ### Return type
 
@@ -338,11 +330,77 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## MarketSuggestion
+
+> ApiMarketSearchResponse MarketSuggestion(ctx).Request(request).Execute()
+
+Returns market listings for suggestions
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
+)
+
+func main() {
+	request := *openapiclient.NewApiMarketSuggestRequest() // ApiMarketSuggestRequest | market suggest request
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MarketAPI.MarketSuggestion(context.Background()).Request(request).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MarketAPI.MarketSuggestion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MarketSuggestion`: ApiMarketSearchResponse
+	fmt.Fprintf(os.Stdout, "Response from `MarketAPI.MarketSuggestion`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiMarketSuggestionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **request** | [**ApiMarketSuggestRequest**](ApiMarketSuggestRequest.md) | market suggest request | 
+
+### Return type
+
+[**ApiMarketSearchResponse**](ApiMarketSearchResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

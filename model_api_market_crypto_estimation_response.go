@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -21,6 +21,8 @@ var _ MappedNullable = &ApiMarketCryptoEstimationResponse{}
 // ApiMarketCryptoEstimationResponse struct for ApiMarketCryptoEstimationResponse
 type ApiMarketCryptoEstimationResponse struct {
 	Estimations []ApiMarketCryptoEstimation `json:"estimations,omitempty"`
+	FiatCurrency *string `json:"fiatCurrency,omitempty"`
+	Region *string `json:"region,omitempty"`
 }
 
 // NewApiMarketCryptoEstimationResponse instantiates a new ApiMarketCryptoEstimationResponse object
@@ -72,6 +74,70 @@ func (o *ApiMarketCryptoEstimationResponse) SetEstimations(v []ApiMarketCryptoEs
 	o.Estimations = v
 }
 
+// GetFiatCurrency returns the FiatCurrency field value if set, zero value otherwise.
+func (o *ApiMarketCryptoEstimationResponse) GetFiatCurrency() string {
+	if o == nil || IsNil(o.FiatCurrency) {
+		var ret string
+		return ret
+	}
+	return *o.FiatCurrency
+}
+
+// GetFiatCurrencyOk returns a tuple with the FiatCurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiMarketCryptoEstimationResponse) GetFiatCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.FiatCurrency) {
+		return nil, false
+	}
+	return o.FiatCurrency, true
+}
+
+// HasFiatCurrency returns a boolean if a field has been set.
+func (o *ApiMarketCryptoEstimationResponse) HasFiatCurrency() bool {
+	if o != nil && !IsNil(o.FiatCurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetFiatCurrency gets a reference to the given string and assigns it to the FiatCurrency field.
+func (o *ApiMarketCryptoEstimationResponse) SetFiatCurrency(v string) {
+	o.FiatCurrency = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *ApiMarketCryptoEstimationResponse) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiMarketCryptoEstimationResponse) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *ApiMarketCryptoEstimationResponse) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *ApiMarketCryptoEstimationResponse) SetRegion(v string) {
+	o.Region = &v
+}
+
 func (o ApiMarketCryptoEstimationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -84,6 +150,12 @@ func (o ApiMarketCryptoEstimationResponse) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Estimations) {
 		toSerialize["estimations"] = o.Estimations
+	}
+	if !IsNil(o.FiatCurrency) {
+		toSerialize["fiatCurrency"] = o.FiatCurrency
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
 	}
 	return toSerialize, nil
 }

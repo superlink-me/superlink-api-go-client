@@ -23,24 +23,24 @@ Returns a SVG image for a Superlink NFT
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    domain := "domain_example" // string | firstname.lastname
+	domain := "domain_example" // string | firstname.lastname
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NftAPI.GetTokenImageByDomain(context.Background(), domain).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NftAPI.GetTokenImageByDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTokenImageByDomain`: string
-    fmt.Fprintf(os.Stdout, "Response from `NftAPI.GetTokenImageByDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NftAPI.GetTokenImageByDomain(context.Background(), domain).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NftAPI.GetTokenImageByDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTokenImageByDomain`: string
+	fmt.Fprintf(os.Stdout, "Response from `NftAPI.GetTokenImageByDomain`: %v\n", resp)
 }
 ```
 
@@ -93,24 +93,24 @@ Returns metadata usually associated with NFTs uri
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    domain := "domain_example" // string | firstname.lastname
+	domain := "domain_example" // string | firstname.lastname
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NftAPI.GetTokenMetadataByDomain(context.Background(), domain).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NftAPI.GetTokenMetadataByDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTokenMetadataByDomain`: ApiDomainMetadataResponse
-    fmt.Fprintf(os.Stdout, "Response from `NftAPI.GetTokenMetadataByDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NftAPI.GetTokenMetadataByDomain(context.Background(), domain).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NftAPI.GetTokenMetadataByDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTokenMetadataByDomain`: ApiDomainMetadataResponse
+	fmt.Fprintf(os.Stdout, "Response from `NftAPI.GetTokenMetadataByDomain`: %v\n", resp)
 }
 ```
 

@@ -3,7 +3,7 @@ Superlink
 
 API for Superlink
 
-API version: v0.3.34
+API version: v0.4.1
 Contact: support@superlink.me
 */
 
@@ -21,11 +21,12 @@ var _ MappedNullable = &ApiCryptoPurchaseRequest{}
 // ApiCryptoPurchaseRequest struct for ApiCryptoPurchaseRequest
 type ApiCryptoPurchaseRequest struct {
 	Currency *string `json:"currency,omitempty"`
-	Demo *bool `json:"demo,omitempty"`
 	Domain *string `json:"domain,omitempty"`
 	OwnerAddress *string `json:"ownerAddress,omitempty"`
 	OwnerEmail *string `json:"ownerEmail,omitempty"`
 	OwnerName *string `json:"ownerName,omitempty"`
+	PartnerId *string `json:"partnerId,omitempty"`
+	WalletAddrs []ApiAddressRecord `json:"walletAddrs,omitempty"`
 	Years *int32 `json:"years,omitempty"`
 }
 
@@ -76,38 +77,6 @@ func (o *ApiCryptoPurchaseRequest) HasCurrency() bool {
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
 func (o *ApiCryptoPurchaseRequest) SetCurrency(v string) {
 	o.Currency = &v
-}
-
-// GetDemo returns the Demo field value if set, zero value otherwise.
-func (o *ApiCryptoPurchaseRequest) GetDemo() bool {
-	if o == nil || IsNil(o.Demo) {
-		var ret bool
-		return ret
-	}
-	return *o.Demo
-}
-
-// GetDemoOk returns a tuple with the Demo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApiCryptoPurchaseRequest) GetDemoOk() (*bool, bool) {
-	if o == nil || IsNil(o.Demo) {
-		return nil, false
-	}
-	return o.Demo, true
-}
-
-// HasDemo returns a boolean if a field has been set.
-func (o *ApiCryptoPurchaseRequest) HasDemo() bool {
-	if o != nil && !IsNil(o.Demo) {
-		return true
-	}
-
-	return false
-}
-
-// SetDemo gets a reference to the given bool and assigns it to the Demo field.
-func (o *ApiCryptoPurchaseRequest) SetDemo(v bool) {
-	o.Demo = &v
 }
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
@@ -238,6 +207,70 @@ func (o *ApiCryptoPurchaseRequest) SetOwnerName(v string) {
 	o.OwnerName = &v
 }
 
+// GetPartnerId returns the PartnerId field value if set, zero value otherwise.
+func (o *ApiCryptoPurchaseRequest) GetPartnerId() string {
+	if o == nil || IsNil(o.PartnerId) {
+		var ret string
+		return ret
+	}
+	return *o.PartnerId
+}
+
+// GetPartnerIdOk returns a tuple with the PartnerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiCryptoPurchaseRequest) GetPartnerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PartnerId) {
+		return nil, false
+	}
+	return o.PartnerId, true
+}
+
+// HasPartnerId returns a boolean if a field has been set.
+func (o *ApiCryptoPurchaseRequest) HasPartnerId() bool {
+	if o != nil && !IsNil(o.PartnerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPartnerId gets a reference to the given string and assigns it to the PartnerId field.
+func (o *ApiCryptoPurchaseRequest) SetPartnerId(v string) {
+	o.PartnerId = &v
+}
+
+// GetWalletAddrs returns the WalletAddrs field value if set, zero value otherwise.
+func (o *ApiCryptoPurchaseRequest) GetWalletAddrs() []ApiAddressRecord {
+	if o == nil || IsNil(o.WalletAddrs) {
+		var ret []ApiAddressRecord
+		return ret
+	}
+	return o.WalletAddrs
+}
+
+// GetWalletAddrsOk returns a tuple with the WalletAddrs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiCryptoPurchaseRequest) GetWalletAddrsOk() ([]ApiAddressRecord, bool) {
+	if o == nil || IsNil(o.WalletAddrs) {
+		return nil, false
+	}
+	return o.WalletAddrs, true
+}
+
+// HasWalletAddrs returns a boolean if a field has been set.
+func (o *ApiCryptoPurchaseRequest) HasWalletAddrs() bool {
+	if o != nil && !IsNil(o.WalletAddrs) {
+		return true
+	}
+
+	return false
+}
+
+// SetWalletAddrs gets a reference to the given []ApiAddressRecord and assigns it to the WalletAddrs field.
+func (o *ApiCryptoPurchaseRequest) SetWalletAddrs(v []ApiAddressRecord) {
+	o.WalletAddrs = v
+}
+
 // GetYears returns the Years field value if set, zero value otherwise.
 func (o *ApiCryptoPurchaseRequest) GetYears() int32 {
 	if o == nil || IsNil(o.Years) {
@@ -283,9 +316,6 @@ func (o ApiCryptoPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if !IsNil(o.Demo) {
-		toSerialize["demo"] = o.Demo
-	}
 	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
@@ -297,6 +327,12 @@ func (o ApiCryptoPurchaseRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OwnerName) {
 		toSerialize["ownerName"] = o.OwnerName
+	}
+	if !IsNil(o.PartnerId) {
+		toSerialize["partnerId"] = o.PartnerId
+	}
+	if !IsNil(o.WalletAddrs) {
+		toSerialize["walletAddrs"] = o.WalletAddrs
 	}
 	if !IsNil(o.Years) {
 		toSerialize["years"] = o.Years

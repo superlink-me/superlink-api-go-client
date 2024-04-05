@@ -23,25 +23,25 @@ Resolves wallets and DNS records for an address
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    address := "address_example" // string | 0x1234561234556
-    nameservice := "nameservice_example" // string | superlink (optional)
+	address := "address_example" // string | 0x1234561234556
+	nameservice := "nameservice_example" // string | superlink (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResolutionAPI.ResolveDataByAddress(context.Background(), address).Nameservice(nameservice).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByAddress``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResolveDataByAddress`: ApiResolveDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByAddress`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResolutionAPI.ResolveDataByAddress(context.Background(), address).Nameservice(nameservice).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByAddress``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResolveDataByAddress`: ApiResolveDomainResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByAddress`: %v\n", resp)
 }
 ```
 
@@ -95,26 +95,26 @@ Resolves wallets and DNS records for a domain
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/superlink-me/superlink-api-go-client"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
 )
 
 func main() {
-    domain := "domain_example" // string | firstname.lastname
-    nameservices := []string{"Nameservices_example"} // []string | superlink,ens,ud (optional)
-    coins := []string{"Coins_example"} // []string | BTC,ETH,MATIC (optional)
+	domain := "domain_example" // string | firstname.lastname
+	nameservices := []string{"Nameservices_example"} // []string | superlink,ens,ud (optional)
+	coins := []string{"Coins_example"} // []string | BTC,ETH,MATIC (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Nameservices(nameservices).Coins(coins).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByDomain``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResolveDataByDomain`: ApiResolveDomainResponse
-    fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByDomain`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ResolutionAPI.ResolveDataByDomain(context.Background(), domain).Nameservices(nameservices).Coins(coins).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ResolutionAPI.ResolveDataByDomain``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResolveDataByDomain`: ApiResolveDomainResponse
+	fmt.Fprintf(os.Stdout, "Response from `ResolutionAPI.ResolveDataByDomain`: %v\n", resp)
 }
 ```
 
