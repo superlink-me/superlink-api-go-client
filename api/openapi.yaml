@@ -9,7 +9,7 @@ info:
     name: MIT
   termsOfService: https://assets.superlink.me/tos-v2.html
   title: Superlink
-  version: v0.4.2
+  version: v0.5.0
 servers:
 - url: https://api.superlink.me/
 paths:
@@ -1131,6 +1131,38 @@ paths:
                 $ref: '#/components/schemas/api.InternalServerErrorResponse'
           description: Internal Server Error
       summary: Returns subdomain availability
+      tags:
+      - subdomain
+  /v1/parentdomains/{parentDomain}/invalidate-claim-rate-limit:
+    delete:
+      description: Invalidates the claim rate limit for the current IP
+      operationId: subdomain-invalidate-claim-rate-limit
+      parameters:
+      - description: superlink.me
+        in: path
+        name: parentDomain
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.BadRequestResponse'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.InternalServerErrorResponse'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Invalidates the claim rate limit for the current IP
       tags:
       - subdomain
   /v1/parentdomains/{parentDomain}/list:

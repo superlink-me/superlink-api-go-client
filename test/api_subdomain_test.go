@@ -93,6 +93,19 @@ func Test_superlink_SubdomainAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test SubdomainAPIService SubdomainInvalidateClaimRateLimit", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var parentDomain string
+
+		httpRes, err := apiClient.SubdomainAPI.SubdomainInvalidateClaimRateLimit(context.Background(), parentDomain).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SubdomainAPIService SubdomainList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**ParentdomainValidation**](SubdomainAPI.md#ParentdomainValidation) | **Get** /v1/parentdomains/{parentDomain} | Validates if parent domain is correctly configured for use with ens subdomains
 [**SubdomainAvailable**](SubdomainAPI.md#SubdomainAvailable) | **Get** /v1/parentdomains/{parentDomain}/subdomains/{subDomainName} | Returns subdomain availability
 [**SubdomainClaimed**](SubdomainAPI.md#SubdomainClaimed) | **Get** /v1/parentdomains/{parentDomain}/claimed/{ethAddress} | Returns subdomain availability
+[**SubdomainInvalidateClaimRateLimit**](SubdomainAPI.md#SubdomainInvalidateClaimRateLimit) | **Delete** /v1/parentdomains/{parentDomain}/invalidate-claim-rate-limit | Invalidates the claim rate limit for the current IP
 [**SubdomainList**](SubdomainAPI.md#SubdomainList) | **Get** /v1/parentdomains/{parentDomain}/list | Paginates over all subdomains in descending order of the creation date
 [**SubdomainMint**](SubdomainAPI.md#SubdomainMint) | **Post** /v1/parentdomains/{parentDomain}/subdomains/{subDomainName} | Creates a subdomain for provided parentdomain
 [**SubdomainMintSig**](SubdomainAPI.md#SubdomainMintSig) | **Post** /v1/parentdomains/{parentDomain}/subdomains/{subDomainName}/mint-with-sig | Creates a subdomain for provided parentdomain with signature
@@ -365,6 +366,74 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SubdomainInvalidateClaimRateLimit
+
+> SubdomainInvalidateClaimRateLimit(ctx, parentDomain).Execute()
+
+Invalidates the claim rate limit for the current IP
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/superlink-me/superlink-api-go-client"
+)
+
+func main() {
+	parentDomain := "parentDomain_example" // string | superlink.me
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubdomainAPI.SubdomainInvalidateClaimRateLimit(context.Background(), parentDomain).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubdomainAPI.SubdomainInvalidateClaimRateLimit``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**parentDomain** | **string** | superlink.me | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSubdomainInvalidateClaimRateLimitRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 
